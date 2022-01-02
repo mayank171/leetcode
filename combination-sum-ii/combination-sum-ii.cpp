@@ -31,31 +31,15 @@ private:
         int flag=0;
         for(int i=ind;i<n;i++)
         {
-//              if(i>ind && candidates[i]==candidates[i-1])
-//                 continue;
-            
-               
-             if(flag==0)
-             {
+             if(i!=ind && candidates[i]==candidates[i-1])
+                continue;
+          
                 sum+=candidates[i];
                 temp.push_back(candidates[i]);
                 f1(candidates,i+1,sum,target,ans,temp,n);
                 temp.pop_back();
                 sum-=candidates[i];
                 flag=1;  
-             }
-             
-            if(i+1<n && candidates[i]==candidates[i+1])
-            {
-                continue;
-            }
-            else
-            {
-                flag=0;
-            }
-                 
-            
-       
         }
         
         
