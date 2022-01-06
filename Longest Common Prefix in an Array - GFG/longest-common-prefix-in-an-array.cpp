@@ -10,7 +10,7 @@ struct node
 {
     node* links[26];
     bool flag=false;
-    int ct=0;
+    
     
     bool containsKey(char ch)
     {
@@ -37,15 +37,7 @@ struct node
         return flag;
     }
     
-    void incrementCt()
-    {
-        ct++;
-    }
     
-    int getCt()
-    {
-        return ct;
-    }
 };
 
 class trie
@@ -70,12 +62,12 @@ class trie
             {
                 newnode->put(word[i],new node());
             }
-            newnode->incrementCt();
+            
             newnode=newnode->get(word[i]);
             
         }
         newnode->setFlag();
-        newnode->incrementCt();
+        
     }
     
     string check(string prefix,string ans)
@@ -121,7 +113,6 @@ class Solution{
             string x=t.check(arr[i],ans);
             if(x.size()==0)
               return "-1";
-            //cout<<x<<endl;
             ans=x;
             
               
