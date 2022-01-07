@@ -14,8 +14,72 @@ private:
         temp.pop_back();
         subsets(nums,ind+1,temp,ans,N);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 public:
     int countMaxOrSubsets(vector<int>& nums) {
+        
+//         int N=nums.size();
+        
+//         int max=*max_element(nums.begin(),num.end());
+        
+//         int p=(int)log2(max);
+        
+//         int maxbits=(int)pow(p,2);
+        
+//         vector<int> bitOne(N,0);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         vector<vector<int>> ans;
         
