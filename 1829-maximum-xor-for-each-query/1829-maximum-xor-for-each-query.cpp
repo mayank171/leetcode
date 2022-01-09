@@ -20,13 +20,6 @@ private:
         
         for(int i=size-1;i>=0;i--)
         {
-//             int temp=0;   
-//             for(int j=0;j<=i;j++)
-//             {
-//                 temp=temp^nums[j];
-//             }
-            
-//             cout<<temp<<endl;
             
             temp=xorv[i];
            
@@ -35,12 +28,10 @@ private:
                 if(temp&(1<<i))
                 {
                     temp=temp&(~(1<<i));
-                  //  cout<<temp&(~(1<<i))<<endl;
                 }
                 else
                 {
                     temp=temp|(1<<i);
-                   // cout<<temp|(1<<i)<<endl;
                 }
             }
             ans.push_back(temp);
