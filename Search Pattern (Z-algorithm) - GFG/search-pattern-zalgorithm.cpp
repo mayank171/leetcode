@@ -6,47 +6,69 @@ using namespace std;
  // } Driver Code Ends
 class Solution
 {
-    public:
-        vector <int> search(string pat, string txt)
+    private:
+        vector<int> z_algo(string s)
         {
-            vector<int> ans;
+            int l=0;
+            int r=0;
+            int len=s.length();
             
-            int l=txt.length();
-            int pl=pat.length();
+            vector<int> z(len);
             
-            int p=0;
-            
-            for(int i=0;i<l;i++)
+            for(int i=1;i<len;i++)
             {
-                if(txt[i]==pat[p])
+                if(i>r)
                 {
-                    p++;
-                }
-                else if(p==pl)
-                {
-                    ans.push_back(i-pl+1);
-                    p=0;
-                    i-=pl;
+                    l=r=i;
+                    while(r<len && s[r]==s[r-l])
+                    {
+                        r++;
+                    }
+                    z[i]=r-l;
+                    r--;
                 }
                 else
                 {
-                    if(p>0)
-                      i-=p;
-                    p=0;
-                    
+                    int ind=i-l;
+                    if(i+z[ind]<=r)
+                    {
+                        z[i]=z[ind];
+                    }
+                    else
+                    {
+                        l=i;
+                        while(r<len && s[r]==s[r-l])
+                        {
+                            r++;
+                        }
+                        z[i]=r-l;
+                        r--;
+                    }
                 }
             }
-            if(p==pl)
+            
+            return z;
+            
+        }
+    public:
+        vector <int> search(string pat, string txt)
+        {
+            string tot=pat+'$'+txt;
+            vector<int> z=z_algo(tot);
+            
+            vector<int> ans;
+            
+            for(int i=0;i<z.size();i++)
             {
-                ans.push_back(l-pl+1);
+                if(z[i]==pat.length())
+                {
+                    ans.push_back(i-pat.length());
+                }
+                //cout<<z[i]<<" ";
             }
             
-            if(ans.size()==0)
-            {
-                ans.push_back(-1);
-                
-            }
             return ans;
+            
         }
      
 };
