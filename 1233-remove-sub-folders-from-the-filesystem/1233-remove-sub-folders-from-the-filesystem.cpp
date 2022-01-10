@@ -103,18 +103,7 @@ public:
         int n=folder.size();
         
         trie t;
-        
-//         for(int i=0;i<n;i++)
-//         {
-//             string s;
-//             int l=folder[i].length();
-//             for(int j=0;j<l;j++)
-//             {
-//                 if(folder[i][j]!='/')
-//                     s+=folder[i][j];
-//             }
-//             folder[i]=s;
-//         }
+    
         
         for(int i=0;i<n;i++)
         {
