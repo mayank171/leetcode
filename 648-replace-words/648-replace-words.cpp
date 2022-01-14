@@ -112,12 +112,7 @@ public:
             }
         }
         s.push_back(str);
-        
-//         for(int i=0;i<s.size();i++)
-//         {
-//             cout<<s[i]<<" ";
-//         }
-        
+ 
         for(int i=0;i<n;i++)
         {
         
