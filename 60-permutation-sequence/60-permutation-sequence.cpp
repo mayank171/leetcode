@@ -75,20 +75,19 @@ public:
             c++;
         }
         
-        int rem=fact/n;
-        k--;
         string ans="";
+        k--;
         
-        while(true)
+        while(v.size())
         {
-            ans+=v[k/fact];
-            v.erase(v.begin()+k/fact);
-            
-            if(v.size()==0)
-                break;
+            int x=k/fact;
             k=k%fact;
-            fact=fact/v.size();
             
+            ans+=v[x];
+            v.erase(v.begin()+x);
+            
+            if(v.size()!=0)
+            fact=fact/v.size();
         }
         
         return ans;
