@@ -75,7 +75,6 @@ public:
         
         int x;
         int n=0;
-        //string s="";
         for(int i=0;i<l;i++)
         {
             x=word[i]-'0';
@@ -84,13 +83,11 @@ public:
                 if(!newnode->containsKey(1))
                 {
                     n=n|(0<<(31-i));
-                    // s+='0';
                      newnode=newnode->get(0);
                 }
                 else
                 {
                    n=n|(1<<(31-i));
-                   //    s+='1';
                      newnode=newnode->get(1);
                 }
             }
@@ -99,20 +96,17 @@ public:
                 if(!newnode->containsKey(0))
                 {
                      n=n|(0<<(31-i));
-                     //s+='0';
                      newnode=newnode->get(1);
                 }
                 else
                 {
                     n=n|(1<<(31-i));
-                    //  s+='1';
                      newnode=newnode->get(0);
                 }
             }
            
         }
         
-       // return s;
         return n;
     }
 };
@@ -135,10 +129,8 @@ public:
             for(int j=31;j>=0;j--)
             {
                 int x=((nums[i]>>j)&1);
-               // cout<<x<<endl;
                 s+=x+'0';
             }
-           // cout<<s<<endl;
             str.push_back(s);
             t.insert(s);
         }
@@ -147,21 +139,6 @@ public:
         
         for(int i=0;i<n;i++)
         {
-           // cout<<"--"<<str[i]<<endl;
-            //string te=t.check(str[i]);
-            
-            //cout<<"----"<<te<<endl;
-//             int l=te.length();
-//             int p=0;
-//             for(int j=0;j<l;j++)
-//             {
-//                 int x=te[j]-'0';
-//                 p=p+x*pow(2,l-j-1);
-//             }
-            
-//             if(p>max)
-//                 max=p;
-            
             int x=t.check(str[i]);
             if(x>max)
                 max=x;
