@@ -68,14 +68,14 @@ public:
 
 
     
-    string check(string word)
+    int check(string word)
     {
         node* newnode=root;
         int l=word.length();
         
         int x;
-        int num=0;
-        string s="";
+        int n=0;
+        //string s="";
         for(int i=0;i<l;i++)
         {
             x=word[i]-'0';
@@ -83,14 +83,14 @@ public:
             {
                 if(!newnode->containsKey(1))
                 {
-                    //num+=num&(1<<(31-i));
-                     s+='0';
+                    n=n|(0<<(31-i));
+                    // s+='0';
                      newnode=newnode->get(0);
                 }
                 else
                 {
-                   // num+=num|(1<<(31-i));
-                       s+='1';
+                   n=n|(1<<(31-i));
+                   //    s+='1';
                      newnode=newnode->get(1);
                 }
             }
@@ -98,21 +98,22 @@ public:
             {
                 if(!newnode->containsKey(0))
                 {
-                     //num+=num&(1<<(31-i));
-                     s+='0';
+                     n=n|(0<<(31-i));
+                     //s+='0';
                      newnode=newnode->get(1);
                 }
                 else
                 {
-                    //num+=num|(1<<(31-i));
-                      s+='1';
+                    n=n|(1<<(31-i));
+                    //  s+='1';
                      newnode=newnode->get(0);
                 }
             }
            
         }
         
-        return s;
+       // return s;
+        return n;
     }
 };
 
@@ -147,19 +148,23 @@ public:
         for(int i=0;i<n;i++)
         {
            // cout<<"--"<<str[i]<<endl;
-            string te=t.check(str[i]);
+            //string te=t.check(str[i]);
             
             //cout<<"----"<<te<<endl;
-            int l=te.length();
-            int p=0;
-            for(int j=0;j<l;j++)
-            {
-                int x=te[j]-'0';
-                p=p+x*pow(2,l-j-1);
-            }
+//             int l=te.length();
+//             int p=0;
+//             for(int j=0;j<l;j++)
+//             {
+//                 int x=te[j]-'0';
+//                 p=p+x*pow(2,l-j-1);
+//             }
             
-            if(p>max)
-                max=p;
+//             if(p>max)
+//                 max=p;
+            
+            int x=t.check(str[i]);
+            if(x>max)
+                max=x;
         }
         
         return max;
