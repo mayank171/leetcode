@@ -99,30 +99,6 @@ public:
         
         int n=queries.size();
         
-        int l=pattern.length();
-        
-        string str="";
-        string cap="";
-        int flag=1;
-        for(int i=0;i<l;i++)
-        {
-            if(pattern[i]>='a' && pattern[i]<='z')
-            {
-                str+=pattern[i];
-            }
-            else
-            {
-                cap+=str;
-                s.push_back(cap);
-                cout<<cap<<endl;
-                cap="";
-                str="";
-                cap+=pattern[i];
-            }
-        }
-        
-        s.push_back(cap+str);
-        
         int sz=s.size();
         
         vector<bool> ans(n);
@@ -130,7 +106,6 @@ public:
         trie t;
         t.insert(pattern);
         
-        cout<<"dvndkvn"<<endl;
         for(int i=0;i<n;i++)
         {
             if(t.check(queries[i]))
