@@ -29,7 +29,7 @@ public:
         
          while(temp1->next!=NULL)
         {
-            cout<<temp1->val<<" ";
+
             temp1=temp1->next;
             
             b--;
@@ -45,8 +45,6 @@ public:
         {
             temp=temp->next;
         }
-        
-       // cout<<temp1->val<<" ";
         
         temp->next=temp1;
         
