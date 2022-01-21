@@ -14,8 +14,7 @@ public:
         
         ListNode* temp=list1;
         ListNode* temp1;
-        //b=b-a+1;
-        
+   
         for(int i=0;i<=b;i++)
         {
             if(i==a-1)
@@ -24,20 +23,6 @@ public:
             }
             temp=temp->next;
         }
-        
-        //ListNode* temp1=temp;
-        
-//          while(temp1->next!=NULL)
-//         {
-
-//             temp1=temp1->next;
-            
-//             b--;
-             
-//             if(b==0)
-//                 break;
-//         }
-//         temp1=temp1->next;
         
         temp1->next=list2;
         
