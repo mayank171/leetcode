@@ -12,42 +12,80 @@ class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         
-        int diff=right-1-left+2;
-        diff--;
+//         int diff=right-1-left+2;
+//         diff--;
         
-        ListNode* temp=head;
-        ListNode* belt=head;
+//         ListNode* temp=head;
+//         ListNode* belt=head;
         
-        int c=1;
+//         int c=1;
         
-        while(c!=left && temp!=NULL)
+//         while(c!=left && temp!=NULL)
+//         {
+//             temp=temp->next;
+//             belt=belt->next;
+//             c++;
+//         }
+       
+        
+//         while(diff && temp!=NULL)
+//         {
+//             int c=diff;
+//             if(diff==1)
+//                 break;
+//             while(c-- && belt!=NULL)
+//             {
+//                 belt=belt->next;
+//             }
+//             swap(temp->val,belt->val);
+//             temp=temp->next;
+//             belt=temp;
+//             diff-=2;
+//         }
+        
+//         if(diff==1)
+//         swap(temp->val,temp->next->val);
+        
+//         return head;
+        
+        if(left==right)
+            return head;
+        
+        ListNode* temp=new ListNode(0);
+        temp->next=head;
+        
+        ListNode* prev=temp;
+        
+        for(int i=0;i<left-1;i++)
         {
-            temp=temp->next;
-            belt=belt->next;
-            c++;
+            prev=prev->next;
         }
-        //cout<<"nvdkvndkv";
+        //prev=prev->next;
+   
         
-        while(diff && temp!=NULL)
+        ListNode* start=prev->next;
+        ListNode* ahead=start->next;
+        
+        int flag=0;
+        for(int i=0;i<right-left;i++)
         {
-            int c=diff;
-            if(diff==1)
-                break;
-            while(c-- && belt!=NULL)
-            {
-                belt=belt->next;
-            }
-            swap(temp->val,belt->val);
-           // cout<<temp->val<<" "<<belt->val<<endl;
-            temp=temp->next;
-            belt=temp;
-            diff-=2;
+            // if(ahead->next==NULL)
+            // {
+            //      flag=1;
+            //     break;
+            // }
+            start->next=ahead->next;
+            ahead->next=prev->next;
+            prev->next=ahead;
+            ahead=start->next;
         }
         
-        if(diff==1)
-        swap(temp->val,temp->next->val);
+        // if(flag==1)
+        // {
+        //     swap(prev->val,ahead->val);
+        // }
         
-        return head;
+        return temp->next;
         
         
     }
