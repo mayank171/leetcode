@@ -10,14 +10,7 @@ public:
         {
             if(s[i]=='(')
             {
-                // if(!stk.empty() && stk.top()==')')
-                // {
-                //     stk.pop();
-                // }
-                // else 
-                // {
-                    stk.push('(');
-               // }
+                 stk.push('(');
             }
             else
             {
