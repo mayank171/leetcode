@@ -25,20 +25,15 @@ public:
         int flag=0;
         while(fast->next!=NULL)
         {
-            fast=fast->next;
+            prev=slow;
             slow=slow->next;
-            if(flag==0)
-                flag=1;
-            else
-                prev=prev->next;
+            fast=fast->next;
             if(fast->next!=NULL)
                 fast=fast->next;
             else
                 break;
             
         }
-        // cout<<prev->val;
-        // cout<<slow->val;
         prev->next=slow->next;
         
         return head;
