@@ -18,27 +18,28 @@ public:
         if(head->next==NULL)
             return NULL;
         
-        int ct=0;
-        ListNode* temp=head;
-        
-        while(temp!=NULL)
+        ListNode* prev=head;
+        ListNode* slow=head;
+        ListNode* fast=head;
+            
+        int flag=0;
+        while(fast->next!=NULL)
         {
-            temp=temp->next;
-            ct++;
+            fast=fast->next;
+            slow=slow->next;
+            if(flag==0)
+                flag=1;
+            else
+                prev=prev->next;
+            if(fast->next!=NULL)
+                fast=fast->next;
+            else
+                break;
+            
         }
-       // cout<<ct<<endl;
-        
-        temp=head;
-        
-        ct=ct/2-1;
-        
-        while(ct && temp!=NULL)
-        {
-            temp=temp->next;
-            ct--;
-        }
-        
-        temp->next=temp->next->next;
+        // cout<<prev->val;
+        // cout<<slow->val;
+        prev->next=slow->next;
         
         return head;
         
