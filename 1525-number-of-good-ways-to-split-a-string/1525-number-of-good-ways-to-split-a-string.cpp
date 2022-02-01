@@ -14,14 +14,7 @@ public:
             st.insert(s[i]);
             pref[i]=st.size();
         }
-        
-        for(auto it:pref)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
-        
-        
+       
         
         if(st.size()==l)
         {
@@ -37,13 +30,7 @@ public:
             st1.insert(s[i]);
             suf[l-2-i]=st1.size();
         }
-        
-        for(auto it:suf)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
-        
+     
         int ct=0;
         
         for(int i=0;i<l-1;i++)
