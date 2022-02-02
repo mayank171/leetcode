@@ -21,31 +21,23 @@ public:
             cout<<it[0]<<" "<<it[1]<<endl;
         }
         
-
-        int ct=1;
+        int left=-1,right=-1;
+        int c=0;
         
-        int left=intervals[0][0];
-        int right=intervals[0][1];
-        
-        for(int i=1;i<n;i++)
+        for(int i=0;i<n;i++)
         {
-            if(intervals[i][0]>left && intervals[i][1]>right)
+            if(intervals[i][1]>right && intervals[i][0]>left)
             {
-                ct++;
                 left=intervals[i][0];
-                //right=intervals[i][1];
+                c++;
             }
-            right=max(right,intervals[i][1]);
+        
+                right=max(right,intervals[i][1]);
+            
         }
         
-        return ct;
         
-//         for(auto it:intervals)
-//         {
-//             cout<<it[0]<<" "<<it[1]<<endl;
-//         }
-        
-//         return 0;
+        return c;
         
     }
 };
