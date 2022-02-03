@@ -25,7 +25,6 @@ public:
         
         int ct_cri=0;
         
-        unordered_set<int> st;
         int x=0,y=0;
         
         while(temp->next->next!=NULL)
@@ -80,9 +79,6 @@ public:
             temp=temp->next;
             c++;
         }
-        
-        cout<<min.first<<" "<<min.second<<endl;
-        cout<<max.first<<" "<<max.second<<endl;
         
         if(ct_cri<2)
         {
