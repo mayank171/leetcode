@@ -30,7 +30,6 @@ public:
         
         while(temp->next->next!=NULL)
         {
-            // cout<<min.first<<" "<<min.second<<endl;
             if(temp->next->val < temp->val && temp->next->val<temp->next->next->val
               || temp->next->val > temp->val && temp->next->val > temp->next->next->val)
             {
@@ -48,8 +47,6 @@ public:
                 {
                     
                     x=c+1;
-                    // cout<<x<<endl;
-                    // cout<<y<<endl;
                     if(abs(min.first-min.second)>abs(x-(c+1)) && y==0)
                     {
                         min.first=min.second;
@@ -79,15 +76,10 @@ public:
                     y=c+1;
                 }
             }
-           
-//         cout<<min.first<<" "<<min.second<<endl;
-//         cout<<max.first<<" "<<max.second<<endl;
-        
+ 
             temp=temp->next;
             c++;
         }
-        
-        //vector<int> ans;
         
         cout<<min.first<<" "<<min.second<<endl;
         cout<<max.first<<" "<<max.second<<endl;
