@@ -85,7 +85,6 @@ public:
             while(temp!=NULL)
             {
                 temp->val=stk3.top();
-                cout<<temp->val<<endl;
                 stk3.pop();
                 temp=temp->next;
             }
@@ -148,7 +147,6 @@ public:
                 stk3.pop();
                 temp=temp->next;
             }
-            //cout<<carry<<endl;
             if(carry>0)
             {
                 ListNode* front=new ListNode();
