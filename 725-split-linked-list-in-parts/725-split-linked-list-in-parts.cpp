@@ -96,7 +96,6 @@ public:
                     }
                 }
 
-                cout<<q2<<endl;
                 c=0;
                 
                 if(q2==1)
@@ -152,7 +151,6 @@ public:
         }
         else if(ct==k)
         {
-            cout<<ct<<endl;
             ListNode* temp1=head;
             temp=head;
             while(temp!=NULL)
