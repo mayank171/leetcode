@@ -22,9 +22,7 @@ private:
         
         check(root->left);
         TreeNode* temp=root;
-        cout<<root->val<<endl;
-        
-        
+     
         
         if(root->right!=NULL)
            temp=root->right;
@@ -39,8 +37,6 @@ private:
         root->left=NULL;
         TreeNode* temp1=root;
         
-        // if(root->right==NULL)
-        //     return ;
         
         while(temp1->right!=NULL)
         {
