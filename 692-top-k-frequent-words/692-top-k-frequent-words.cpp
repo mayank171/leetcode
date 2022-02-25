@@ -91,21 +91,9 @@ public:
         for(int i=0;i<n;i++)
         {
             int x=t.check(words[i]);
-            //cout<<x<<endl;
             mp[x].insert(words[i]);
-           // temp.insert({x,words[i]});
         }
-        
-        for(auto &it:mp)
-        {
-            for(auto &it1:it.second)
-            {
-                cout<<it1<<" ";
-            }
-            cout<<endl;
-        }
-        
-        
+    
         
         vector<string> ans;
         
