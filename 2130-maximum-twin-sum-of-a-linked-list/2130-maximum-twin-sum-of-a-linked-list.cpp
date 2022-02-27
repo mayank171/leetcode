@@ -13,53 +13,102 @@ public:
     int pairSum(ListNode* head) {
         
         ListNode* temp=head;
-        int c=0;
+        
+        int ct=0;
         
         while(temp!=NULL)
         {
-            c++;
+            ct++;
             temp=temp->next;
         }
         
-        c/=2;
-        
-        vector<int> sum(c);
+        vector<int> sum(ct/2);
         
         int p=0;
         int q=0;
         
         temp=head;
-        int flag=1;
-        int max_1=INT_MIN;
         
         while(temp!=NULL)
         {
-            if(p<c)
+            if(p<ct/2)
             {
-                sum[p]=temp->val;
+                sum[p]=(temp->val);
                 p++;
-                //flag=-1;
+                q++;
             }
             else
             {
-                if(flag==1)
-                {
-                    q=p;
-                    q--;
-                    flag*=-1;
-                }
-                
-                sum[q]+=temp->val;
-                if(sum[q]>max_1)
-                    max_1=sum[q];
                 q--;
+                sum[q]+=temp->val;
             }
             temp=temp->next;
-            
-            
         }
         
-        return max_1;
+        
+        return *max_element(sum.begin(),sum.end());
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//         ListNode* temp=head;
+//         int c=0;
+        
+//         while(temp!=NULL)
+//         {
+//             c++;
+//             temp=temp->next;
+//         }
+        
+//         c/=2;
+        
+//         vector<int> sum(c);
+        
+//         int p=0;
+//         int q=0;
+        
+//         temp=head;
+//         int flag=1;
+//         int max_1=INT_MIN;
+        
+//         while(temp!=NULL)
+//         {
+//             if(p<c)
+//             {
+//                 sum[p]=temp->val;
+//                 p++;
+//                 //flag=-1;
+//             }
+//             else
+//             {
+//                 if(flag==1)
+//                 {
+//                     q=p;
+//                     q--;
+//                     flag*=-1;
+//                 }
+                
+//                 sum[q]+=temp->val;
+//                 if(sum[q]>max_1)
+//                     max_1=sum[q];
+//                 q--;
+//             }
+//             temp=temp->next;
+            
+            
+//         }
+        
+//         return max_1;
         
     }
 };
