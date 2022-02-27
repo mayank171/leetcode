@@ -12,7 +12,7 @@ class Solution {
 public:
     int pairSum(ListNode* head) {
         
-        ListNode* temp=head;
+         ListNode* temp=head;
         
         int ct=0;
         
@@ -22,31 +22,47 @@ public:
             temp=temp->next;
         }
         
-        vector<int> sum(ct/2);
+        int ctr=ct/2;
+        ListNode* current=head;
+        ListNode* prev=NULL;
+        ListNode* nxt=new ListNode();
         
-        int p=0;
-        int q=0;
+        while(ctr--)
+        {
+            nxt=current->next;
+            current->next=prev;
+            prev=current;
+            current=nxt;
+        }
+        
+        head->next=nxt;
+        head=prev;
         
         temp=head;
         
-        while(temp!=NULL)
+        
+        
+        ctr=ct/2;
+        ListNode* temp1=head;
+        ListNode* temp2=head;
+        
+        while(ctr--)
         {
-            if(p<ct/2)
-            {
-                sum[p]=(temp->val);
-                p++;
-                q++;
-            }
-            else
-            {
-                q--;
-                sum[q]+=temp->val;
-            }
-            temp=temp->next;
+            temp2=temp2->next;
+        }
+        
+        int maxi=-1;
+        while(temp2!=NULL)
+        {
+            maxi=max(maxi,temp1->val+temp2->val);
+            temp1=temp1->next;
+            temp2=temp2->next;
+            
         }
         
         
-        return *max_element(sum.begin(),sum.end());
+        return maxi;
+        
         
         
         
@@ -62,53 +78,40 @@ public:
         
         
 //         ListNode* temp=head;
-//         int c=0;
+        
+//         int ct=0;
         
 //         while(temp!=NULL)
 //         {
-//             c++;
+//             ct++;
 //             temp=temp->next;
 //         }
         
-//         c/=2;
-        
-//         vector<int> sum(c);
+//         vector<int> sum(ct/2);
         
 //         int p=0;
 //         int q=0;
         
 //         temp=head;
-//         int flag=1;
-//         int max_1=INT_MIN;
         
 //         while(temp!=NULL)
 //         {
-//             if(p<c)
+//             if(p<ct/2)
 //             {
-//                 sum[p]=temp->val;
+//                 sum[p]=(temp->val);
 //                 p++;
-//                 //flag=-1;
+//                 q++;
 //             }
 //             else
 //             {
-//                 if(flag==1)
-//                 {
-//                     q=p;
-//                     q--;
-//                     flag*=-1;
-//                 }
-                
-//                 sum[q]+=temp->val;
-//                 if(sum[q]>max_1)
-//                     max_1=sum[q];
 //                 q--;
+//                 sum[q]+=temp->val;
 //             }
 //             temp=temp->next;
-            
-            
 //         }
         
-//         return max_1;
+        
+//         return *max_element(sum.begin(),sum.end());
         
     }
 };
