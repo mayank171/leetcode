@@ -22,28 +22,35 @@ public:
             temp1=temp1->next;
         }
         
-        if(k==ct/2+1 && ct&1)
+        if(k>ct/2)
         {
-            return head;
+            k=ct-k+1;
         }
         
-        int first_node=k-1;
-        int sec_node=ct-k;
         temp1=head;
+        int a=k;
+        int b=ct-2*k+1;
         
-        while(first_node--)
+        while(true)
         {
+            a--;
+            if(a==0)
+                break;
             temp1=temp1->next;
+            
         }
         
-        while(sec_node--)
+        temp2=temp1;
+        
+        while(b--)
         {
             temp2=temp2->next;
         }
-        
+       
         swap(temp1->val,temp2->val);
         
         return head;
+        
         
     }
 };
