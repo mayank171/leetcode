@@ -13,47 +13,106 @@ public:
     vector<int> nextLargerNodes(ListNode* head) {
         
         ListNode* temp=head;
-        
-        int n=0;
+        int ct=0;
         
         while(temp!=NULL)
         {
-            n++;
+            ct++;
             temp=temp->next;
         }
+        
+        vector<int> ans(ct,0);
         
         stack<pair<int,int>> stk;
         
-        vector<int> ans(n,0);
-        
         temp=head;
+        
         int i=0;
+        
         stk.push({temp->val,i});
+        
         temp=temp->next;
+        
         i++;
         
-        while(temp!=NULL)
+        while(temp)
         {
-            while(!stk.empty())
+            while(true)
             {
-                if(stk.top().first<temp->val)
+                if(!stk.empty() && stk.top().first<temp->val)
                 {
-                     int top_val=stk.top().first;
-                     int ind=stk.top().second;
-                     stk.pop();
-                     ans[ind]=temp->val;
+                    auto it=stk.top();
+                    stk.pop();
+                    ans[it.second]=temp->val;
                 }
                 else
                 {
+                    stk.push({temp->val,i});
+                    i++;
                     break;
                 }
             }
-            stk.push({temp->val,i});
-            i++;
             temp=temp->next;
         }
         
+        
         return ans;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//         ListNode* temp=head;
+        
+//         int n=0;
+        
+//         while(temp!=NULL)
+//         {
+//             n++;
+//             temp=temp->next;
+//         }
+        
+//         stack<pair<int,int>> stk;
+        
+//         vector<int> ans(n,0);
+        
+//         temp=head;
+//         int i=0;
+//         stk.push({temp->val,i});
+//         temp=temp->next;
+//         i++;
+        
+//         while(temp!=NULL)
+//         {
+//             while(!stk.empty())
+//             {
+//                 if(stk.top().first<temp->val)
+//                 {
+//                      int top_val=stk.top().first;
+//                      int ind=stk.top().second;
+//                      stk.pop();
+//                      ans[ind]=temp->val;
+//                 }
+//                 else
+//                 {
+//                     break;
+//                 }
+//             }
+//             stk.push({temp->val,i});
+//             i++;
+//             temp=temp->next;
+//         }
+        
+//         return ans;
         
     }
 };
