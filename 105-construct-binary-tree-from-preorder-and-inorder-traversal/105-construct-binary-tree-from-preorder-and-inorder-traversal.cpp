@@ -15,18 +15,7 @@ private:
     {
         if(root==NULL)
         {
-            for(auto &it:inorder)
-            {
-                cout<<it<<" ";
-            }
-            cout<<endl;
-            for(auto &it:preorder)
-            {
-                cout<<it<<" ";
-            }
-            cout<<endl;
-            
-            cout<<"vmdv"<<endl;
+           
             return ;
         }
             
@@ -93,35 +82,7 @@ private:
                 ctr1--;
             }
         }
-        
-//         cout<<"in"<<endl;
-//         for(auto &it:in)
-//         {
-//             cout<<it<<" ";
-//         }
-//         cout<<endl;
-        
-//         cout<<"pre"<<endl;
-//         for(auto &it:pre)
-//         {
-//             cout<<it<<" ";
-//         }
-//         cout<<endl;
-        
-//         cout<<"in1"<<endl;
-//         for(auto &it:in1)
-//         {
-//             cout<<it<<" ";
-//         }
-//         cout<<endl;
-        
-//         cout<<"pre1"<<endl;
-//         for(auto &it:pre1)
-//         {
-//             cout<<it<<" ";
-//         }
-//         cout<<endl;
-        
+  
         
         if(in.size()!=0)
         {
