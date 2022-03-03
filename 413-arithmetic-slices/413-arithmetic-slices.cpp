@@ -7,34 +7,47 @@ public:
         if(size<3)
             return 0;
         
-        vector<int> ans(size);
-        ans[0]=0;
-        ans[1]=0;
+        
+        queue<pair<int,int>> q;
+        
+        for(int i=0;i<size-2;i++)
+        {
+            if(abs(nums[i]-nums[i+1])==abs(nums[i+1]-nums[i+2]))
+            {
+                q.push({i,i+2});
+            }
+        }
+        
         
         int ct=0;
-        
-        for(int i=2;i<size;i++)
+        while(!q.empty())
         {
-            if(nums[i]-nums[i-1]==nums[i-1]-nums[i-2])
+            int s=q.front().first;
+            int e=q.front().second;
+//             ct++;
+            cout<<s<<" "<<e<<endl;
+            
+            int diff=nums[s]-nums[s+1];
+            for(int i=s;i<size-2;i++)
             {
-                ct++;
-                ans[i]=ct;
+                if( nums[i]-nums[i+1]==diff && diff==nums[i+1]-nums[i+2])
+                {
+                    // if(i+2>e)
+                    // {
+                        cout<<i+2<<endl;
+                        ct++;
+//                     }
+                
+                }
+                else
+                {
+                    break;
+                }
+                
             }
-            else
-            {
-                ct=0;
-                ans[i]=ct;
-            }
+            q.pop();
         }
         
-        for(auto &it:ans)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
-        
-        int maxi=accumulate(ans.begin(),ans.end(),0);
-        
-        return maxi;
+        return ct;
     }
 };
