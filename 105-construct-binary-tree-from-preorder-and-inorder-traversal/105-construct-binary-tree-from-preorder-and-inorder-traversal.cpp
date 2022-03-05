@@ -11,114 +11,138 @@
  */
 class Solution {
 private:
-    void check(TreeNode* root, vector<int> preorder, vector<int> inorder)
-    {
-        if(root==NULL)
-        {
+//     void check(TreeNode* root, vector<int> preorder, vector<int> inorder)
+//     {
+//         if(root==NULL)
+//         {
            
-            return ;
-        }
+//             return ;
+//         }
             
       
-        root->val=preorder[0];
+//         root->val=preorder[0];
        
-        int ind=0;
-        int size=inorder.size();
-        for(int i=0;i<size;i++)
-        {
-            if(inorder[i]==preorder[0])
-            {
-               ind=i;
-               break;   
-            }
-        }
+//         int ind=0;
+//         int size=inorder.size();
+//         for(int i=0;i<size;i++)
+//         {
+//             if(inorder[i]==preorder[0])
+//             {
+//                ind=i;
+//                break;   
+//             }
+//         }
         
-        vector<int> in;
-        vector<int> pre;
+//         vector<int> in;
+//         vector<int> pre;
         
-        for(int i=0;i<ind;i++)
-        {
-            in.push_back(inorder[i]);
-        }
+//         for(int i=0;i<ind;i++)
+//         {
+//             in.push_back(inorder[i]);
+//         }
       
         
-        int ctr=in.size();
-        int size1=preorder.size();
-        int ind1=1;
-        int ind2=1;
-        if(ctr>0)
-        {
-            for(int i=ind1;i<size1;i++)
-            {
-                if(ctr==0)
-                {
-                    ind2=i;
-                    break;
-                }
-                else
-                {
-                    pre.push_back(preorder[i]);
-                    ctr--;
-                }
-            }
-        }
+//         int ctr=in.size();
+//         int size1=preorder.size();
+//         int ind1=1;
+//         int ind2=1;
+//         if(ctr>0)
+//         {
+//             for(int i=ind1;i<size1;i++)
+//             {
+//                 if(ctr==0)
+//                 {
+//                     ind2=i;
+//                     break;
+//                 }
+//                 else
+//                 {
+//                     pre.push_back(preorder[i]);
+//                     ctr--;
+//                 }
+//             }
+//         }
         
-        vector<int> in1;
-        vector<int> pre1;
+//         vector<int> in1;
+//         vector<int> pre1;
         
-        for(int i=ind+1;i<size;i++)
-        {
-            in1.push_back(inorder[i]);
-        }
+//         for(int i=ind+1;i<size;i++)
+//         {
+//             in1.push_back(inorder[i]);
+//         }
         
-        int ctr1=in1.size();
-        for(int i=ind2;i<size1;i++)
-        {
-            if(ctr1==0)
-                break;
-            if(preorder[i]!=-3001)
-            {
-                pre1.push_back(preorder[i]);
-                ctr1--;
-            }
-        }
+//         int ctr1=in1.size();
+//         for(int i=ind2;i<size1;i++)
+//         {
+//             if(ctr1==0)
+//                 break;
+//             if(preorder[i]!=-3001)
+//             {
+//                 pre1.push_back(preorder[i]);
+//                 ctr1--;
+//             }
+//         }
   
         
-        if(in.size()!=0)
-        {
-            TreeNode* left=new TreeNode();
-            root->left=left;
-            left->val=321123;
-            check(left,pre,in);
-        }
+//         if(in.size()!=0)
+//         {
+//             TreeNode* left=new TreeNode();
+//             root->left=left;
+//             left->val=321123;
+//             check(left,pre,in);
+//         }
             
-        else
-            root->left=NULL;
+//         else
+//             root->left=NULL;
         
-        if(in1.size()!=0)
-        {
-            TreeNode* right=new TreeNode();
-            root->right=right;
-            right->val=321123;
-            check(right,pre1,in1);
-        }    
-        else
-            root->right=NULL;
+//         if(in1.size()!=0)
+//         {
+//             TreeNode* right=new TreeNode();
+//             root->right=right;
+//             right->val=321123;
+//             check(right,pre1,in1);
+//         }    
+//         else
+//             root->right=NULL;
         
         
         
+//     }
+    TreeNode* usingMap(vector<int> &preorder,vector<int> &inorder,int &ind,int left,int right,unordered_map<int,int> &mp)
+    {
+        if(left>right)
+            return NULL;
+        
+        int pivot=mp[preorder[ind]];
+        
+        TreeNode* node=new TreeNode();
+        node->val=inorder[pivot];
+        ind++;
+        
+        node->left=usingMap(preorder,inorder,ind,left,pivot-1,mp);
+        node->right=usingMap(preorder,inorder,ind,pivot+1,right,mp);
+        return node;
     }
-
 public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         
-        TreeNode* root=new TreeNode();
-//         root->left=NULL;
-//         root->right=NULL;
+//         TreeNode* root=new TreeNode();
+
+//         check(root,preorder,inorder);
+        
+//         return root;
+        
+        unordered_map<int,int> mp;
+        int ind=0;
+        int size=preorder.size();
         
         
-        check(root,preorder,inorder);
+        for(int i=0;i<size;i++)
+        {
+            mp[inorder[i]]=i;
+        }
         
+        TreeNode* root=usingMap(preorder,inorder,ind,0,size-1,mp);
         return root;
     }
 };
