@@ -65,39 +65,32 @@ class Solution {
             right.push_back(nums[i]);
         }
         
-//         for(auto &it:left)
+        
+        //TreeNode* x1=check(root->left,left,left.size());
+        
+        root->left=check(root->left,left,left.size());
+        
+//         if(x1)
 //         {
-//             cout<<it<<" ";
+//             root->left=x1;
 //         }
-//         cout<<endl;
-        
-//         for(auto &it:right)
+//         else
 //         {
-//             cout<<it<<" ";
+//             root->left=NULL;
 //         }
-//         cout<<endl;
         
-        TreeNode* x1=check(root->left,left,left.size());
+        //TreeNode* y=check(root->right,right,right.size());
         
-        if(x1)
-        {
-            root->left=x1;
-        }
-        else
-        {
-            root->left=NULL;
-        }
+//         if(y)
+//         {
+//             root->right=y;
+//         }
+//         else
+//         {
+//             root->right=NULL;
+//         }
         
-        TreeNode* y=check(root->right,right,right.size());
-        
-        if(y)
-        {
-            root->right=y;
-        }
-        else
-        {
-            root->right=NULL;
-        }
+        root->right=check(root->right,right,right.size());
         
         return root;
         
