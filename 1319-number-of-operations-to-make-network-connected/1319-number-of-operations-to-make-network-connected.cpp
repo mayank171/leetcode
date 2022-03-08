@@ -186,7 +186,7 @@ public:
                 ct++;
         }
         
-        d.disp();
+        //d.disp();
         
         int x=d.minWire();
         
