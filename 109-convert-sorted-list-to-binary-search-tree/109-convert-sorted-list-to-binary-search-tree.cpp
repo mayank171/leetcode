@@ -69,7 +69,6 @@ public:
             {
                 if(times==0)
                     front->next=NULL;
-                cout<<front->val<<" ";
                 front=front->next;
             }
             front=head;
