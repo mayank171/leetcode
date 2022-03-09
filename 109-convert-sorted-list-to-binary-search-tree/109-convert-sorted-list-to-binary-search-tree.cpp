@@ -49,7 +49,6 @@ public:
             {
                 temp=temp->next;
             }
-            cout<<temp->val<<endl;
             
             if(ct==1)
             {
@@ -73,39 +72,14 @@ public:
                 cout<<front->val<<" ";
                 front=front->next;
             }
-           // back=front;
             front=head;
-            // cout<<endl;
-            // while(front!=NULL)
-            // {
-            //     cout<<front->val<<"-";
-            //     front=front->next;
-            // }
-            //front=head;
-            
-            cout<<endl;
-            
-            
-            while(back!=NULL)
-            {
-            
-                cout<<back->val<<" ";
-                back=back->next;
-            }
-            cout<<endl;
+          
+          
             
             back=temp->next;
-            
-//             if(back->next==NULL)
-//             {
-//                 root->val=temp->val;
-//                 root->left=NULL;
-//                 root->right=NULL;
-//                 return root;
-//             }
-            
+ 
             root->val=temp->val;
-            cout<<"root"<<root->val<<endl;
+     
             root->left=NULL;
             root->right=NULL;
 
@@ -124,8 +98,7 @@ public:
                     break;
                 temp=temp->next;
             }
-            if(temp!=NULL)
-            cout<<temp->val<<endl;
+        
             
             if(ct==0)
             {
@@ -144,39 +117,19 @@ public:
             
             times=ct/2;
             
-            cout<<"front";
             while(times--)
             {
                 if(times==0)
                     front->next=NULL;
-                cout<<front->val<<" ";
-                front=front->next;
+               front=front->next;
             }
-           // back=front;
             front=head;
          
-            
-            cout<<endl;
-            
-            cout<<"back";
-            while(back!=NULL)
-            {
-            
-                cout<<back->val<<" ";
-                back=back->next;
-            }
-            cout<<endl;
-            
-            // if(back==NULL)
-            // {
-            //     return NULL;
-            // }
             
             back=temp->next;
       
             
             root->val=temp->val;
-            cout<<"root"<<root->val<<endl;
             root->left=NULL;
             root->right=NULL;
 
