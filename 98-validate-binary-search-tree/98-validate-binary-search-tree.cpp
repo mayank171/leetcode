@@ -44,14 +44,20 @@ private:
         
 //     }
         
-    void check(TreeNode* root,vector<int> &inorder)
+    void check(TreeNode* root,long &inorder,int &flag)
     {
         if(root==NULL)
             return ;
         
-        check(root->left,inorder);
-        inorder.push_back(root->val);
-        check(root->right,inorder);
+        check(root->left,inorder,flag);
+        if(inorder>=root->val)
+        {
+            flag=0;
+            return ;
+        } 
+        else
+            inorder=root->val;
+        check(root->right,inorder,flag);
     }
 public:
     bool isValidBST(TreeNode* root) {
@@ -62,18 +68,26 @@ public:
         
 //         return flag;
         
-        vector<int> inorder;
+        // vector<int> inorder;
         
-        check(root,inorder);
+        long inorder=LONG_MIN;
+        int flag=1;
         
-        for(int i=1;i<inorder.size();i++)
-        {
-           // cout<<inorder[i]<<" ";
-            if(inorder[i]<=inorder[i-1])
-                return false;
-        }
+        check(root,inorder,flag);
         
-        return true;
+        if(flag==1)
+            return true;
+        else
+            return false;
+        
+//         for(int i=1;i<inorder.size();i++)
+//         {
+//            // cout<<inorder[i]<<" ";
+//             if(inorder[i]<=inorder[i-1])
+//                 return false;
+//         }
+        
+//         return true;
         
     }
 };
