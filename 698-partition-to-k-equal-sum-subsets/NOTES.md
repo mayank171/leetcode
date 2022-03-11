@@ -1,1 +1,2 @@
-​
+if you notice then there are many function calls which are useless as the sum of partition is greater than **nums.size()/k**  so to avoid useless function calls i used the code from line 39 to 48.
+It will check if sum of any partition is greater than **nums.size()/k** then we will return and avoid useless calls. This is a great optimization as more than 50% useless calls are avoided.
