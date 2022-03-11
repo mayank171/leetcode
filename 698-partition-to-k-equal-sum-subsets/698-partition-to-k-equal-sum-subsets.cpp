@@ -10,16 +10,7 @@ private:
                 if(adj[j].size()==0)
                     return false;
             }
-            
-            // for(int j=0;j<adj_size;j++)
-            // {
-            //     for(int k=0;k<adj[j].size();k++)
-            //     {
-            //         cout<<adj[j][k]<<" ";
-            //     }
-            //     cout<<endl;
-            // }
-            // cout<<endl;
+        
             
             int sum=0;
             for(int j=0;j<adj[0].size();j++)
@@ -39,16 +30,13 @@ private:
                 {
                     return false;
                 }
-                else
-                {
-                   // cout<<sum1<<endl;
-                }
+         
             }
             
             return true;
         }
         
-        for(int j=1;j<adj_size;j++)
+        for(int j=0;j<adj_size;j++)
         {
             int sum1=0;
             for(int k=0;k<adj[j].size();k++)
@@ -61,24 +49,16 @@ private:
         
         for(int j=0;j<adj_size;j++)
         {
-            int sum1=accumulate(adj[j].begin(),adj[j].end(),0);
-            // cout<<sum1<<" ";
-            // cout<<sum_all/size<<endl;
-            if(sum1>sum_all)
-                return false;
+//             int sum1=accumulate(adj[j].begin(),adj[j].end(),0);
+//             // cout<<sum1<<" ";
+//             // cout<<sum_all/size<<endl;
+//             if(sum1>sum_all)
+//                 return false;
             
             if(adj[j].size()>0)
             {
                 
                  adj[j].push_back(nums[i]);
-                // int sum1=accumulate(adj[j].begin(),adj[j].end(),0);
-                // cout<<sum1<<" "<<sum_all<<endl;
-                // if(sum1>sum_all)
-                // {
-                //     adj[j].pop_back();
-                //     continue;
-                // }
-                
                 if(check(nums,size,adj,ssf,i+1,adj_size,sum_all))
                     return true;
                 adj[j].pop_back();
