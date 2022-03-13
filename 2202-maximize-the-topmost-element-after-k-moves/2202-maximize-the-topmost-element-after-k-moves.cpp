@@ -43,15 +43,9 @@ public:
                          {
                              int a=stk.front();
                              stk.pop_front();
-                             // if(stk.front()>a)
-                             // {
-                                 ans=stk.front();
-                                 break;
-//                              }
-//                              else
-//                              {
-                                 
-//                              }
+                             ans=stk.front();
+                             break;
+
                          }
                          ans=-1;
                          break;
@@ -69,11 +63,11 @@ public:
                              {
                                  ans=stk.front();
                              }
-                             else
-                             {
-                                 stk.push_front(a);
+//                              else
+//                              {
+//                                  stk.push_front(a);
                                  
-                             }
+//                              }
                          }
                          
                          break;
