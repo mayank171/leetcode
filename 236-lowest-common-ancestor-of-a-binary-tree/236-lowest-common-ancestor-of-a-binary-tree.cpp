@@ -9,35 +9,69 @@
  */
 class Solution {
 private:
-    TreeNode* check(TreeNode* root,int n1,int n2)
+//     TreeNode* check(TreeNode* root,int n1,int n2)
+//     {
+//         if(root==NULL)
+//         {
+//             TreeNode* temp=NULL;
+//             return temp;
+//         }
+        
+//         if(root->val==n1 ||root->val==n2)
+//         {
+//             return root;
+//         }
+        
+        
+//         TreeNode* left=check(root->left,n1,n2);
+//         TreeNode* right=check(root->right,n1,n2);
+//         if(left==NULL && right==NULL)
+//         {
+//             return left;
+//         }
+//         else if(left==NULL && right!=NULL)
+//         {
+//             return right;
+//         }
+//         else if(left!=NULL && right==NULL)
+//         {
+//             return left;
+//         }
+//         else 
+//         {
+//             return root;
+//         }
+        
+//     }
+private:
+    TreeNode* check1(TreeNode* root,int n1,int n2)
     {
         if(root==NULL)
         {
-            TreeNode* temp=NULL;
-            return temp;
+            return NULL;
         }
         
-        if(root->val==n1 ||root->val==n2)
+        if(root->val==n1 || root->val==n2)
         {
             return root;
         }
         
+        root->left=check1(root->left,n1,n2);
+        root->right=check1(root->right,n1,n2);
         
-        TreeNode* left=check(root->left,n1,n2);
-        TreeNode* right=check(root->right,n1,n2);
-        if(left==NULL && right==NULL)
+        if(root->left==NULL && root->right==NULL)
         {
-            return left;
+            return NULL;
         }
-        else if(left==NULL && right!=NULL)
+        else if(root->left!=NULL && root->right==NULL)
         {
-            return right;
+            return root->left;
         }
-        else if(left!=NULL && right==NULL)
+        else if(root->left==NULL && root->right!=NULL)
         {
-            return left;
+            return root->right;
         }
-        else 
+        else
         {
             return root;
         }
@@ -46,9 +80,13 @@ private:
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         
-       TreeNode* ans=check(root,p->val,q->val);
+//        TreeNode* ans=check(root,p->val,q->val);
        
-       return ans;
+//        return ans;
+        
+        TreeNode* res=check1(root,p->val,q->val);
+        
+        return res;
         
     }
 };
