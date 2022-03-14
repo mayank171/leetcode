@@ -62,27 +62,12 @@ private:
         {
             return root;
         }
-        else if(q==1 && s==1)
+        else 
         {
             return root->right;
         }
-        if(root->left==NULL && root->right==NULL)
-        {
-            return NULL;
-        }
-        else if(root->left!=NULL && root->right==NULL)
-        {
-            return root->left;
-        }
-        else if(root->left==NULL && root->right!=NULL)
-        {
-            return root->right;
-        }
-        else
-        {
-            return root;
-        }
-        return root;
+     
+        //return root;
         
         
     }
