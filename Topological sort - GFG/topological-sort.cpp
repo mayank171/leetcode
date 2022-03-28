@@ -42,15 +42,15 @@ class Solution
 	        
 	        for(auto &it:adj[node])
 	        {
-	           // if(indeg[it]>0)
-	           // {
+	            if(indeg[it]>0)
+	            {
 	                vis[it]=1;
 	                indeg[it]--;
 	                if(indeg[it]==0)
 	                {
 	                    q.push(it);
 	                }
-	          //  }
+	            }
 	        }
 	    }
 	    
