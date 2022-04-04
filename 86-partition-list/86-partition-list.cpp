@@ -55,7 +55,6 @@ public:
                 }
                 else
                 {
-                    cout<<temp->val<<"**"<<endl;
                     ListNode* a=new ListNode(temp->val);
                     temp2->next=a;
                     a->next=NULL;
@@ -72,7 +71,6 @@ public:
         
         while(temp1->next!=NULL)
         {
-            cout<<temp1->val<<" ";
             temp1=temp1->next;
         }
         cout<<endl;
@@ -81,149 +79,11 @@ public:
         temp1->next=temp2;
         
         
-        while(temp2)
-        {
-            cout<<temp2->val<<" ";
-            temp2=temp2->next;
-        }
-        cout<<endl;
-        
         if(head1->val==-10000)
             return head1->next;
         
         
         return head1;
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//          queue<ListNode*> q1;
-//          queue<ListNode*> q2;
-        
-//          queue<int> ms;
-        
-//          ListNode* temp=head;
-        
-//         int flag=0;
-        
-//         while(temp)
-//         {
-//             if(temp->val==x)
-//             {
-//                 flag=1;
-//                 //ms.push(temp);
-//                 cout<<temp->val<<"*"<<endl;
-                
-//             }
-//             else if(temp->val>x && flag==0)
-//             {
-//                 cout<<temp->val<<"("<<endl;
-//                 q1.push(temp);
-//                 //ms.push(temp);
-//                 cout<<temp->val<<"-"<<endl;
-                
-//             }
-//             else if(temp->val<x && flag==1)
-//             {
-//                 cout<<temp->val<<"("<<endl;
-//                 q2.push(temp);
-//             }
-//             temp=temp->next;
-//         }
-        
-//         temp=head;
-        
-//         while(temp)
-//         {
-//             if(temp->val>x)
-//                 ms.push(temp->val);
-//             temp=temp->next;
-//         }
-        
-        
-        
-//         while(!q1.empty() && !q2.empty())
-//         {
-//             ListNode* a=q1.front();
-//             q1.pop();
-            
-//             ListNode* b=q2.front();
-//             q2.pop();
-            
-//             swap(a->val,b->val);
-            
-//         }
-        
-        
-//         int n=q2.size();
-//         cout<<n<<endl;
-        
-//         if(q1.empty() && q2.empty())
-//         {
-//             //return head;
-//         }
-//         else
-//         {
-//             temp=head;
-        
-//             while(temp)
-//             {
-//                 if(temp->val==x)
-//                 {
-//                     if(q1.empty())
-//                     {
-//                         ListNode* a=q2.front();
-//                         q2.pop();
-//                         swap(temp->val,a->val);
-//                     }
-//                     else
-//                     {
-//                         ListNode* a=q1.front();
-//                         q1.pop();
-//                         swap(temp->val,a->val);
-//                     }
-//                     break;
-//                 }
-//                 temp=temp->next;
-//             }
-//         }
-        
-//         // for(auto &it:ms)
-//         // {
-//         //     cout<<it<<" ";
-//         // }
-//         // cout<<endl;
-        
-//         temp=head;
-        
-//         while(temp)
-//         {
-//             if(temp->val>=x)
-//             {
-                
-//                 break;
-//             }
-//             temp=temp->next;
-//         }
-        
-//         while(!ms.empty())
-//         {
-//             if(temp)
-//             {
-//                 temp->val=ms.front();
-//                 cout<<temp->val<<"$"<<endl;
-//                 ms.pop();
-//             }
-//             temp=temp->next;
-//         }
-        
-        
-//         return head;
     }
 };
