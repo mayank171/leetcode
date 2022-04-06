@@ -11,7 +11,7 @@
  */
 class FindElements {
 private:
-    unordered_set<int> s;
+   
     TreeNode* node;
 public:
     
@@ -21,7 +21,7 @@ public:
     FindElements(TreeNode* root) {
         node=root;
         root->val=0;
-        s.insert(0);
+     
     
         queue<TreeNode*> q;
         
@@ -35,14 +35,12 @@ public:
             if(node->left!=NULL)
             {
                 node->left->val=2*node->val+1;
-                s.insert(node->left->val);
                 q.push(node->left);
             }
             
             if(node->right!=NULL)
             {
                 node->right->val=2*node->val+2;
-                s.insert(node->right->val);
                 q.push(node->right);
                 
             }
