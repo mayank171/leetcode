@@ -14,6 +14,8 @@ private:
     unordered_set<int> s;
     TreeNode* node;
 public:
+    
+ 
    
     
     FindElements(TreeNode* root) {
@@ -45,38 +47,59 @@ public:
                 
             }
         }
+        
+    
     }
     
     bool find(int target) {
         
         return s.find(target)!=s.end()?true:false;
         
-//         queue<TreeNode*> q;
-            
-//         q.push(node);
         
+        if(target==0)
+            return true;
         
-//         while(!q.empty())
-//         {
-//             TreeNode* node1=q.front();
-//             if(node1->val==target)
-//                 return true;
-            
-//             q.pop();
-            
-//             if(node1->left)
-//             {
-//                 q.push(node1->left);
-//             }
-            
-//             if(node1->right)
-//             {
-//                 q.push(node1->right);
-                
-//             }
-//         }
+        int x=target+1;
         
-//         return false;
+        int digits=floor(log10(x));
+        
+        for(int i=digits;i>=0;i--)
+        {
+            int val=x&(1<<i);
+            
+            if(val==0)
+            {
+                if(node->left)
+                {
+                    node=node->left;
+//                     if(root->val==target)
+//                         return true;
+                    
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(node->right)
+                {
+                    node=node->right;
+                    // if(root->val==target)
+                    //     return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        
+        if(node->val==target)
+            return true;
+        
+        return false;
         
     }
 };
