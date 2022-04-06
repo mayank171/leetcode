@@ -53,28 +53,26 @@ public:
     
     bool find(int target) {
         
-        return s.find(target)!=s.end()?true:false;
-        
+       TreeNode* temp=node;
         
         if(target==0)
             return true;
+  
         
         int x=target+1;
         
-        int digits=floor(log10(x));
-        
-        for(int i=digits;i>=0;i--)
+        int digits=floor(log2(x))+1;
+      
+        for(int i=digits-2;i>=0;i--)
         {
-            int val=x&(1<<i);
-            
+            int val=x&(1<<(i));
+       
             if(val==0)
             {
-                if(node->left)
+                if(temp->left)
                 {
-                    node=node->left;
-//                     if(root->val==target)
-//                         return true;
-                    
+                    temp=temp->left;
+
                 }
                 else
                 {
@@ -83,20 +81,20 @@ public:
             }
             else
             {
-                if(node->right)
+            
+                if(temp->right)
                 {
-                    node=node->right;
-                    // if(root->val==target)
-                    //     return true;
-                }
+                    temp=temp->right;
+           }
                 else
                 {
                     return false;
                 }
             }
+           
         }
-        
-        if(node->val==target)
+   
+        if(temp->val==target)
             return true;
         
         return false;
