@@ -11,6 +11,28 @@
  */
 class Solution {
 private:
+//     int check(TreeNode* root,int &ct)
+//     {
+//         if(root==NULL)
+//             return 0;
+        
+//         int l=check(root->left,ct);
+//         int r=check(root->right,ct);
+        
+//         ct=max(ct,l+r);
+        
+//         return max(l,r)+1;
+//     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     int check(TreeNode* root,int &ct)
     {
         if(root==NULL)
@@ -23,6 +45,24 @@ private:
         
         return max(l,r)+1;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 public:
     int diameterOfBinaryTree(TreeNode* root) {
         
