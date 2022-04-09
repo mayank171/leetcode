@@ -12,58 +12,117 @@ class Solution
 	int minSwaps(vector<int>&nums)
 	{
 	    // Code here
-	    int n=nums.size();
+	   // int n=nums.size();
+	     
+	   // vector<pair<int,int>> v;
 	    
-	    vector<pair<int,int>> v;
+	   // for(int i=0;i<n;i++)
+	   // {
+	   //     v.push_back({nums[i],i});
+	   // }
 	    
-	    for(int i=0;i<n;i++)
-	    {
-	        v.push_back({nums[i],i});
-	    }
+	   // sort(v.begin(),v.end());
 	    
-	    sort(v.begin(),v.end());
+	   // vector<bool> vis(n,false);
 	    
-	    vector<bool> vis(n,false);
+	   // int ct=0;
+	   // int num_swaps=0;
 	    
-	    int ct=0;
-	    int num_swaps=0;
-	    
-	    for(int i=0;i<n;)
-	    {
-	        if(vis[i]==true)
-	        {
-	            i++;
-	            continue;
-	        }
-	        if(v[i].first==nums[i])
-	        {
-	            vis[i]=true;
-	            i++;
-	        }
-	        else
-	        {
-	            vis[i]=true;
-	            if(vis[v[i].second]==true)
-	            {
-	                if(ct>0)
-	                {
-	                    num_swaps+=ct;
-	                    ct=0;
-	                    //vis[v[i].second]=true;
-	                    i=v[i].second+1;
-	                }
-	            }
-	            else
-	            {
+	   // for(int i=0;i<n;)
+	   // {
+	   //     if(vis[i]==true)
+	   //     {
+	   //         i++;
+	   //         continue;
+	   //     }
+	   //     if(v[i].first==nums[i])
+	   //     {
+	   //         vis[i]=true;
+	   //         i++;
+	   //     }
+	   //     else
+	   //     {
+	   //         vis[i]=true;
+	   //         if(vis[v[i].second]==true)
+	   //         {
+	   //             if(ct>0)
+	   //             {
+	   //                 num_swaps+=ct;
+	   //                 ct=0;
+	   //                 //vis[v[i].second]=true;
+	   //                 i=v[i].second+1;
+	   //             }
+	   //         }
+	   //         else
+	   //         {
 	                
-	                i=v[i].second;
-	                ct++;
-	            }
+	   //             i=v[i].second;
+	   //             ct++;
+	   //         }
 	                
-	        }
-	    }
+	   //     }
+	   // }
 	    
-	    return num_swaps;
+	   // return num_swaps;
+	   
+	   
+	   
+	   int n=nums.size();
+	   
+	   vector<pair<int,int>> v;
+	   
+	   for(int i=0;i<n;i++)
+	   {
+	       v.push_back({nums[i],i});
+	   }
+	   
+	   sort(v.begin(),v.end());
+	   
+	   vector<int> vis(n,0);
+	   
+	   
+	   int ans=0;
+	   int ind=0;
+	   for(int i=0;i<n;i++)
+	   {
+	       if(vis[i]==1 || v[i].second==i)
+	       {
+	           continue;
+	       }
+	       int ct=0;
+	       int j=i;
+	       while(vis[j]==0)
+	       {
+	           vis[j]=1;
+	           ct++;
+	           j=v[j].second;
+	       }
+	       ans+=ct-1;
+	   }
+	   
+	   return ans;
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	}
 	
 	
