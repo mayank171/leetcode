@@ -1,5 +1,5 @@
 # Snake and Ladder Problem
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a <strong>5x6</strong>&nbsp;snakes and ladders board, find the minimum number of dice throws required to reach the destination or last cell (<strong>30<sup>th</sup></strong>&nbsp;cell) from the source (1st cell). </span></p>
 
