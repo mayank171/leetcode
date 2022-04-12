@@ -79,8 +79,8 @@ public:
                 ct--;
             }
             
-            if(ct<0)
-                return false;
+            // if(ct<0)
+            //     return false;
         }
         
         
