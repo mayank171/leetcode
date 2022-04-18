@@ -67,6 +67,46 @@ class Solution
 	   
 	   
 	   
+	   //int n=nums.size();
+	   
+	   //vector<pair<int,int>> v;
+	   
+	   //for(int i=0;i<n;i++)
+	   //{
+	   //    v.push_back({nums[i],i});
+	   //}
+	   
+	   //sort(v.begin(),v.end());
+	   
+	   //vector<int> vis(n,0);
+	   
+	   
+	   //int ans=0;
+	   //int ind=0;
+	   //for(int i=0;i<n;i++)
+	   //{
+	   //    if(vis[i]==1 || v[i].second==i)
+	   //    {
+	   //        continue;
+	   //    }
+	   //    int ct=0;
+	   //    int j=i;
+	   //    while(vis[j]==0)
+	   //    {
+	   //        vis[j]=1;
+	   //        ct++;
+	   //        j=v[j].second;
+	   //    }
+	   //    ans+=ct-1;
+	   //}
+	   
+	   //return ans;
+	   
+	   
+	   
+	   
+	   
+	   
 	   int n=nums.size();
 	   
 	   vector<pair<int,int>> v;
@@ -80,37 +120,30 @@ class Solution
 	   
 	   vector<int> vis(n,0);
 	   
-	   
 	   int ans=0;
-	   int ind=0;
+	   
 	   for(int i=0;i<n;i++)
 	   {
 	       if(vis[i]==1 || v[i].second==i)
 	       {
 	           continue;
 	       }
+	       
 	       int ct=0;
 	       int j=i;
+	       
 	       while(vis[j]==0)
 	       {
 	           vis[j]=1;
-	           ct++;
 	           j=v[j].second;
+	           ct++;
 	       }
+	       
 	       ans+=ct-1;
 	   }
 	   
+	   
 	   return ans;
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-	   
 	   
 	   
 	   
