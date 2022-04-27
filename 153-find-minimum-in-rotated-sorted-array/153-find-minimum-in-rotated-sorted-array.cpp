@@ -15,9 +15,7 @@ public:
             }
             
             int mid=(low+high)/2;
-            
-            
-            
+         
             if(nums[mid]<nums[high])
             {
                 high=mid;
