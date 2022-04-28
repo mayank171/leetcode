@@ -17,11 +17,11 @@ public:
             if(abs(low-high)==1)
                 break;
             
-            if(mid+1<n && nums[mid]>nums[mid+1])
+            if(nums[mid]>nums[mid+1])
             {
                 high=mid;
             }
-            else if(mid+1<n && nums[mid]<nums[mid+1])
+            else if(nums[mid]<nums[mid+1])
             {
                 low=mid+1;
             }
