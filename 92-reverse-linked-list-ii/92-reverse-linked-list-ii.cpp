@@ -12,37 +12,85 @@ class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         
-        if(head->next==NULL)
-            return head;
+//         if(head->next==NULL)
+//             return head;
         
-        if(left==right)
+//         if(left==right)
+//             return head;
+        
+//         ListNode* dummy=new ListNode(0);
+//         dummy->next=head;
+        
+//         ListNode* nodeBeforeSubList=dummy;
+        
+//         int pos=1;
+        
+//         while(pos<left)
+//         {
+//             nodeBeforeSubList=nodeBeforeSubList->next;
+//             pos++;
+//         }
+        
+//         auto workingPointer=nodeBeforeSubList->next;
+        
+//         while(left<right)
+//         {
+//             auto nodeToBeExtracted=workingPointer->next;
+//             workingPointer->next=nodeToBeExtracted->next;
+//             nodeToBeExtracted->next=nodeBeforeSubList->next;
+//             nodeBeforeSubList->next=nodeToBeExtracted;
+//             left++;
+//         }
+        
+//         return dummy->next;
+        
+        
+        
+        
+        
+        
+        
+        
+        if(head->next==NULL || left==right)
+        {
             return head;
+        }
         
         ListNode* dummy=new ListNode(0);
         dummy->next=head;
         
-        ListNode* nodeBeforeSubList=dummy;
-        
+        ListNode* bf=dummy;
         int pos=1;
         
         while(pos<left)
         {
-            nodeBeforeSubList=nodeBeforeSubList->next;
+            bf=bf->next;
             pos++;
         }
         
-        auto workingPointer=nodeBeforeSubList->next;
+        ListNode* w=bf->next;
         
         while(left<right)
         {
-            auto nodeToBeExtracted=workingPointer->next;
-            workingPointer->next=nodeToBeExtracted->next;
-            nodeToBeExtracted->next=nodeBeforeSubList->next;
-            nodeBeforeSubList->next=nodeToBeExtracted;
+            ListNode* ex=w->next;
+            w->next=ex->next;
+            ex->next=bf->next;
+            bf->next=ex;
             left++;
         }
         
         return dummy->next;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
