@@ -12,80 +12,121 @@ class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int left, int right) {
         
-//         int diff=right-1-left+2;
-//         diff--;
-        
-//         ListNode* temp=head;
-//         ListNode* belt=head;
-        
-//         int c=1;
-        
-//         while(c!=left && temp!=NULL)
-//         {
-//             temp=temp->next;
-//             belt=belt->next;
-//             c++;
-//         }
-       
-        
-//         while(diff && temp!=NULL)
-//         {
-//             int c=diff;
-//             if(diff==1)
-//                 break;
-//             while(c-- && belt!=NULL)
-//             {
-//                 belt=belt->next;
-//             }
-//             swap(temp->val,belt->val);
-//             temp=temp->next;
-//             belt=temp;
-//             diff-=2;
-//         }
-        
-//         if(diff==1)
-//         swap(temp->val,temp->next->val);
-        
-//         return head;
+        if(head->next==NULL)
+            return head;
         
         if(left==right)
             return head;
         
-        ListNode* temp=new ListNode(0);
-        temp->next=head;
+        ListNode* dummy=new ListNode(0);
+        dummy->next=head;
         
-        ListNode* prev=temp;
+        ListNode* nodeBeforeSubList=dummy;
         
-        for(int i=0;i<left-1;i++)
+        int pos=1;
+        
+        while(pos<left)
         {
-            prev=prev->next;
+            nodeBeforeSubList=nodeBeforeSubList->next;
+            pos++;
         }
-        //prev=prev->next;
+        
+        auto workingPointer=nodeBeforeSubList->next;
+        
+        while(left<right)
+        {
+            auto nodeToBeExtracted=workingPointer->next;
+            workingPointer->next=nodeToBeExtracted->next;
+            nodeToBeExtracted->next=nodeBeforeSubList->next;
+            nodeBeforeSubList->next=nodeToBeExtracted;
+            left++;
+        }
+        
+        return dummy->next;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+// //         int diff=right-1-left+2;
+// //         diff--;
+        
+// //         ListNode* temp=head;
+// //         ListNode* belt=head;
+        
+// //         int c=1;
+        
+// //         while(c!=left && temp!=NULL)
+// //         {
+// //             temp=temp->next;
+// //             belt=belt->next;
+// //             c++;
+// //         }
+       
+        
+// //         while(diff && temp!=NULL)
+// //         {
+// //             int c=diff;
+// //             if(diff==1)
+// //                 break;
+// //             while(c-- && belt!=NULL)
+// //             {
+// //                 belt=belt->next;
+// //             }
+// //             swap(temp->val,belt->val);
+// //             temp=temp->next;
+// //             belt=temp;
+// //             diff-=2;
+// //         }
+        
+// //         if(diff==1)
+// //         swap(temp->val,temp->next->val);
+        
+// //         return head;
+        
+//         if(left==right)
+//             return head;
+        
+//         ListNode* temp=new ListNode(0);
+//         temp->next=head;
+        
+//         ListNode* prev=temp;
+        
+//         for(int i=0;i<left-1;i++)
+//         {
+//             prev=prev->next;
+//         }
+//         //prev=prev->next;
    
         
-        ListNode* start=prev->next;
-        ListNode* ahead=start->next;
+//         ListNode* start=prev->next;
+//         ListNode* ahead=start->next;
         
-        int flag=0;
-        for(int i=0;i<right-left;i++)
-        {
-            // if(ahead->next==NULL)
-            // {
-            //      flag=1;
-            //     break;
-            // }
-            start->next=ahead->next;
-            ahead->next=prev->next;
-            prev->next=ahead;
-            ahead=start->next;
-        }
+//         int flag=0;
+//         for(int i=0;i<right-left;i++)
+//         {
+//             // if(ahead->next==NULL)
+//             // {
+//             //      flag=1;
+//             //     break;
+//             // }
+//             start->next=ahead->next;
+//             ahead->next=prev->next;
+//             prev->next=ahead;
+//             ahead=start->next;
+//         }
         
-        // if(flag==1)
-        // {
-        //     swap(prev->val,ahead->val);
-        // }
+//         // if(flag==1)
+//         // {
+//         //     swap(prev->val,ahead->val);
+//         // }
         
-        return temp->next;
+//         return temp->next;
         
         
     }
