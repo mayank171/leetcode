@@ -12,118 +12,114 @@ class Solution {
 public:
     ListNode* reverseEvenLengthGroups(ListNode* head) {
         
-        int ct=0;
+        vector<vector<int>> v;
+        
+        int i=0;
         
         ListNode* temp=head;
         
+        
+        
+        int ind=1;
+        int j=0;
+        
+        int flag=1;
+        
         while(temp!=NULL)
         {
-            ct++;
-            temp=temp->next;
-        }
-        
-        vector<int> v;
-        int a=1;
-        int sum=0;
-        while(sum<=ct)
-        {
-            if(a+sum<=ct)
+            vector<int> tp;
+            if(flag==1)
             {
-               v.push_back(a);
-               sum+=a; 
+                ListNode* temp1=temp;
+                int j=0;
+                while(j<ind && temp1!=NULL)
+                {
+                    tp.push_back(temp1->val);
+                    j++;
+                    temp1=temp1->next;
+                }
+                v.push_back(tp);
+                // for(auto &it:tp)
+                // {
+                //     cout<<it<<" ";
+                // }
+                // cout<<endl;
+                
+                temp=temp1;
+                flag*=-1;
+                ind++;
+                continue;
             }
             else
             {
-                v.push_back(ct-sum);
-                break;
+                ListNode* temp1=temp;
+                int j=0;
+                while(j<ind && temp1!=NULL)
+                {
+                    tp.push_back(temp1->val);
+                    j++;
+                    temp1=temp1->next;
+                }
+                v.push_back(tp);
+                // for(auto &it:tp)
+                // {
+                //     cout<<it<<" ";
+                // }
+                // cout<<endl;
+                
+                temp=temp1;
+                flag*=-1;
+                ind++;
+                continue;
             }
-            a++;
-               
+            
+            if(temp->next==NULL)
+                v.push_back(tp);
+           
         }
         
-        // for(auto &it:v)
-        // {
-        //     cout<<it<<" ";
-        // }
-        // cout<<endl;
         
-        if(v[v.size()-1]==0)
-            v.pop_back();
         
         temp=head;
         
-        ListNode* prev=head;
-        ListNode* current=temp;
-        ListNode* prev1;
-        ListNode* cur1;
-        int flag=0;
-        for(int i=0;i<v.size();i++)
-        {
-            if(v[i]&1)
-            {
-                while(v[i]--)
-                {
-                     prev=current;
-                     if(current->next!=NULL)
-                        current=current->next;
-                     else
-                         break;
-                }
-            }
-            else if(v[i]%2==0)
-            {
-                int x=v[i];
-                ListNode* nxt;
-                prev1=prev;
-               // cout<<"-"<<prev->val<<"-"<<current->val<<endl;
-                cur1=current;
-                while(x--)
-                {
-                    
-                    nxt=current->next;
-                    current->next=prev;
-                    prev=current;
-                    current=nxt;
-                }
-               // cout<<prev->val<<"*"<<current->val<<endl;
-                prev1->next=prev;
-                cur1->next=current;
-                
-                if(i+1<v.size() && v[i+1]%2==0)
-                {
-                    cout<<prev->val<<"*"<<current->val<<endl;
-                    flag=1;
-                    break;
-                }
-                
-            }
-           
-        }
-       // cout<<prev->val<<" "<<prev1->val<<" "<<cur1->val<<" "<<current->val<<endl;
+        flag=1;
         
-        if(flag==1)
+        ind=1;
+        
+        while(temp)
         {
-            int x=v[v.size()-1];
-            ListNode* nxt;
-            prev=cur1;
-            prev1=prev;
-            current=prev->next;
-            cur1=prev->next;
-            while(x--)
+            if(v[ind-1].size()%2!=0)
             {
-                if(current==NULL)
-                    break;
-                nxt=current->next;
-                current->next=prev;
-                prev=current;
-                current=nxt;
+                ListNode* temp1=temp;
+                int j=0;
+                while(j<ind && temp1!=NULL)
+                {
+                    temp1->val=v[ind-1][j];
+                    j++;
+                    temp1=temp1->next;
+                }
+                flag*=-1;
+                ind++;
+                temp=temp1;
             }
-            prev1->next=prev;
-            cur1->next=NULL;
+            else
+            {
+                ListNode* temp1=temp;
+                int j=v[ind-1].size()-1;
+                while(j>=0 && temp1!=NULL)
+                {
+                    temp1->val=v[ind-1][j];
+                    j--;
+                    temp1=temp1->next;
+                }
+                flag*=-1;
+                ind++;
+                temp=temp1;
+            }
         }
         
         
+        return head;
         
-        return temp;
     }
 };
