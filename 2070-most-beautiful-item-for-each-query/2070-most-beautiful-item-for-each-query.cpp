@@ -16,6 +16,13 @@ public:
         sort(items.begin(),items.end());
         
         
+        unordered_set<int> s;
+        
+        for(int i=0;i<n;i++)
+        {
+            s.insert(items[i][0]);
+        }
+        
         for(int i=1;i<n;i++)
         {
             items[i][1]=max(items[i][1],items[i-1][1]);
@@ -28,32 +35,70 @@ public:
             int low=0;
             int high=n-1;
             
+            if(s.find(q[i])!=s.end())
+            {
+                cout<<q[i]<<endl;
                 
-                int ans=-1;
+                int ans=0;
                 while(low<=high)
                 {
                     int mid=low+(high-low)/2;
-                    if(items[mid][0]>q[i])
+                    
+                    if(items[mid][0]==q[i])
+                    {
+                        ans=mid;
+                        low=mid+1;
+                    }
+                    else if(items[mid][0]>q[i])
                     {
                         high=mid-1;
                     }
                     else
                     {
-                        ans=mid;
                         low=mid+1;
                     }
                 }
-            
-            if(ans==-1)
-            {
-                res.push_back(0);
+              //  cout<<"***"<<ans<<endl;
+                res.push_back(items[ans][1]);
             }
             else
             {
-                res.push_back(items[ans][1]);
-            }
+              //  cout<<q[i]<<endl;
                 
-            
+                if(q[i]>items[n-1][0])
+                {
+                    res.push_back(items[n-1][1]);
+                    continue;
+                }
+                
+                int ans=-1;
+                while(low<=high)
+                {
+                    int mid=low+(high-low)/2;
+                 //   cout<<ans<<" "<<mid<<endl;
+                    
+                    if(items[mid][0]<q[i])
+                    {
+                        ans=mid;
+                        low=mid+1;
+                    }
+                    else
+                    {
+                        high=mid-1;
+                        //ans=mid;
+                    //    break;
+                    }
+                }
+                
+                
+                
+                if(ans==-1)
+                {
+                    res.push_back(0);
+                }
+                else
+                    res.push_back(items[ans][1]);
+            }
         }
         
         return res;
