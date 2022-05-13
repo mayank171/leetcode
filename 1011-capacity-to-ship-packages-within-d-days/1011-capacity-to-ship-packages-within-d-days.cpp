@@ -20,8 +20,7 @@ private:
                 i--;
             }
         }
-        cout<<ct+1<<"+"<<endl;
-        return ct+1;
+    return ct+1;
     }
 public:
     int shipWithinDays(vector<int>& weights, int days) {
@@ -36,8 +35,7 @@ public:
         while(low<high)
         {
             int mid=(low+high)/2;
-           // cout<<mid<<endl;
-            
+          
             if(blackBox(weights,mid,n)>days)
             {
                 low=mid+1;
@@ -47,8 +45,7 @@ public:
                 high=mid;
             }
         }
-       // cout<<low<<" "<<high<<endl;
-        
+      
         return min(low,high);
         
     }
