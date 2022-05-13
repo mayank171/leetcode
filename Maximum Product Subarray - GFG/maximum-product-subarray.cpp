@@ -19,17 +19,17 @@ public:
 	    for(int i=0;i<n;i++)
 	    {
 	        max_left=arr[i]*max_left;
+	        maxi1=max(maxi1,max_left);
 	        if(max_left==0)
 	          max_left=1;
-	        maxi1=max(maxi1,max_left);
 	    }
 	    
 	    for(int i=n-1;i>=0;i--)
 	    {
 	        max_right=arr[i]*max_right;
+	        maxi2=max(maxi2,max_right);
 	        if(max_right==0)
 	          max_right=1;
-	        maxi2=max(maxi2,max_right);
 	    }
 	    
 	    return max(maxi1,maxi2);
