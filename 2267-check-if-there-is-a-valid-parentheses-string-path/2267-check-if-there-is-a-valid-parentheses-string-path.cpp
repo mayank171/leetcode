@@ -1,75 +1,42 @@
-int dp[101][101][201];
-
 class Solution {
 public:
-    
-    bool dfs(vector<vector<char>>& grid,int x,int y,int n,int m,int open)
-    {
-       
-       if(x==n-1 && y==m-1)
-       {
-           if(open==1 && grid[x][y]==')')
-               return true;
-           return false;
-       }
-        
-       if(x>=n || y>=m)
-           return false;
-        
-      
-      
-       if(grid[x][y]==')')
-       {
-           open--;
-       }
-       else
-       {
-           open++;
-       }
-        
-        
-       if(open<0)
-           return false;
-        
-        if(dp[x][y][open]!=-1)
-           return dp[x][y][open];
-        
-        
-       bool ans=false;
-        
-       ans|=dfs(grid,x+1,y,n,m,open);
-        
-        
-       ans|=dfs(grid,x,y+1,n,m,open);
-    
-        
-       return dp[x][y][open]=ans;
+    int dp[101][101][202];
+    bool isValid(int i,int j,int m,int n){
+        if(i<0||j<0||i>=m||j>=n) return false;
+        return true;
     }
-    
-    
+    bool fun(int i,int j,vector<vector<char>>& grid,int k,int m,int n){
+        if(i<0||j<0||i>=m||j>=n) return false;
+        if(i==m-1 && j==n-1){
+            if(grid[i][j]=='(') return false;
+            else{
+                if(k<=0) return false;
+                else{
+                    if(k==1) return true;
+                    return false;
+                }
+            }
+        }
+        
+        bool ans = false;
+        if(grid[i][j]=='('){
+            k++;
+        }
+        else if(grid[i][j]==')'){
+            if(k<=0) return false;
+            else k--;
+        }
+        
+        if(dp[i][j][k]!=-1) return dp[i][j][k];
+        
+        if(isValid(i,j+1,m,n)) ans|=fun(i,j+1,grid,k,m,n);
+        if(isValid(i+1,j,m,n)) ans|=fun(i+1,j,grid,k,m,n);
+        return dp[i][j][k] = ans;
+    }
     bool hasValidPath(vector<vector<char>>& grid) {
-        
-        int n=grid.size();
-        int m=grid[0].size();
-        
-        if(grid[n-1][m-1]=='(')
-            return false;
-        
-        if(grid[0][0]==')')
-            return false;
-    
-        memset(dp, -1, sizeof(dp));
-        
-        int x=0;
-        int y=0;
-        
-        int open=0;
-        
-        if(dfs(grid,x,y,n,m,open))
-            return true;
-        
-        return false;
-     
-        
+        int m = grid.size();
+        int n = grid[0].size();
+        memset(dp,-1,sizeof(dp));
+        return fun(0,0,grid,0,m,n);
     }
 };
