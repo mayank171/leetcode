@@ -4,35 +4,33 @@ class TreeAncestor {
 public:
     TreeAncestor(int n, vector<int>& parent) {
     
-        max_h=20;
-        vector<vector<int>> adj(max_h,vector<int> (n,-1));
+        vector<vector<int>> adj(20,vector<int>(n,-1));
+        
         prec=adj;
-    
-       // parent[0]=0;
+        
         for(int i=0;i<n;i++)
         {
             prec[0][i]=parent[i];
         }
-      
         
-        for(int i=1;i<max_h;i++)
+        for(int i=1;i<20;i++)
         {
-          //  cout<<i<<" ";
             for(int j=0;j<n;j++)
             {
-                
                 int x=prec[i-1][j];
                 if(x!=-1)
                     prec[i][j]=prec[i-1][x];
-                
             }
         }
-    //    cout<<"llll";
+       
     }
     
     int getKthAncestor(int node, int k) {
         
-        for(int i=0;i<max_h;i++)
+        int ans;
+        
+       // cout<<"vmdl";
+        for(int i=20;i>=0;i--)
         {
             if(k&(1<<i))
             {
@@ -41,6 +39,7 @@ public:
                     return -1;
             }
         }
+      
         return node;
         
     }
