@@ -1,62 +1,46 @@
 class Solution {
 private:
-    
     int blackBox(vector<int> &nums,int mid,int n)
     {
-        int x=0;
-        
+        int sum=0;
         for(int i=0;i<n;i++)
         {
-           if(nums[i]<mid)
-             x++;
-           else if(nums[i]%mid!=0)
-           {
-               x=x+nums[i]/mid+1;
-           }
-           else
-           {
-               x=x+nums[i]/mid;
-           }
+            if(nums[i]%mid!=0)
+            {
+                sum+=nums[i]/mid+1;
+            }
+            else
+            {
+                sum+=nums[i]/mid;
+            }
         }
-        cout<<endl;
-        
-        return x;
+       // cout<<sum<<endl;
+        return sum;
     }
-    
 public:
-    int smallestDivisor(vector<int>& nums, int threshold) {
+    int smallestDivisor(vector<int>& nums, int thres) {
         
         int n=nums.size();
         
         int low=1;
+        
         int high=*max_element(nums.begin(),nums.end());
         
-        int ans=INT_MAX;
-        int min=INT_MAX;
+        int ans=high;
         
         while(low<=high)
         {
-            int mid=(low+high)/2;
-            int sum=blackBox(nums,mid,n);
-            //cout<<mid<<" "<<sum<<endl;
+            int mid=low+(high-low)/2;
             
-            if(sum<=threshold)
+            if(blackBox(nums,mid,n)<=thres)
             {
-              //  ans=min(ans,mid);
-                if(ans>mid)
-                {
-                   ans=mid;
-                   high=mid-1;
-                }    
+                ans=mid;
+                high=mid-1;
             }
             else
             {
-               
-                   low=mid+1;    
-            
-                
+                low=mid+1;
             }
-            
         }
         
         return ans;
