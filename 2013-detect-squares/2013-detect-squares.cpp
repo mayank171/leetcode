@@ -24,7 +24,7 @@ public:
             {
                 if(mp.find({it.first.first,y})!=mp.end() && mp.find({x,it.first.second})!=mp.end())
                 {
-                    ct+=mp[{it.first.first,it.first.second}]*mp[{it.first.first,y}]*mp[{x,it.first.second}];
+                     ct+=mp[{it.first.first,it.first.second}]*mp[{it.first.first,y}]*mp[{x,it.first.second}];
                 }
             }
         }
