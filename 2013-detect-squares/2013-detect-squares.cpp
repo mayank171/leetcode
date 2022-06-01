@@ -7,7 +7,7 @@ public:
     
     void add(vector<int> point) {
         
-        mp[{point[0],point[1]}]++;
+         mp[{point[0],point[1]}]++;
         
     }
     
@@ -20,17 +20,15 @@ public:
         
         for(auto &it:mp)
         {
-            if(abs(x-it.first.first)==abs(y-it.first.second) && x!=it.first.first && y!=it.first.second)
+            if(abs(it.first.first-x)==abs(it.first.second-y) && it.first.first!=x && it.first.second!=y)
             {
                 if(mp.find({it.first.first,y})!=mp.end() && mp.find({x,it.first.second})!=mp.end())
                 {
-                     ct+=mp[{it.first.first,it.first.second}]*mp[{it.first.first,y}]*mp[{x,it.first.second}];
+                      ct+=mp[{it.first.first,y}]*mp[{x,it.first.second}]*mp[{it.first.first,it.first.second}];
                 }
             }
         }
-        
         return ct;
-        
     }
 };
 
