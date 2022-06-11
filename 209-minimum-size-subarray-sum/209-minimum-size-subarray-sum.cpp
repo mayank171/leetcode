@@ -1,32 +1,33 @@
 class Solution {
 private:
     
-    long long Sum(vector<int> &nums,int n,int k)
+    int blackBox(vector<int> &nums,int n,int mid,int target)
     {
-        long long sum=0;
-        long long sum1=0;
+        int ind=0;
         
-        for(int i=0;i<k;i++)
+        int sum=0;
+        while(ind<mid)
         {
-            sum1+=nums[i];
+            sum+=nums[ind];
+            ind++;
         }
         
-        sum=sum1;
+       // cout<<sum<<"--"<<endl;
+         if(sum>=target)
+                return mid;
         
-        int l=0;
-        int r=k;
-        
-        while(r!=n)
+        for(int i=1;i<=n-mid;i++)
         {
-            sum1-=nums[l];
-            l++;
-            sum1+=nums[r];
-            r++;
-            
-            sum=max(sum1,sum);
+            sum-=nums[i-1];
+            sum+=nums[i+mid-1];
+           // cout<<sum<<endl;
+            if(sum>=target)
+                return mid;
         }
         
-        return sum;
+       // cout<<sum<<"**"<<endl;
+        return INT_MAX;
+        
     }
     
 public:
@@ -34,49 +35,34 @@ public:
         
         int n=nums.size();
         
-        long long sum1=accumulate(nums.begin(),nums.end(),0);
-        
-        if(sum1<target)
-            return 0;
-        
-        int mini=*min_element(nums.begin(),nums.end());
-        
-        if(mini>target)
-            return 0;
-        
         int low=1;
         int high=n;
         
-        int flag=0;
-        
-        int mid;
-        
-        int ans=0;
+        int ans=INT_MAX;
         
         while(low<=high)
         {
-             mid=low+(high-low)/2;
-           // cout<<mid<<endl;
+            int mid=low+(high-low)/2;
             
-            long long k=Sum(nums,n,mid);
-           // cout<<k<<endl;
+            int val=blackBox(nums,n,mid,target);
             
-            if(k>=target)
-            {
-                ans=mid;
-                high=mid-1;
-            }
-            else
+            //cout<<val<<endl;
+            
+            if(val>=ans)
             {
                 low=mid+1;
             }
+            else
+            {
+                ans=val;
+                high=mid;
+            }
         }
         
-        cout<<low<<" "<<mid<<" "<<high<<endl;
+        if(ans!=INT_MAX)
+            return ans;
         
-        return ans;
-        
-        return 0;
+        return 0; 
         
     }
 };
