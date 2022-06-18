@@ -3,84 +3,134 @@ public:
     
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
         
-//         int n=arr.size();
-        
-//         int close=0;
-        
-//         stable_sort(arr.begin(),arr.end(),[x](const auto a,const auto b){
-//             return abs(a-x)<abs(b-x);
-//         });
-        
-        
-//         arr.resize(k);
-        
-        
-//         sort(arr.begin(),arr.end());
-//         return arr;
-        
-        
         int n=arr.size();
-        int l=0;
-        int r=n-1;
         
-        while(r-l>=k)
+        vector<int> ans;
+    
+        int ind=upper_bound(arr.begin(),arr.end(),x)-arr.begin();
+        
+        //cout<<ind<<endl;
+        
+        if(ind==n)
         {
-            if(x-arr[l]<=arr[r]-x)
+            ind--;
+            while(k--)
             {
-                r--;
+                ans.push_back(arr[ind]);
+                ind--;
             }
-            else
-            {
-                l++;
-            }
-        }
-        
-        vector<int> res;
-        
-        while(k--)
-        {
-            res.push_back(arr[l]);
-            l++;
-        }
-        
-        return res;
-        
-        
-//         int n=arr.size();
-        
-//         int low=0;
-//         int high=n-k;
-        
-//         int ans=INT_MAX;
-        
-//         while(low<high)
-//         {
-//             int mid=low+(high-low)/2;
             
-//             if(x-arr[mid] > arr[mid+k]-x)
-//             {
-//                 low=mid+1;
-//             }
-//             else
-//             {
-//                 high=mid;
-//             }
-//         }
-        
-//         vector<int> res;
-        
-//         int ind=low;
-        
-//         while(k--)
-//         {
-//             res.push_back(arr[ind]);
-//             ind++;
-//         }
+        }
+        else if(ind==0)
+        {
+            while(k--)
+            {
+                ans.push_back(arr[ind]);
+                ind++;
+            }
+        }
+        else if(arr[ind-1]==x)
+        {
+            int flag=0;
+            int i=ind-1;
+            int j=ind-1;
+            
+            while(k--)
+            {
+                if(i==j)
+                {
+                    ans.push_back(arr[i]);
+                    i--;
+                    j++;
+                }
+                else
+                {
+                    int a,b;
+                   if(i>=0 && j<n)
+                   {
+                      a=abs(arr[i]-x);
+                      b=abs(arr[j]-x);                                 
+                   }
+                    if(a<=b)
+                    {
+                        if(i<0)
+                        {
+                            ans.push_back(arr[j]);
+                            j++;
+                        }
+                        else
+                        {
+                            ans.push_back(arr[i]);
+                            i--;    
+                        }
+                    }
+                    else if(a>b)
+                    {
+                        if(j>n-1)
+                        {
+                            ans.push_back(arr[i]);
+                            i--;
+                        }
+                        else
+                        {
+                            ans.push_back(arr[j]);
+                            j++;    
+                        } 
+                    }
+                    
+                }
+            }
+        }
+        else
+        {
+            int flag=0;
+            int i=ind-1;
+            int j=ind;
+            
+            while(k--)
+            {
+                int a,b;
+                if(i>=0 && j<n)
+                {
+                   a=abs(arr[i]-x);
+                   b=abs(arr[j]-x);                                 
+                }
 
+                //cout<<i<<" "<<j<<endl;
+                
+                if(a<=b)
+                {
+                    if(i<0)
+                    {
+                        ans.push_back(arr[j]);
+                        j++;
+                    }
+                    else
+                    {
+                        ans.push_back(arr[i]);
+                        i--;    
+                    }
+                }
+                else if(a>b)
+                {
+                    if(j>n-1)
+                    {
+                        ans.push_back(arr[i]);
+                        i--;
+                    }
+                    else
+                    {
+                        ans.push_back(arr[j]);
+                        j++;    
+                    } 
+                }
+                    
+                
+            }
+        }
+            
+        sort(ans.begin(),ans.end());
         
-        
-//         return res;
-        
-        
+        return ans;
     }
 };
