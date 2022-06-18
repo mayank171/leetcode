@@ -4,32 +4,31 @@ public:
         
         int n=nums.size();
         
-        int ct=0;
-        
         sort(nums.begin(),nums.end());
         
+        int ans=0;
         
         for(int i=2;i<n;i++)
         {
-            int l=0;
-            int r=i-1;
-             
-            while(l<r)
+            int j=0;
+            int k=i-1;
+            
+            while(j<k)
             {
-                if(nums[l]+nums[r]>nums[i])
+                if(nums[j]+nums[k]>nums[i])
                 {
-                    ct+=(r-l);
-                    r--;
+                    ans+=k-j;
+                    k--;
+                    //break;
                 }
                 else
                 {
-                    l++;
+                    j++;
                 }
             }
             
         }
         
-        return ct;
-        
+        return ans;
     }
 };
