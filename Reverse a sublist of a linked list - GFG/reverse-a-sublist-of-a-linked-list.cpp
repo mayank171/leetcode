@@ -37,25 +37,24 @@ class Solution
         Node* dummy=new Node(0);
         dummy->next=head;
         
-        Node* temp=dummy;
+        Node* a=dummy;
         
-        int ct=0;
-        while(ct<m-1)
+        int p=1;
+        while(p<m)
         {
-            temp=temp->next;
-            ct++;
+            a=a->next;
+            p++;
         }
         
-        Node* cur=temp->next;
-        
+        Node* b=a->next;
+            
         while(m<n)
         {
-            Node* nxt=cur->next;
-            cur->next=nxt->next;
-            nxt->next=temp->next;
-            temp->next=nxt;
+            Node* x=b->next;
+            b->next=x->next;
+            x->next=a->next;
+            a->next=x;
             m++;
-           // cur=cur->next;
         }
         
         return dummy->next;
