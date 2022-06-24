@@ -4,36 +4,29 @@ public:
         
         int n=chalk.size();
         
-         vector<long long> vp;
-        
-        for(int i=0;i<n;i++)
-        {
-            vp.push_back(chalk[i]);
-        }
-        
         long long sum=0;
         
+        vector<long long> chalk1;
+        
         for(int i=0;i<n;i++)
         {
-            sum+=vp[i];
+            chalk1.push_back(chalk[i]);
         }
-        
-        long long x=k%sum;
         
         for(int i=1;i<n;i++)
         {
-            vp[i]+=vp[i-1];
+            chalk1[i]+=chalk1[i-1];
         }
+        sum=chalk1[n-1];
         
-        int lb=upper_bound(vp.begin(),vp.end(),x)-vp.begin();
+        sum=k%sum;
         
+        int ind=upper_bound(chalk1.begin(),chalk1.end(),sum)-chalk1.begin();
         
-        if(lb==n)
-        {
+        if(ind==n)
             return 0;
-        }
-        
-        return lb;
+        else
+            return ind;
         
     }
 };
