@@ -96,11 +96,11 @@ private:
     }
     
 public:
-    bool canPartition(vector<int>& nums) {
+    bool canPartition(vector<int>& arr) {
 
-        int size=nums.size();
+        int size=arr.size();
         
-        int sum=accumulate(nums.begin(),nums.end(),0);
+        int sum=accumulate(arr.begin(),arr.end(),0);
         
         if(sum&1)
         {
@@ -109,9 +109,33 @@ public:
         
         sum=sum/2;
         
-        vector<vector<int>> dp(size,vector<int>(sum+1,-1));
+        vector<int> front(sum+1,0);
+        front[0]=1;
+        if(arr[0]<=sum)
+            front[arr[0]]=1;
         
-        return normal(dp,nums,size,sum,size-1);
+        for(int i=1;i<size;i++)
+        {
+            vector<int> cur(sum+1,0);
+            cur[0]=1;
+            for(int j=1;j<sum+1;j++)
+            {
+                int take=0;
+                if(arr[i]<=j)
+                {
+                    take=front[j-arr[i]];
+                }
+                int notTake=front[j];
+                cur[j]=take|notTake;
+            }
+            front=cur;
+        }
+        
+        return front[sum];
+        
+        //vector<vector<int>> dp(size,vector<int>(sum+1,-1));
+        
+       // return normal(dp,nums,size,sum,size-1);
         
 //         sort(nums.rbegin(),nums.rend());
         
