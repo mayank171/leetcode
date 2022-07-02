@@ -35,7 +35,29 @@ public:
         // code here 
         int n=arr.size();
         vector<vector<int>> dp(n,vector<int>(sum+1,-1));
-        return check(dp,arr,sum,n-1,n);
+        //return check(dp,arr,sum,n-1,n);
+        
+        vector<int> front(sum+1,0);
+        front[0]=1;
+        if(arr[0]<sum)
+           front[arr[0]]=1;
+           
+        for(int i=1;i<n;i++)
+        {
+            vector<int> cur(sum+1,0);
+            cur[0]=1;
+            for(int j=1;j<=sum;j++)
+            {
+                int notTake=front[j];
+                int take=0;
+                if(arr[i]<=j)
+                   take=front[j-arr[i]];
+                cur[j]=take|notTake;
+            }
+            front=cur;
+        }
+        
+        return front[sum];
     }
 };
 
