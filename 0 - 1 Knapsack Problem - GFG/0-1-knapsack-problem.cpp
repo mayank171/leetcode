@@ -20,8 +20,8 @@ class Solution
        
        for(int i=1;i<n;i++)
        {
-           vector<int> cur(W+1,0);
-           for(int j=1;j<W+1;j++)
+           //vector<int> cur(W+1,0);
+           for(int j=W;j>=0;j--)
            {
                int notTake=front[j];
                int take=-1e8;
@@ -29,9 +29,9 @@ class Solution
                {
                    take=val[i]+front[j-wt[i]];
                }
-               cur[j]=max(take,notTake);
+               front[j]=max(take,notTake);
            }
-           front=cur;
+           //front=cur;
        }
        
        return front[W];
