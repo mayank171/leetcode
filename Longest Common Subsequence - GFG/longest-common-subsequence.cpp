@@ -28,9 +28,32 @@ class Solution
     int lcs(int x, int y, string s1, string s2)
     {
         // your code here
-        vector<vector<int>> dp(x,vector<int>(y,-1));
+        // vector<vector<int>> dp(x,vector<int>(y,-1));
         
-        return helper(dp,s1,x-1,s2,y-1);
+        // return helper(dp,s1,x-1,s2,y-1);
+        
+        vector<int> front(y+1,0);
+        
+        for(int i=1;i<x+1;i++)
+        {
+            vector<int> cur(y+1,0);
+            for(int j=1;j<y+1;j++)
+            {
+                if(s1[i-1]==s2[j-1])
+                {
+                    cur[j]=1+front[j-1];
+                }
+                else
+                {
+                    int p=front[j];
+                    int q=cur[j-1];
+                    cur[j]=max(p,q);
+                }
+            }
+            front=cur;
+        }
+        
+        return front[y];
     }
 };
 
