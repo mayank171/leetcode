@@ -29,15 +29,71 @@ public:
         
         int ans=1e8;
         
-        vector<vector<int>> dp(n,vector<int>(m,-1));
+        vector<vector<int>> dp(n,vector<int>(m,1e8));
+        
+//         for(int i=0;i<m;i++)
+//         {
+//             ans=min(ans,helper(dp,matrix,n,m,0,i));
+            
+//         }
+        
+//         return ans;
         
         for(int i=0;i<m;i++)
         {
-            ans=min(ans,helper(dp,matrix,n,m,0,i));
-            
+            dp[0][i]=matrix[0][i];
         }
         
-        return ans;
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                int ldiag=1e8;int rdiag=1e8;int above=1e8;
+                if(j-1>=0)
+                    ldiag=matrix[i][j]+dp[i-1][j-1];
+                above=matrix[i][j]+dp[i-1][j];
+                if(j+1<m)
+                    rdiag=matrix[i][j]+dp[i-1][j+1];
+                
+                dp[i][j]=min(ldiag,min(rdiag,above));
+            }
+        }
         
+//         for(int i=0;i<n;i++)
+//         {
+//             for(int j=0;j<m;j++)
+//             {
+//                 cout<<dp[i][j]<<" ";
+//             }
+//             cout<<endl;
+//         }
+        
+        ans=*min_element(dp[n-1].begin(),dp[n-1].end());
+        
+            
+        return ans;
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
     }
 };
