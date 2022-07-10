@@ -52,7 +52,7 @@ class Solution
             }
             else
             {
-                for(int i=1;i<l-1;i++)
+                for(int i=1;i<l;i++)
                 {
                     if(right[i]!=-1 && num[i]!=num[right[i]])
                     {
