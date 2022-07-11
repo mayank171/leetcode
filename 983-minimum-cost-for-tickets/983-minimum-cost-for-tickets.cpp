@@ -42,7 +42,15 @@ public:
         
         vector<int> dp(days[n-1]+1,-1);
         
-        return check(days,n,costs,0,st,dp);
+        return check(days,n,costs,days[0],st,dp);
+        
+//         for(int i=0;i<dp.size();i++)
+//         {
+//             cout<<dp[i]<<" ";
+//         }
+//         cout<<endl;
+        
+//         return dp[dp.size()-1];
         
     }
 };
