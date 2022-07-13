@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool check(vector<int> &v,int n,vector<long long> &ans,int i,int ssf,int x)
+    bool check(vector<int> &v,int n,vector<int> ans[],int i,int ssf,int x)
     {
         if(i==n)
         {
@@ -9,7 +9,13 @@ public:
              
                 for(int i=0;i<4;i++)
                 {
-                    if(ans[i]!=x)
+                    long long size=ans[i].size();
+                    long long sum=0;
+                    for(int j=0;j<size;j++)
+                    {
+                        sum+=ans[i][j];
+                    }
+                    if(sum!=x)
                         return false;
                 }
                 return true;
@@ -21,7 +27,13 @@ public:
         
         for(int i=0;i<4;i++)
         {
-            if(ans[i]>x)
+            long long size=ans[i].size();
+            long long sum=0;
+            for(int j=0;j<size;j++)
+            {
+                sum+=ans[i][j];
+            }
+            if(sum>x)
                 return false;
         }
         
@@ -29,20 +41,20 @@ public:
         
         for(int j=0;j<4;j++)
         {
-            if(ans[j]==0)
+            if(ans[j].size()==0)
             {
-                ans[j]+=v[i];
+                ans[j].push_back(v[i]);
                 if(check(v,n,ans,i+1,ssf+1,x))
                     return true;
-                ans[j]-=v[i];
+                ans[j].pop_back();
                 break;
             }
             else
             {
-                ans[j]+=v[i];
+                ans[j].push_back(v[i]);
                 if(check(v,n,ans,i+1,ssf,x))
                     return true;
-                ans[j]-=v[i];    
+                ans[j].pop_back();    
             }
         }
         
@@ -76,7 +88,7 @@ public:
         
         int x=sum/4;
         
-        vector<long long> ans(4,0);
+        vector<int> ans[4];
         
         if(check(v,n,ans,0,0,x))
             return true;
