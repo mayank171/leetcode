@@ -33,9 +33,27 @@ public:
         for(int i=0;i<100;i++)
             sq.push_back(i+1);
         
-        vector<int> dp(n+1,-1);
+        vector<int> dp(n+1,0);
         
-        return check(n,sq,dp);
+        //int ans=check(n,sq,dp);
         
+        //return ans;
+        
+        dp[0]=0;
+        dp[1]=1;
+        
+        for(int i=2;i<n+1;i++)
+        {
+            int mini=INT_MAX;
+            for(int j=0;j<101;j++)
+            {
+                if(i-pow(j+1,2)<0)
+                    break;
+                mini=min(mini,1+dp[i-pow(j+1,2)]);
+            }
+            dp[i]=mini;
+        }
+        
+        return dp[n];
     }
 };
