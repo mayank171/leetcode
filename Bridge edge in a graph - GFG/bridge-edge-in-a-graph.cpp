@@ -7,30 +7,29 @@ class Solution
 {
     private:
     
-    void dfs(vector<int> &disc,vector<int> &parent,vector<int> &low,set<pair<int,int>> &st,int src,vector<int> adj[])
+    void dfs(vector<int> adj[],int V,vector<int> &disc,vector<int> &low,vector<int> &parent,set<pair<int,int>> &st,int src)
     {
-        static int time=0;
-        disc[src]=low[src]=time;
-        time++;
+        static int t=0;
+        disc[src]=low[src]=t;
+        t++;
         
         for(auto &it:adj[src])
         {
-            if(disc[it]==-1)
+            if(disc[it]==0)
             {
                 parent[it]=src;
-                dfs(disc,parent,low,st,it,adj);
-                low[src]=min(low[it],low[src]);
-                
+                dfs(adj,V,disc,low,parent,st,it);
+                low[src]=min(low[src],low[it]);
                 if(low[it]>disc[src])
                 {
                     st.insert({it,src});
+                    st.insert({src,it});
                 }
-               
             }
-             else if(it!=parent[src])
-                {
-                    low[src]=min(low[src],disc[it]);
-                }
+            else if(it!=parent[src])
+            {
+                low[src]=min(low[src],disc[it]);
+            }
         }
     }
     
@@ -38,33 +37,23 @@ class Solution
     //Function to find if the given edge is a bridge in graph.
     int isBridge(int V, vector<int> adj[], int c, int d) 
     {
-        
-        
-        
-        
-        
-        vector<int> disc(V,-1);
-        vector<int> parent(V,-1);
-        vector<int> low(V,-1);
+        vector<int> disc(V);
+        vector<int> low(V);
         set<pair<int,int>> st;
+        vector<int> parent(V,-1);
         
         for(int i=0;i<V;i++)
         {
-            if(disc[i]==-1)
+            if(disc[i]==0)
             {
-                dfs(disc,parent,low,st,i,adj);
+                dfs(adj,V,disc,low,parent,st,i);
             }
         }
         
-        // for(auto &it:st)
-        // {
-        //     cout<<it.first<<" "<<it.second<<endl;
-        // }
-        
-        if(st.find({c,d})!=st.end() || st.find({d,c})!=st.end())
-           return 1;
+        if(st.find({c,d})!=st.end())
+            return 1;
         return 0;
-        
+      
     }
 };
 
