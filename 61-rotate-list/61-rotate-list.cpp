@@ -22,35 +22,63 @@ public:
         
         ListNode* temp=head;
         
-        while(temp!=NULL)
+        while(temp->next!=NULL)
         {
             ct++;
             temp=temp->next;
         }
+        
+        ct++;
+        
         cout<<ct<<endl;
+        
+        temp->next=head;
         
         k=k%ct;
         
-        cout<<k<<endl;
+        ct=ct-k;
         
-        while(k--)
+        cout<<ct<<endl;
+        
+        temp=head;
+        ListNode* temp1=temp->next;
+        
+        cout<<temp->val<<endl;
+        cout<<temp1->val<<endl;
+        
+        ct--;
+        
+        while(ct--)
         {
-            temp=head;
-            int x=temp->val;
             temp=temp->next;
-            while(temp!=NULL)
-            {
-                
-                int y=temp->val;
-                temp->val=x;
-                x=y;
-                temp=temp->next;
-            }
-            
-            head->val=x;
+            temp1=temp1->next;
         }
         
-        return head;
+        temp->next=NULL;
+        
+        return temp1;
+        
+       
+//         k=k%ct;
+        
+//         while(k--)
+//         {
+//             temp=head;
+//             int x=temp->val;
+//             temp=temp->next;
+//             while(temp!=NULL)
+//             {
+                
+//                 int y=temp->val;
+//                 temp->val=x;
+//                 x=y;
+//                 temp=temp->next;
+//             }
+            
+//             head->val=x;
+//         }
+        
+//         return head;
         
     }
 };
