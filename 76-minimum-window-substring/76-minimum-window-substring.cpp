@@ -9,8 +9,10 @@ public:
         
         map<char,int> mp2;
         
-        for(auto &it:t)
-            mp2[it]++;
+        for(int i=0;i<m;i++)
+        {
+            mp2[t[i]]++;
+        }
         
         map<char,int> mp1;
         int i=-1;
@@ -26,35 +28,35 @@ public:
             int flag2=0;
             while(i<n-1 && mct<dmct)
             {
+                flag1=1;
                 i++;
                 mp1[s[i]]++;
-                
                 if(mp1[s[i]]<=mp2[s[i]])
+                {
                     mct++;
-                flag1=1;
+                }
             }
             
-            int ind=0;
             while(j<i && mct==dmct)
             {
-               // cout<<s<<endl;
-                string cur=s.substr(j+1,i-j);
-              //  cout<<s.substr(1,2)<<endl;
-                //cout<<i<<" "<<j<<" "<<cur<<endl;
-                if(ans.length()==0 || cur.length()<ans.length())
-                    ans=cur;
+                flag2=1;
+                string str=s.substr(j+1,i-j);
                 
+                if(ans.length()==0 || str.length()<ans.length())
+                    ans=str;
                 j++;
                 char ch=s[j];
                 if(mp1[ch]==1)
                     mp1.erase(ch);
                 else
+                {
                     mp1[ch]--;
+                }
                 
                 if(mp1[ch]<mp2[ch])
+                {
                     mct--;
-                flag2=1;
-                ind++;
+                }
             }
             
             if(flag1==0 && flag2==0)
