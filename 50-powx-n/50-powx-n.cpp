@@ -34,13 +34,11 @@ public:
             if(N&1)
             {
                 ans=(ans*x);
-                N--;
             }
-            else
-            {
+         
                 x=x*x;
                 N>>=1;
-            }
+            
         }
         
         if(n<0)
