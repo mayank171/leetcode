@@ -1,48 +1,53 @@
 class Solution {
-public:
-    int check(vector<string> &strs,int ind,int m,int n,vector<vector<vector<int>>> &dp)
+private:
+    
+    int check(vector<pair<int,int>> &count,vector<string> &strs,int m,int n,int ind,int N,vector<vector<vector<int>>> &dp)
     {
-      //  cout<<m<<" "<<n<<" "<<ind<<endl;
-        if(ind<0)
+        if(ind==N)
         {
             return 0;
         }
-        if(m==0 && n==0)
-            return 0;
-        
         
         if(dp[ind][m][n]!=-1)
             return dp[ind][m][n];
         
-        int l=strs[ind].size();
-        int ct_1=0;int ct_0=0;
+        int take=0;
+        int notTake=0;
         
-        for(int j=0;j<l;j++)
+        if(m>=count[ind].first && n>=count[ind].second)
         {
-            if(strs[ind][j]=='0')
-                ct_0++;
-            else
-                ct_1++;
+            take=1+check(count,strs,m-count[ind].first,n-count[ind].second,ind+1,N,dp);
         }
         
-        int pick=0;int notpick=0;
+        notTake=0+check(count,strs,m,n,ind+1,N,dp);
         
-        if(ct_0<=m && ct_1<=n)
-            pick=1+check(strs,ind-1,m-ct_0,n-ct_1,dp);
-        notpick=0+check(strs,ind-1,m,n,dp);
-        
-       // cout<<ind<<" "<<max(pick,notpick)<<endl;
-        
-        return dp[ind][m][n]=max(pick,notpick);
+        return dp[ind][m][n]=max(take,notTake);
     }
     
+public:
     int findMaxForm(vector<string>& strs, int m, int n) {
-    
-        int N=strs.size();
         
-        vector<vector<vector<int>>> dp(N,vector<vector<int>>(m+1,vector<int>(n+1,-1)));
+       int N=strs.size();
+        vector<pair<int,int>> count(N);
         
-        return check(strs,N-1,m,n,dp);
+        vector<vector<vector<int>>> dp(N,vector<vector<int>> (m+1,vector<int>(n+1,-1)));
+        
+        for(int i=0;i<N;i++)
+        {
+            int l=strs[i].length();
+            int zero=0;
+            int one=0;
+            for(int j=0;j<l;j++)
+            {
+                if(strs[i][j]=='0')
+                    zero++;
+                else
+                    one++;
+            }
+            count[i]={zero,one};
+        }
+        
+        return check(count,strs,m,n,0,N,dp);
         
     }
 };
