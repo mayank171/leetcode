@@ -28,17 +28,16 @@ class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         
-        vector<int> inorder;
-        
         TreeNode* cur=root;
+        vector<int> ans;
         
-        while(cur!=NULL)
+        while(cur)
         {
-            if(cur->left==NULL)
-            {
-                inorder.push_back(cur->val);
-                cur=cur->right;
-            }
+             if(cur->left==NULL)
+             {
+                 ans.push_back(cur->val);
+                 cur=cur->right;
+             }
             else
             {
                 TreeNode* prev=cur->left;
@@ -55,59 +54,13 @@ public:
                 else
                 {
                     prev->right=NULL;
-                    inorder.push_back(cur->val);
+                    ans.push_back(cur->val);
                     cur=cur->right;
                 }
             }
         }
         
-        return inorder;
-        
-        
-//        vector<int> nodes;
-//        inorder(root,nodes);
-        
-//         return nodes;
-        
-//         vector<int> ans;
-        
-//         if(root==NULL)
-//             return ans;
-        
-//         stack<TreeNode*> stk;
-        
-//         stk.push(root);
-        
-//         int k=0;
-        
-//         while(!stk.empty())
-//         {
-//             TreeNode* node=stk.top();
-            
-//             while(node->left!=NULL && k==0)
-//             {
-//                 node=node->left;
-//                 stk.push(node);
-//             }
-            
-//             TreeNode* node1=stk.top();
-//             stk.pop();
-            
-//             ans.push_back(node1->val);
-            
-//             if(node1->right!=NULL)
-//             {
-//                 k=0;
-//                 stk.push(node1->right);
-//             }
-//             else
-//             {
-//                 k=-10001;       //pointer to remind don't go to the upper while loop
-//             }
-//         }
-        
-//         return ans;
-       
+        return ans;
         
     }
 };
