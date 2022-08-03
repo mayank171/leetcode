@@ -42,33 +42,48 @@ private:
     
     
     
+//     int check(TreeNode* root,int &ans)
+//     {
+//         if(root==NULL)
+//             return 0;
+        
+//         int l=check(root->left,ans);
+//         int r=check(root->right,ans);
+        
+//         if(l<0)
+//             l=0;
+        
+//         if(r<0)
+//             r=0;
+        
+//         ans=max(ans,l+r+root->val);
+        
+//         return max(l,r)+root->val;
+        
+//     }
+    
+    
+    
+    
+    
+    
+    
     int check(TreeNode* root,int &ans)
     {
         if(root==NULL)
-            return 0;
-        
+           return 0;
+           
         int l=check(root->left,ans);
         int r=check(root->right,ans);
         
-        if(l<0)
-            l=0;
+        int temp=max(max(l,r)+root->val,root->val);
         
-        if(r<0)
-            r=0;
+        int temp1=max(temp,l+r+root->val);
         
-        ans=max(ans,l+r+root->val);
+        ans=max(ans,temp1);
         
-        return max(l,r)+root->val;
-        
+        return temp;
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -95,9 +110,14 @@ public:
 //         }
             
         
-        int maxi=INT_MIN;
-        check(root,maxi);
+//         int maxi=INT_MIN;
+//         check(root,maxi);
         
-        return maxi;
+//         return maxi;
+        
+         int ans=-1e8;
+        check(root,ans);
+        
+        return ans;
     }
 };
