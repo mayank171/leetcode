@@ -11,40 +11,60 @@
  */
 class Solution {
 private:
-    TreeNode* check(vector<int> &preorder,vector<int> &inorder,unordered_map<int,int> &mp,int &ind,int left,int right)
+//     TreeNode* check(vector<int> &preorder,vector<int> &inorder,unordered_map<int,int> &mp,int &ind,int left,int right)
+//     {
+//         if(left>right)
+//             return NULL;
+        
+//         TreeNode* node=new TreeNode();
+//         int pivot=mp[preorder[ind]];
+//         node->val=inorder[pivot];
+//         ind++;
+        
+//         node->left=check(preorder,inorder,mp,ind,left,pivot-1);
+//         node->right=check(preorder,inorder,mp,ind,pivot+1,right);
+//         return node;
+//     }
+public:
+    
+    TreeNode* check(vector<int> &preorder,int &ind,int maxi)
     {
-        if(left>right)
+        if(ind==preorder.size())
             return NULL;
         
-        TreeNode* node=new TreeNode();
-        int pivot=mp[preorder[ind]];
-        node->val=inorder[pivot];
-        ind++;
+        if(preorder[ind]>maxi)
+            return NULL;
         
-        node->left=check(preorder,inorder,mp,ind,left,pivot-1);
-        node->right=check(preorder,inorder,mp,ind,pivot+1,right);
-        return node;
+        TreeNode* root=new TreeNode(preorder[ind++]);
+        root->left=check(preorder,ind,root->val);
+        root->right=check(preorder,ind,maxi);
+        return root;
+        
     }
-public:
+    
     TreeNode* bstFromPreorder(vector<int>& preorder) {
         
-        vector<int> inorder=preorder;
-        sort(inorder.begin(),inorder.end());
-        
-        unordered_map<int,int> mp;
-        
-        for(int i=0;i<inorder.size();i++)
-        {
-            mp[inorder[i]]=i;
-        }
-        
-        //TreeNode* root=new TreeNode();
         
         int ind=0;
+        return check(preorder,ind,1e8);
         
-        TreeNode* root=check(preorder,inorder,mp,ind,0,preorder.size()-1);
+//         vector<int> inorder=preorder;
+//         sort(inorder.begin(),inorder.end());
         
-        return root;
+//         unordered_map<int,int> mp;
+        
+//         for(int i=0;i<inorder.size();i++)
+//         {
+//             mp[inorder[i]]=i;
+//         }
+        
+//         //TreeNode* root=new TreeNode();
+        
+//         int ind=0;
+        
+//         TreeNode* root=check(preorder,inorder,mp,ind,0,preorder.size()-1);
+        
+//         return root;
         
     }
 };
