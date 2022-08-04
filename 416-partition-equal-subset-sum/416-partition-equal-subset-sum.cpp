@@ -1,153 +1,47 @@
 class Solution {
-private:
-
-//    bool check(vector<int> &nums,int size,vector<vector<int>> &adj,int ssf,int i,int adj_size,int sum_all)
-//     {
-//         if(i==size)
-//         {
-//             for(int j=0;j<adj_size;j++)
-//             {
-//                 if(adj[j].size()==0)
-//                     return false;
-//             }
-        
-            
-//             int sum=0;
-//             for(int j=0;j<adj[0].size();j++)
-//             {
-//                 sum+=adj[0][j];
-//             }
-            
-//             for(int j=1;j<adj_size;j++)
-//             {
-//                 int sum1=0;
-//                 for(int k=0;k<adj[j].size();k++)
-//                 {
-//                     sum1+=adj[j][k];
-//                 }
-                
-//                 if(sum1!=sum)
-//                 {
-//                     return false;
-//                 }
-         
-//             }
-            
-//             return true;
-//         }
-        
-//         for(int j=0;j<adj_size;j++)
-//         {
-//             int sum1=0;
-//             for(int k=0;k<adj[j].size();k++)
-//             {
-//                 sum1+=adj[j][k];
-//             }
-//             if(sum1>sum_all)
-//                 return false;
-//         }
-        
-//         for(int j=0;j<adj_size;j++)
-//         {
-//             int sum1=accumulate(adj[j].begin(),adj[j].end(),0);
-//             // cout<<sum1<<" ";
-//             // cout<<sum_all/size<<endl;
-//             if(sum1>sum_all)
-//                 return false;
-            
-//             if(adj[j].size()>0)
-//             {
-                
-//                  adj[j].push_back(nums[i]);
-//                 if(check(nums,size,adj,ssf,i+1,adj_size,sum_all))
-//                     return true;
-//                 adj[j].pop_back();
-//             }
-//             else
-//             {
-//                 adj[j].push_back(nums[i]);
-//                 if(check(nums,size,adj,ssf+1,i+1,adj_size,sum_all))
-//                     return true;
-//                 adj[j].pop_back();
-//                 break;
-//             }
-//         }
-        
-//         return false;
-//     }
-    bool normal(vector<vector<int>> &dp,vector<int> &arr,int size,int sum,int ind)
+public:
+    bool check(vector<vector<int>> &dp,vector<int> &nums,int ind,int sum)
     {
         if(ind==0)
         {
-            if(sum==arr[0])
+            if(nums[ind]==sum)
                 return true;
             return false;
+        }
+        
+        if(sum==nums[ind])
+        {
+            return true;
         }
         
         if(dp[ind][sum]!=-1)
             return dp[ind][sum];
         
-        int take=0;
-        if(arr[ind]<=sum)
-            take=normal(dp,arr,size,sum-arr[ind],ind-1);
-        int notTake=normal(dp,arr,size,sum,ind-1);
+        bool take=false;
+        bool notTake=false;
+        
+        if(nums[ind]<=sum)
+            take=check(dp,nums,ind-1,sum-nums[ind]);
+        notTake=check(dp,nums,ind-1,sum);
         
         return dp[ind][sum]=take|notTake;
     }
     
-public:
-    bool canPartition(vector<int>& arr) {
-
-        int size=arr.size();
+    
+    bool canPartition(vector<int>& nums) {
         
-        int sum=accumulate(arr.begin(),arr.end(),0);
+        
+        int sum=accumulate(nums.begin(),nums.end(),0);
         
         if(sum&1)
-        {
             return false;
-        }
         
         sum=sum/2;
         
-        vector<int> front(sum+1,0);
-        front[0]=1;
-        if(arr[0]<=sum)
-            front[arr[0]]=1;
+        int n=nums.size();
+        vector<vector<int>> dp(n,vector<int> (sum+1,-1));
         
-        for(int i=1;i<size;i++)
-        {
-            vector<int> cur(sum+1,0);
-            cur[0]=1;
-            for(int j=1;j<sum+1;j++)
-            {
-                int take=0;
-                if(arr[i]<=j)
-                {
-                    take=front[j-arr[i]];
-                }
-                int notTake=front[j];
-                cur[j]=take|notTake;
-            }
-            front=cur;
-        }
-        
-        return front[sum];
-        
-        //vector<vector<int>> dp(size,vector<int>(sum+1,-1));
-        
-       // return normal(dp,nums,size,sum,size-1);
-        
-//         sort(nums.rbegin(),nums.rend());
-        
-//         vector<vector<int>> adj(2);
-        
-//         int sum_all=accumulate(nums.begin(),nums.end(),0);
-//         sum_all/=2;
-        
-//         if(check(nums,size,adj,0,0,2,sum_all))
-//             return true;
-        
-//         return false;
+        return check(dp,nums,n-1,sum);
         
     }
 };
