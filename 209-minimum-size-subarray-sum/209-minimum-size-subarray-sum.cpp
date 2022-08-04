@@ -1,35 +1,30 @@
 class Solution {
 private:
-    
     int blackBox(vector<int> &nums,int n,int mid,int target)
     {
-        int ind=0;
-        
         int sum=0;
-        while(ind<mid)
+        
+        for(int i=0;i<mid;i++)
         {
-            sum+=nums[ind];
+            sum+=nums[i];
+        }
+        
+        if(sum>=target)
+            return true;
+        
+        int ind=0;
+        for(int i=mid;i<n;i++)
+        {
+            sum=sum-nums[ind]+nums[i];
+            
+            if(sum>=target)
+                return true;
+            
             ind++;
         }
         
-       // cout<<sum<<"--"<<endl;
-         if(sum>=target)
-                return mid;
-        
-        for(int i=1;i<=n-mid;i++)
-        {
-            sum-=nums[i-1];
-            sum+=nums[i+mid-1];
-           // cout<<sum<<endl;
-            if(sum>=target)
-                return mid;
-        }
-        
-       // cout<<sum<<"**"<<endl;
-        return INT_MAX;
-        
+        return false;
     }
-    
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
         
@@ -38,31 +33,26 @@ public:
         int low=1;
         int high=n;
         
-        int ans=INT_MAX;
+        int ans=0;
         
         while(low<=high)
         {
-            int mid=low+(high-low)/2;
+            int mid=(low+high)/2;
             
-            int val=blackBox(nums,n,mid,target);
+            int k=blackBox(nums,n,mid,target);
             
-            //cout<<val<<endl;
-            
-            if(val>=ans)
+            if(k)
             {
-                low=mid+1;
+                ans=mid;
+                high=mid-1;
             }
             else
             {
-                ans=val;
-                high=mid;
+                low=mid+1;
             }
         }
         
-        if(ans!=INT_MAX)
-            return ans;
-        
-        return 0; 
+        return ans;
         
     }
 };
