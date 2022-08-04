@@ -1,46 +1,49 @@
 class Solution {
-private:
-    int check(vector<vector<int>> &grid,int n,int m,int row,int col1,int col2,vector<vector<vector<int>>> &dp)
+public:
+    int check(vector<vector<vector<int>>> &dp, vector<vector<int>> &grid,int n,int m,int i,int j1,int j2)
     {
-        if(row>=n || col1<0 || col1>=m || col2<0 || col2>=m)
+        if(j1<0 || j1>=m || j2<0 || j2>=m)
             return 0;
         
-        if(dp[row][col1][col2]!=-1)
-            return dp[row][col1][col2];
-        
-        int curCherry=0;
-        if(col1==col2)
+        if(i==n-1)
         {
-            curCherry=grid[row][col1];
-        }
-        else
-        {
-            curCherry=grid[row][col1]+grid[row][col2];
+            if(j1==j2)
+                return dp[i][j1][j2]= grid[i][j1];
+            return dp[i][j1][j2]= grid[i][j1]+grid[i][j2];
         }
         
-        int maxCherry=0;
-        for(int i=-1;i<=1;i++)
+        if(dp[i][j1][j2]!=-1)
+            return dp[i][j1][j2];
+        
+        
+        int maxi=-1e8;
+        for(int x=-1;x<=1;x++)
         {
-            for(int j=-1;j<=1;j++)
+            for(int y=-1;y<=1;y++)
             {
-                int newCol1=col1+i;
-                int newCol2=col2+j;
-                maxCherry=max(maxCherry,check(grid,n,m,row+1,newCol1,newCol2,dp));
+                if(j1==j2)
+                {
+                    maxi=max(maxi,grid[i][j1]+check(dp,grid,n,m,i+1,x+j1,y+j2));
+                }
+                else
+                {
+                    maxi=max(maxi,grid[i][j1]+grid[i][j2]+check(dp,grid,n,m,i+1,x+j1,y+j2));
+                }
             }
         }
         
-        return dp[row][col1][col2]=maxCherry+curCherry;
-            
+        return dp[i][j1][j2]=maxi;
     }
-public:
+    
+    
     int cherryPickup(vector<vector<int>>& grid) {
         
         int n=grid.size();
         int m=grid[0].size();
         
-        vector<vector<vector<int>>> dp(n,vector<vector<int>> (m,vector<int>(m,-1)));
+        vector<vector<vector<int>>> dp(n,vector<vector<int>> (m,vector<int> (m,-1)));
         
-        return check(grid,n,m,0,0,m-1,dp);
+        return check(dp,grid,n,m,0,0,m-1);
         
     }
 };
