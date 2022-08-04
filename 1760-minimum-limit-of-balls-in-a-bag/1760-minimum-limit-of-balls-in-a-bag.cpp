@@ -1,32 +1,36 @@
 class Solution {
-private:
-    int blackBox(vector<int> &nums,int n,int mid)
+public:
+    
+    bool blackBox(vector<int> &nums,long int maxi,long int mid,int n)
     {
-        int maxi=0;
+        long int opr=0;
+        
         for(int i=0;i<n;i++)
         {
-            int x=(nums[i]-1)/mid;
-            maxi+=x;
+            opr+=(nums[i]-1)/mid;
+            if(opr>maxi)
+                return false;
         }
         
-        return maxi;
+        return true;
     }
-public:
+    
     int minimumSize(vector<int>& nums, int maxOperations) {
         
         int n=nums.size();
         
-        int low=1;
-        int high=*max_element(nums.begin(),nums.end());
+        long int low=1;
+        long int high=*max_element(nums.begin(),nums.end());
         
-        int ans=0;
+        long int ans=0;
+        
         while(low<=high)
         {
-            int mid=(low+high)/2;
+            long int mid=low+(high-low)/2;
             
-            int k=blackBox(nums,n,mid);
+            int k=blackBox(nums,maxOperations,mid,n);
             
-            if(k<=maxOperations)
+            if(k)
             {
                 ans=mid;
                 high=mid-1;
