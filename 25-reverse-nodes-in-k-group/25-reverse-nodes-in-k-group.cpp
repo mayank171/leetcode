@@ -55,8 +55,8 @@ public:
                 ct++;
             }
             
-            if(ct<k)
-                break;
+            // if(ct<k)
+            //     break;
             
             ct=0;
             while(ct<k)
