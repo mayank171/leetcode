@@ -27,7 +27,7 @@ public:
             int cost=q.front().second.first;
             int curK=q.front().second.second;
             
-            cout<<node<<" "<<cost<<" "<<curK<<endl;
+            //cout<<node<<" "<<cost<<" "<<curK<<endl;
             
             q.pop();
             
