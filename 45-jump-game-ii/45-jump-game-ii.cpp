@@ -2,26 +2,33 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         
-        int cur_reach=0;
-        int cur_max=0;
-        int jumps=0;
         int n=nums.size();
+        int jumps=1;
+        int curend=nums[0];
+        int maxreach=nums[0];
         
-        for(int i=0;i<n-1;i++)
+        if(n==1)
+            return 0;
+        
+        if(maxreach>=n-1)
+            return jumps;
+        
+        for(int i=0;i<n;i++)
         {
-            if(i+nums[i]>cur_max)
-            {
-                cur_max=i+nums[i];
-            }
+            maxreach=max(maxreach,i+nums[i]);
             
-            if(i==cur_reach)
+            if(maxreach>=n-1)
+                return 1+jumps;
+            if(i==maxreach)
+                break;
+            if(i==curend)
             {
                 jumps++;
-                cur_reach=cur_max;
+                curend=maxreach;
             }
         }
         
-        return jumps;
+        return 0;
         
     }
 };
