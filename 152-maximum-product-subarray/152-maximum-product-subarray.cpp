@@ -4,36 +4,20 @@ public:
         
         int n=arr.size();
         
-        int max_left=1;
-	    int maxi1=INT_MIN;
-	    int max_right=1;
-	    int maxi2=INT_MIN;
-	    
-	    for(int i=0;i<n;i++)
-	    {
-	        max_left=arr[i]*max_left;
-            maxi1=max(maxi1,max_left);
-	        if(max_left==0)
-            {
-                max_left=1;
-	            //continue;      
-            }
-	        
-           // cout<<maxi1<<endl;
-	    }
-	    
-	    for(int i=n-1;i>=0;i--)
-	    {
-	        max_right=arr[i]*max_right;
-	        maxi2=max(maxi2,max_right);
-            if(max_right==0)
-	        {
-                max_right=1;
-	            //continue;     
-            }
-          //  cout<<maxi2<<endl;
+        int curMax=1;
+        int curMin=1;
+        int ans=*max_element(arr.begin(),arr.end());
+        
+        for(int i=0;i<n;i++)
+        {
+            
+            int temp=curMax;
+            
+            curMax=max(curMax*arr[i],max(arr[i]*curMin,arr[i]));
+            curMin=min(temp*arr[i],min(arr[i]*curMin,arr[i]));
+            ans=max(ans,max(curMax,curMin));
         }
-	    
-	    return max(maxi1,maxi2);
+        
+        return ans;
     }
 };
