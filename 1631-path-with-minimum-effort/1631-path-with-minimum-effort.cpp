@@ -27,7 +27,7 @@ public:
             {
                 ans=min(ans,diff);
               //  cout<<"+"<<ans<<endl;
-                continue;
+                break;;
             }
             
             int dx[4]={-1,0,1,0};
