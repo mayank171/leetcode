@@ -17,6 +17,13 @@ public:
         if(root==NULL)
             return 0;
         
+        if(root->left==NULL && root->right==NULL)
+        {
+            maxi=max(maxi,root->val);
+            return max(0 ,root->val);
+        }
+        
+        
         int l=solve(root->left,maxi);
         int r=solve(root->right,maxi);
         
