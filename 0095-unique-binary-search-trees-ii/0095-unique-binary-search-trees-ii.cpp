@@ -13,17 +13,6 @@ class Solution {
 public:
    
     
-    void preorder(TreeNode* root)
-    {
-        if(root==NULL)
-            return ;
-        
-        cout<<root->val<<" ";
-        preorder(root->left);
-        preorder(root->right);
-        
-    }
-    
     vector<TreeNode*> solve(int start,int end)
     {
         if(end<1 || start>end)
@@ -33,17 +22,7 @@ public:
             return {new TreeNode(start)};
         }
         
-        if(end-start==1)
-        {
-            TreeNode* root=new TreeNode();
-            root->val=start;
-            root->right=new TreeNode(end);
-            TreeNode* root1=new TreeNode();
-            root1->val=end;
-            root1->left=new TreeNode(start);
-            
-            return {root,root1};
-        }
+       
         
         
         vector<TreeNode*> ans;
