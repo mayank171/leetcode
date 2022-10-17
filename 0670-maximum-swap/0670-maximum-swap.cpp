@@ -9,36 +9,25 @@ public:
         vector<int> maxi(n);
         maxi[n-1]=-1;
         
+        int largest=n-1;
+        
         for(int i=n-2;i>=0;i--)
         {
-            if(s[i]>s[i+1])
+            if(s[i]<=s[largest])
             {
-                if(maxi[i+1]==-1)
-                {
-                    maxi[i]=-1;
-                }
-                else if(s[maxi[i+1]]>=s[i])
-                {
-                    maxi[i]=maxi[i+1];
-                }
-                else
-                {
-                    maxi[i]=-1;
-                }
+                maxi[i]=largest;
             }
             else
             {
-                if(maxi[i+1]==-1)
-                {
-                    maxi[i]=i+1;
-                }
-                else 
-                    maxi[i]=maxi[i+1];
+                largest=i;
+                maxi[i]=-1;
             }
         }
         
         for(auto &it:maxi)
+        {
             cout<<it<<" ";
+        }
         cout<<endl;
         
         int ind1=0;
