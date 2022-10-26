@@ -2,28 +2,46 @@ class Solution {
 public:
     int carFleet(int target, vector<int>& position, vector<int>& speed) {
         
-        vector<pair<int,int>> vp;
         int n=position.size();
+        
+        vector<pair<int,int>> dis;
         
         for(int i=0;i<n;i++)
         {
-            vp.push_back({position[i],speed[i]});
+            dis.push_back({position[i],speed[i]});
         }
         
-        sort(vp.begin(),vp.end());
+        sort(dis.begin(),dis.end());
+        
+        vector<double> vp;
+        
+        for(int i=0;i<n;i++)
+        {
+            double x=(target-dis[i].first)/(double)dis[i].second;
+            vp.push_back(x);
+        }
+        
+        for(auto &it:vp)
+        {
+            cout<<it<<" ";
+        }
+        cout<<endl;
         
         int ct=1;
-        double curtime=(target-vp.back().first)/(double)vp.back().second;
+        double maxi=vp.back();
         
-        for(int i=n-2;i>=0;i--)
+        
+        for(int i=n-1;i>=0;i--)
         {
-            double time=(target-vp[i].first)/(double)vp[i].second;
-            if(time>curtime)
+            if(vp[i]>maxi)
             {
                 ct++;
-                curtime=time;
+                maxi=vp[i];
             }
+            
         }
+        
+        
         
         return ct;
         
