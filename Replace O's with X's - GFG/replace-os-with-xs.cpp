@@ -9,70 +9,65 @@ using namespace std;
 
 class Solution{
 public:
+
     int dx[4]={-1,0,1,0};
     int dy[4]={0,1,0,-1};
-    
-    int dfs(vector<vector<char>> &mat,vector<int> &vis,int row,int col,int n,int m,int pr,int pc)
+
+    void dfs(vector<vector<char>> &mat,vector<int> &vis,int r,int c,int n,int m)
     {
-       
-        vis[row*m+col]=1;
-        
-        for(int ind=0;ind<4;ind++)
+        vis[r*m+c]=1;
+        for(int i=0;i<4;i++)
         {
-            int ind_x=dx[ind]+row;
-            int ind_y=dy[ind]+col;
+            int ind_x=dx[i]+r;
+            int ind_y=dy[i]+c;
             
-            if(ind_x>=0 && ind_x<n && ind_y>=0 && ind_y<m && mat[ind_x][ind_y]=='O' && vis[ind_x*m+ind_y]==0)
+            if(ind_x>=0 && ind_x<n && ind_x>=0 && ind_y<m && mat[ind_x][ind_y]=='O' && vis[ind_x*m+ind_y]==0)
             {
-                dfs(mat,vis,ind_x,ind_y,n,m,pr,pc);
+                dfs(mat,vis,ind_x,ind_y,n,m);
             }
         }
         
     }
+  
 
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
+        // code here
+        vector<int> vis(n*m,0);
         
-        
-        set<pair<int,int>> st1;
-        
-        set<pair<int,int>> st;
+        vector<pair<int,int>> v;
         
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                if((i==0 || j==m-1 || i==n-1 || j==0) && mat[i][j]=='O')
+                if(mat[i][j]=='O' && ( i==0 || i==n-1 || j==0 || j==m-1))
                 {
-                    st1.insert({i,j});
+                    v.push_back({i,j});
                 }
-                else if(mat[i][j]=='O')
-                {
-                    st.insert({i,j});    
-                }
-                
             }
         }
         
+        int size=v.size();
         
-        vector<int> vis(n*m,0);
-        
-        for(auto &it:st1)
+        for(int i=0;i<size;i++)
         {
-            int i=it.first;
-            int j=it.second;
-           // cout<<i<<" "<<j<<endl;
-            dfs(mat,vis,i,j,n,m,-1,-1);
+            int r=v[i].first;
+            int c=v[i].second;
+            
+            dfs(mat,vis,r,c,n,m);
         }
         
-        for(auto &it:st)
+        for(int i=0;i<n;i++)
         {
-            if(vis[it.first*m+it.second]==0)
+            for(int j=0;j<m;j++)
             {
-                mat[it.first][it.second]='X';
+                if(mat[i][j]=='O' && vis[i*m+j]==0)
+                {
+                    mat[i][j]='X';
+                }
             }
         }
-        
         
         return mat;
         
