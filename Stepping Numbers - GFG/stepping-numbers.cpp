@@ -7,50 +7,48 @@ using namespace std;
 class Solution{
 public:
 
-    void solve(int dig,vector<int> &ans)
+    void solve(int x,vector<int> &v)
     {
-        if(dig>1e7)
-           return ;
+        if(x>1e7)
+           return;
         
-        int p=dig%10;
-        
-        if(p>0)
-        {
-            int x=dig*10+(p-1);
-            ans.push_back(x);
-            solve(x,ans);
-        }
+        int p=x%10;
         
         if(p<9)
         {
-            
-            int y=dig*10+(p+1);
-            ans.push_back(y);
-            solve(y,ans);
+            v.push_back(x*10+(p+1));
+            solve(x*10+(p+1),v);
+        }
         
+        if(p>0)
+        {
+            v.push_back(x*10+(p-1));
+            solve(x*10+(p-1),v);
         }
     }
 
     int steppingNumbers(int n, int m)
     {
-        vector<int> ans;
-        ans.push_back(0);
+        
+        vector<int> v;
+        v.push_back(0);
         
         for(int i=1;i<=9;i++)
         {
-           ans.push_back(i);
-           solve(i,ans);
+            v.push_back(i);
+            solve(i,v);
         }
         
-        int ct=0;
+        int ans=0;
+        int size=v.size();
         
-        for(auto &it:ans)
+        for(int i=0;i<size;i++)
         {
-            if(it>=n && it<=m)
-               ct++;
+            if(v[i]>=n && v[i]<=m)
+               ans++;
         }
         
-        return ct;
+        return ans;
         
     }
 };
