@@ -49,50 +49,31 @@ int main() {
 
 // } Driver Code Ends
 
-
-/* Tree node structure
-
-struct Node
-{
-    int data;
-    struct Node* left;
-    struct Node* right;
-
-    Node(int x){
-        data = x;
-        left = right = NULL;
-    }
-};*/
-
-Node* solve(int *in,int *post,int &ind,map<int,int> &mp,int left,int right)
+Node* solve(int *in,int *post,int &ind,int left,int right,map<int,int> &mp)
 {
     if(left>right)
        return NULL;
        
-    Node* node=new Node(post[ind]);
-    int x=ind;
-    ind--;
-    node->right=solve(in,post,ind,mp,mp[post[x]]+1,right);
+    int pind=mp[post[ind]];
+    Node* node=new Node(in[pind]);
     
-    node->left=solve(in,post,ind,mp,left,mp[post[x]]-1);
+    ind--;
+    node->right=solve(in,post,ind,pind+1,right,mp);
+    node->left=solve(in,post,ind,left,pind-1,mp);
     
     return node;
 }
 
-
 Node *buildTree(int in[], int post[], int n) {
     
     map<int,int> mp;
-    
     for(int i=0;i<n;i++)
     {
         mp[in[i]]=i;
     }
     
-   // reverse(post,post+n);
     int ind=n-1;
-    Node* root=solve(in,post,ind,mp,0,n-1);
     
-    return root;
+    return solve(in,post,ind,0,n-1,mp);
     
 }
