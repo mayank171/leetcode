@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -108,6 +108,7 @@ int main() {
     return 0;
 }
 
+
 // } Driver Code Ends
 
 
@@ -127,45 +128,92 @@ struct Node
  */
 
 //Function to return a list containing elements of left view of the binary tree.
-void check(Node* root,map<int,vector<int>> &mp)
-{
-    queue<pair<Node*,int>> q;
-    q.push({root,0});
-    
-    while(!q.empty())
-    {
-        Node* x=q.front().first;
-        int lev=q.front().second;
-        q.pop();
-        
-        mp[lev].push_back(x->data);
-        
-        if(x->left)
-           q.push({x->left,lev+1});
-        if(x->right)
-           q.push({x->right,lev+1});
-    }
-}
-
 vector<int> leftView(Node *root)
 {
-   // Your code here
+   if(root==NULL)
+      return {};
+    
+   queue<pair<Node*,int>> q;
+   q.push({root,0});
+   
+   map<int,vector<int>> mp;
+   mp[0].push_back(root->data);
+   
+   while(!q.empty())
+   {
+       Node* node=q.front().first;
+       int level=q.front().second;
+       q.pop();
+       
+       if(node->left)
+       {
+           q.push({node->left,level+1});
+           mp[level+1].push_back(node->left->data);
+       }
+       
+       if(node->right)
+       {
+           q.push({node->right,level+1});
+           mp[level+1].push_back(node->right->data);
+       }
+       
+   }
    
    vector<int> ans;
    
-   if(root==NULL)
-       return ans;
-       
-   map<int,vector<int>> mp;
    
-   check(root,mp);
+   
+//   for(auto &it:mp)
+//   {
+//       cout<<it.first<<"->"<<endl;
+//       for(auto &it1:it.second)
+//       {
+//           cout<<it1<<"-";
+//       }
+//       cout<<endl;
+//   }
+   
    
    for(auto &it:mp)
    {
-       vector<int> &v=it.second;
-       ans.push_back(v.front());
+       for(auto &it1:it.second)
+       {
+           ans.push_back(it1);
+           break;
+       }
    }
    
    return ans;
    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
