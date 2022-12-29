@@ -8,30 +8,34 @@ class Solution{
     public:
     //Function to find if there exists a triplet in the 
     //array A[] which sums up to X.
-    bool find3Numbers(int A[], int n, int X)
+    bool find3Numbers(int arr[], int n, int X)
     {
-        //Your Code Here
-        if(n==1 || n==2)
-          return false;
-          
-        sort(A,A+n);
+        sort(arr,arr+n);
         
-        set<int> st;
-        
-        for(int i=0;i<n;i++)
+        for(int i=0;i<n-2;i++)
         {
-            int target=X-A[i];
+            int j=i+1;
+            int k=n-1;
+            int target=X-arr[i];
             
-            if(st.find(target)!=st.end())
-               return true;
-             
-            for(int j=0;j<i;j++)
+            while(j<k)
             {
-                st.insert(A[i]+A[j]);
+                if(arr[j]+arr[k]==target)
+                {
+                    return 1;
+                }
+                else if(arr[j]+arr[k]>target)
+                {
+                    k--;
+                }
+                else
+                {
+                    j++;
+                }
             }
         }
         
-        return false;
+        return 0;
     }
 
 };
