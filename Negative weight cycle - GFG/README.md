@@ -1,7 +1,6 @@
 # Negative weight cycle
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given a weighted directed graph with n nodes and m edges. Nodes are labeled from 0 to n-1, the task is to check if it contains a negative weight cycle or not.<br>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a weighted directed graph with n nodes and m edges. Nodes are labeled from 0 to n-1, the task is to check if it contains a negative weight cycle or not.<br>
 <strong>Note:&nbsp;</strong>edges[i] is&nbsp;defined as u, v and weight.</span><br>
 &nbsp;</p>
 
@@ -11,7 +10,7 @@
 {2,0,-3}}
 <strong>Output: </strong>1
 <strong>Explanation: </strong>The graph contains negative weight
-cycle as 0-&gt;1-&gt;2-&gt;0 with weight -1,-2,-3,-1.</span>
+cycle as 0-&gt;1-&gt;2-&gt;0 with weight -1,-2,-3.</span>
 </pre>
 
 <p><span style="font-size:18px"><strong>Example 2:</strong></span></p>
@@ -36,5 +35,4 @@ You don't need to read or print anyhting. Your task is to complete the function&
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 &lt;= n &lt;= 100<br>
 1 &lt;= m &lt;= n*(n-1)</span><span style="font-size:18px">, where m is the total number of Edges in the directed graph.</span></p>
- <p></p>
-            </div>
+</div>
