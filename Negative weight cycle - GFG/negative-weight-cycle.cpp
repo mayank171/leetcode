@@ -1,46 +1,45 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 class Solution {
-private:
-  
 public:
 	int isNegativeWeightCycle(int n, vector<vector<int>>edges){
-	    // Code here
-	    int times=n-1;
-	    
-	    vector<int> dis(n,100000);
-	    dis[0]=0;
 	    
 	    int size=edges.size();
+	    vector<int> dist(n,1000000);
 	    
-	    while(times)
+	    for(int k=0;k<n-1;k++)
 	    {
 	        for(int i=0;i<size;i++)
 	        {
-	            if(dis[edges[i][0]]+edges[i][2]<dis[edges[i][1]])
+	            int src=edges[i][0];
+	            int dest=edges[i][1];
+	            int w=edges[i][2];
+	            if(dist[dest]>dist[src]+w)
 	            {
-	                dis[edges[i][1]]=dis[edges[i][0]]+edges[i][2];
+	                dist[dest]=dist[src]+w;
 	            }
 	        }
-	        times--;
 	    }
 	    
-	    for(int i=0;i<size;i++)
-	    {
-	        if(dis[edges[i][0]]+edges[i][2]<dis[edges[i][1]])
-	        {
-	            return 1;
-	        }
-	    }
-	    
-	    return 0;
+	   for(int i=0;i<size;i++)
+	   {
+	       int src=edges[i][0];
+	       int dest=edges[i][1];
+	       int w=edges[i][2];
+	       if(dist[dest]>dist[src]+w)
+	       {
+	           return 1;
+	       }
+	   }
+	   
+	   return 0;
 	}
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 int main(){
 	int tc;
 	cin >> tc;
@@ -58,4 +57,5 @@ int main(){
 		cout << ans <<"\n";
 	}
 	return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
