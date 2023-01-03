@@ -1,7 +1,6 @@
 # Rotten Oranges
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given a grid&nbsp;of dimension <strong>nxm</strong>&nbsp;where each cell in the grid&nbsp;can have values 0, 1 or 2 which has the following meaning:</span><br>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a grid&nbsp;of dimension <strong>nxm</strong>&nbsp;where each cell in the grid&nbsp;can have values 0, 1 or 2 which has the following meaning:</span><br>
 <span style="font-size:18px"><strong>0 </strong>: Empty cell </span><br>
 <span style="font-size:18px"><strong>1</strong> : Cells have fresh oranges </span><br>
 <span style="font-size:18px"><strong>2</strong> : Cells have rotten oranges </span></p>
@@ -39,10 +38,9 @@ You don't need to read or print anything, Your task is to complete the function&
 &nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Expected Time Complexity:&nbsp;</strong>O(n*m)<br>
-<strong>Expected Auxiliary Space:&nbsp;</strong>O(n)</span><br>
+<strong>Expected Auxiliary Space:&nbsp;</strong>O(n*m)</span><br>
 &nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
 1 ≤ n, m ≤ 500</span></p>
- <p></p>
-            </div>
+</div>
