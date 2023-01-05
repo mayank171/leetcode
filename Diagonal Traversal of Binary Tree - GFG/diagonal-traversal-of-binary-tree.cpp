@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 #define MAX_HEIGHT 100000
@@ -110,6 +110,7 @@ int main() {
     return 0;
 }
 
+
 // } Driver Code Ends
 
 
@@ -119,53 +120,31 @@ struct Node
     int data;
     Node* left, * right;
 }; */
-void check(Node* root,vector<int> adj[],int level)
-{
-    if(root==NULL)
-      return ;
-   // cout<<level<<" "<<root->data<<endl;
-    adj[level].push_back(root->data);
-    check(root->left,adj,level+1);
-    check(root->right,adj,level);
-    
-}
 
-void countLeft(Node* root,int &ctLevel,int cur)
-{
-    if(root==NULL)
-    {
-        ctLevel=max(ctLevel,cur);
-        return;
-    }
-    countLeft(root->left,ctLevel,cur+1);
-    countLeft(root->left,ctLevel,cur);
-    
-}
 
 vector<int> diagonal(Node *root)
 {
-   // your code here
-   int ct_level=0;int cur=0;
-   Node* temp=root;
-   
-   countLeft(temp,ct_level,cur);
-  // cout<<ct_level<<endl;
-  // cout<<ct_level<<endl;
-   
-   vector<int> adj[ct_level+100];
-   
-   check(root,adj,0);
-  
-   vector<int> ans;
-   
-   for(int i=0;i<ct_level+100;i++)
-   {
-       for(int j=0;j<adj[i].size();j++)
-       {
-           ans.push_back(adj[i][j]);
-       }
-   }
-   
-   return ans;
-   
+    vector<int> ans;
+    
+    queue<Node*> q;
+    q.push(root);
+    
+    while(!q.empty())
+    {
+        Node* node=q.front();
+        q.pop();
+        
+        
+        while(node)
+        {
+            ans.push_back(node->data);
+            if(node->left)
+            {
+                q.push(node->left);
+            }
+            node=node->right;
+        }
+    }
+    
+    return ans;
 }
