@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 #define MAX_HEIGHT 100000
@@ -90,58 +90,48 @@ Node* buildTree(string str)
 }
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 //Function to return a list containing the bottom view of the given tree.
 
 class Solution {
-  private:
-    void check(Node* root,map<int,map<int,vector<int>>> &mp)
-    {
-        queue<pair<Node*,pair<int,int>>> q;
+  public:
+    vector <int> bottomView(Node *root) {
         
-        q.push({root,{0,0}});
+        queue<pair<Node*,int>> q;
+        map<int,vector<int>> mp;
+        
+        q.push({root,0});
         
         while(!q.empty())
         {
-            Node* x=q.front().first;
-            int lev=q.front().second.first;
-            int vert=q.front().second.second;
+            Node* node=q.front().first;
+            int level=q.front().second;
+            mp[level].push_back(node->data);
             q.pop();
             
-            mp[vert][lev].push_back(x->data);
-            
-            if(x->left!=NULL)
-               q.push({x->left,{lev+1,vert-1}});
-            if(x->right!=NULL)
-               q.push({x->right,{lev+1,vert+1}});
-            
+            if(node->left)
+            {
+                q.push({node->left,level-1});
+            }
+            if(node->right)
+            {
+                q.push({node->right,level+1});
+            }
         }
-    }
-  public:
-    vector <int> bottomView(Node *root) {
-        // Your Code Here
-        map<int,map<int,vector<int>>> mp;
-        
-        check(root,mp);
         
         vector<int> ans;
         
         for(auto &it:mp)
         {
-            map<int,vector<int>> &it1=it.second;
-            vector<int> v;
-            if(!it1.empty())
-               v=std::prev(it1.end())->second;
-            
-            //vector<int> &v=it1.second;
-            ans.push_back(v[v.size()-1]);
+            ans.push_back(it.second.back());
         }
         
         return ans;
+        
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main() {
     int t;
@@ -162,4 +152,5 @@ int main() {
 }
 
 
-  // } Driver Code Ends
+
+// } Driver Code Ends
