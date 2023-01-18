@@ -6,43 +6,60 @@ using namespace std;
 class Solution {
 	public:
 	
-	    int solve(string &str1,string &str2,int ind1,int ind2,vector<vector<int>> &dp)
+	    int solve(string &str1,string &str2,int ind1,int ind2,int flag,vector<vector<int>> &dp)
 	    {
-	        
 	        if(ind1<0 || ind2<0)
-	           return 0;
-	           
-	        if(dp[ind1][ind2]!=-1)
-	           return dp[ind1][ind2];
+	        {
+	            return 0;
+	        }
 	        
-	        int y=0;
-	        int x=0;
+	        if(dp[ind1][ind2]!=-1)
+	        {
+	            return dp[ind1][ind2];
+	        }
 	        
 	        if(str1[ind1]==str2[ind2])
 	        {
 	            if(ind1==ind2)
 	            {
-	                x=max(solve(str1,str2,ind1,ind2-1,dp),solve(str1,str2,ind1-1,ind2,dp));        
+	                return dp[ind1][ind2]=max(solve(str1,str2,ind1-1,ind2,flag,dp),solve(str1,str2,ind1,ind2-1,flag,dp));
 	            }
-	            else
-	            {
-	                x=1+solve(str1,str2,ind1-1,ind2-1,dp);
-	            }
+	            return dp[ind1][ind2]=1+solve(str1,str2,ind1-1,ind2-1,flag,dp);
 	        }
 	        else
-	            y=max(solve(str1,str2,ind1-1,ind2,dp),solve(str1,str2,ind1,ind2-1,dp));
-	            
-	        return dp[ind1][ind2]=max(x,y);
+	        {
+	            return dp[ind1][ind2]=max(solve(str1,str2,ind1-1,ind2,flag,dp),solve(str1,str2,ind1,ind2-1,flag,dp));
+	        }
+	        
 	    }
 	
-		int LongestRepeatingSubsequence(string str){
+		int LongestRepeatingSubsequence(string s){
 		    
-		    int l=str.length();
 		    
+		    int l=s.length();
 		    vector<vector<int>> dp(l,vector<int>(l,-1));
+		    return solve(s,s,l-1,l-1,0,dp);
 		    
-		    return solve(str,str,l-1,l-1,dp);
+		   
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 };
 
