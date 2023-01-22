@@ -89,44 +89,46 @@ Node* buildTree(string str)
 
 
 // } Driver Code Ends
+//User function Template for C++
 
+//Node Structure
+/*
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+};
+*/
 
 class Solution{
   public:
     
-    int solve(Node* root,int flag,map<pair<Node*,int>,int> &dp)
+    int solve(Node* root,int flag,map<pair<Node*,int>,int> &mp)
     {
         if(root==NULL)
            return 0;
            
-        if(dp[{root,flag}]!=0)
-        {
-            return dp[{root,flag}];
-        }
+        if(mp[{root,flag}])
+           return mp[{root,flag}];
         
         if(flag==0)
         {
-            int l=solve(root->left,1,dp);
-            int r=solve(root->right,1,dp);
-            int l1=solve(root->left,0,dp);
-            int r1=solve(root->right,0,dp);
-            
-            return dp[{root,flag}]=max(root->data+l+r,l1+r1);
+            int x1=root->data+solve(root->left,1,mp)+solve(root->right,1,mp);
+            int y1=0+solve(root->left,flag,mp)+solve(root->right,flag,mp);
+            return mp[{root,flag}]=max(x1,y1);
         }
         else
         {
-            int l=solve(root->left,0,dp);
-            int r=solve(root->right,0,dp);
-            
-            return dp[{root,flag}]=l+r;
+            return mp[{root,flag}]=solve(root->left,0,mp)+solve(root->right,0,mp);
         }
     }
     
     int getMaxSum(Node *root) 
     {
-        map<pair<Node*,int>,int> mp;
-        return solve(root,0,mp);
-        
+        int flag=0;
+        map<pair<Node* ,int>,int> mp;
+        return solve(root,flag,mp);
     }
 };
 
