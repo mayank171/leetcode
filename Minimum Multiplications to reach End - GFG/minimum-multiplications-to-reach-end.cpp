@@ -7,6 +7,7 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
+// User function Template for C++
 
 class Solution {
   public:
@@ -35,34 +36,35 @@ class Solution {
         int n=arr.size();
         sort(arr.begin(),arr.end());
        // return solve(arr,n,start,end,0);
-        queue<int> q;
-        q.push(start%mod);
-        vector<int> vis(1e5,-1);
-        vis[start]=0;
+        queue<pair<int,int>> q;
+        q.push({start%mod,0});
+        vector<int> vis(1e5,0);
+        vis[start]=1;
         int ans=-1;
         while(!q.empty())
         {
-            int x=q.front();
+            int x=q.front().first;
+            int moves=q.front().second;
             q.pop();
             
             if(x==end)
             {
-                return ans=vis[x];
+                ans=moves;
+                break;
             }
             
             for(int i=0;i<n;i++)
             {
-                int p=(x*arr[i])%mod;
-                if(vis[p]==-1)
-                {
-                   q.push(p);
-                   vis[p]=vis[x]+1;    
-                }
                 
+                int p=(x*arr[i])%mod;
+                if(vis[p]==1)
+                   continue;
+                q.push({p,moves+1});
+                vis[p]=1;
             }
         }
         
-        return -1;
+        return ans;
     }
 };
 
