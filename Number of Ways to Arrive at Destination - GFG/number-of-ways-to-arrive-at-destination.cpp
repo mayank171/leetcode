@@ -28,16 +28,16 @@ class Solution {
         
         while(!pq.empty())
         {
-            long long node=pq.top().second;
-            long long d=pq.top().first;
+            int node=pq.top().second;
+            int d=pq.top().first;
             pq.pop();
             
             for(auto &it:adj[node])
             {
-                long long adjnode=it.first;
-                long long w=it.second;
-                long long p=(w+d);
-                
+                long long  adjnode=it.first;
+                long long  w=it.second;
+                long long  p=(w+d);
+
                 if(p<dist[adjnode])
                 {
                     dist[adjnode]=p;
