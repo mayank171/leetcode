@@ -36,15 +36,16 @@ class Solution {
         int n=arr.size();
         sort(arr.begin(),arr.end());
        // return solve(arr,n,start,end,0);
-        queue<pair<int,int>> q;
-        q.push({start%mod,0});
+        queue<pair<int,pair<int,int>>> q;
+        q.push({start%mod,{0,0}});
         vector<int> vis(1e5,0);
         vis[start]=1;
         int ans=-1;
         while(!q.empty())
         {
             int x=q.front().first;
-            int moves=q.front().second;
+            int moves=q.front().second.first;
+            int ind=q.front().second.second;
             q.pop();
             
             if(x==end)
@@ -53,13 +54,13 @@ class Solution {
                 break;
             }
             
-            for(int i=0;i<n;i++)
+            for(int i=ind;i<n;i++)
             {
                 
                 int p=(x*arr[i])%mod;
                 if(vis[p]==1)
                    continue;
-                q.push({p,moves+1});
+                q.push({p,{moves+1,ind}});
                 vis[p]=1;
             }
         }
