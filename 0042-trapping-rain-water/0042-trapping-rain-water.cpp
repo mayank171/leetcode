@@ -43,7 +43,7 @@ public:
                 }
                 else
                 {
-                    ans+=min(lmax,v[r])-v[l];
+                    ans+=lmax-v[l];
                 }
                 l++;
             }
@@ -55,7 +55,7 @@ public:
                 }
                 else
                 {
-                    ans+=min(v[l],rmax)-v[r];
+                    ans+=rmax-v[r];
                 }
                 r--;    
             }
