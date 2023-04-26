@@ -3,41 +3,81 @@ public:
     int trap(vector<int>& v) {
         
         int n=v.size();
-        vector<int> prefix(n);
-        prefix[0]=v[0];
+//         vector<int> prefix(n);
+//         prefix[0]=v[0];
         
-        for(int i=1;i<n;i++)
-        {
-            prefix[i]=max(v[i],prefix[i-1]);
-        }
+//         for(int i=1;i<n;i++)
+//         {
+//             prefix[i]=max(v[i],prefix[i-1]);
+//         }
         
-        vector<int> suffix(n);
-        suffix[n-1]=v[n-1];
+//         vector<int> suffix(n);
+//         suffix[n-1]=v[n-1];
         
-        for(int i=n-2;i>=0;i--)
-        {
-            suffix[i]=max(v[i],suffix[i+1]);
-        }
+//         for(int i=n-2;i>=0;i--)
+//         {
+//             suffix[i]=max(v[i],suffix[i+1]);
+//         }
         
-        //reverse(suffix.begin(),suffix.end());
+//         int ans=0;
+//         for(int i=0;i<n;i++)
+//         {
+//             ans+=(min(prefix[i],suffix[i])-v[i]);
+//         }
         
-        for(auto &it:prefix)
-            cout<<it<<" ";
-        cout<<endl;
+//         return ans;
         
-        for(auto &it:suffix)
-            cout<<it<<" ";
-        cout<<endl;
-        
-        
-        
+        int l=0;
+        int r=n-1;
+        int lmax=0;
+        int rmax=0;
         int ans=0;
-        for(int i=0;i<n;i++)
+        
+        while(l<r)
         {
-            ans+=(min(prefix[i],suffix[i])-v[i]);
+            if(v[l]<v[r])
+            {
+                if(v[l]>=lmax)
+                {
+                    lmax=v[l];
+                }
+                else
+                {
+                    ans+=min(lmax,v[r])-v[l];
+                }
+                l++;
+            }
+            else
+            {
+                if(v[r]>=rmax)
+                {
+                    rmax=v[r];
+                }
+                else
+                {
+                    ans+=min(v[l],rmax)-v[r];
+                }
+                r--;    
+            }
         }
         
         return ans;
         
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
