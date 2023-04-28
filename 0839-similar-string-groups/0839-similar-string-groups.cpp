@@ -82,7 +82,7 @@ public:
                 
                 if(ct==2 || ct==0)
                 {
-                    cout<<x<<" "<<y<<endl;
+                    //cout<<x<<" "<<y<<endl;
                     d.findUnion(i,j);    
                 }
             }
