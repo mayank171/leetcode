@@ -27,7 +27,7 @@ class Solution
 {
     public:
     
-    static bool comp(Job a,Job b)
+    static bool comp(Job a, Job b)
     {
         if(a.profit>b.profit)
            return true;
@@ -36,58 +36,80 @@ class Solution
     
     vector<int> JobScheduling(Job arr[], int n) 
     { 
-        sort(arr+0,arr+n,comp);
-        
-        set<int> st;
+        sort(arr,arr+n,comp);    
+    
         int maxi=0;
         for(int i=0;i<n;i++)
         {
             maxi=max(maxi,arr[i].dead);
         }
         
-        for(int i=1;i<maxi+1;i++)
+        set<int> st;
+        for(int i=0;i<maxi;i++)
         {
-            st.insert(i);
+            st.insert(i+1);
         }
         
-        int ans=0;
-        int ct=0;
+        int num=0;
+        int profit=0;
         for(int i=0;i<n;i++)
         {
-            int dead=arr[i].dead;
-            auto it=st.lower_bound(dead);
-            if(it!=st.end() && *it==dead)
+            if(st.size()==0)
+              continue;
+            int d=arr[i].dead;
+            auto it=st.lower_bound(d);
+            
+            if(it!=st.end())
             {
-                ct++;
-                ans+=arr[i].profit;
-                st.erase(it);
-            }
-            else if(it!=st.end() && *it!=dead)
-            {
-                if(it!=st.begin())
+                if(*it==d)
                 {
-                    ct++;
+                    num++;
+                    profit+=arr[i].profit;
+                    st.erase(it);
+                }
+                else if(it==st.begin())
+                {
+                    continue;
+                }
+                else
+                {
                     --it;
-                    ans+=arr[i].profit;
+                    num++;
+                    profit+=arr[i].profit;
                     st.erase(it);
                 }
             }
-            else if(it==st.end())
+            else
             {
-               if(st.size()>0)
-               {
-                  --it;
-                  ans+=arr[i].profit;
-                  st.erase(it);
-                  ct++;   
-               }
-                
+                --it;
+                num++;
+                profit+=arr[i].profit;
+                st.erase(it);
             }
         }
         
-        return {ct,ans};
+        return {num,profit};
     } 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //{ Driver Code Starts.
 // Driver program to test methods 
