@@ -22,6 +22,7 @@ public:
         
         int maxi=-1;
         int sum=0;
+        int flag=0;
         for(auto &it:mp)
         {
             // if(it.second<0)
@@ -36,6 +37,7 @@ public:
             
             if(sum>=k)
                maxi=max(maxi,it.first-1);
+            
             sum+=it.second;
         }
         
