@@ -39,8 +39,6 @@ public:
                 r+=p;
             }
             
-            cout<<"new"<<r<<endl;
-            
             if(mp.find(r)!=mp.end())
             {
                 if(i==n-1 && r==0 && mp[0]==-1)
@@ -50,7 +48,6 @@ public:
                 else
                 {
                     ans=min(ans,i-mp[r]);
-                    cout<<ans<<"ans"<<endl;        
                 }
             }
             
