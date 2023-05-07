@@ -10,36 +10,87 @@ using namespace std;
 
 class Solution{
 public:
-    int maxCoins(int n,vector<vector<int>> &ranges){
-        // Code here
-        sort(ranges.begin(),ranges.end());
-        int maximum[n];
-        maximum[n-1]=ranges[n-1][2];
-        for(int i=n-2;i>=0;i--){
-            maximum[i]=max(maximum[i+1],ranges[i][2]);
+
+    static bool comp(vector<int> &a,vector<int> &b)
+    {
+        if(a[0]<b[0])
+           return true;
+        else if(a[0]==b[0])
+        {
+            if(a[1]<b[1])
+               return true;
         }
-        int ans=0;
-        for(int i=0;i<n;i++){
-            int l = i + 1;
-            int h = n - 1;
-            int end = ranges[i][1];
-            while(l<=h){
-                int mid = l + (h-l)/2;
-                if(ranges[mid][0]>=end){
-                    h=mid-1;
+        
+        return false;
+    }
+
+    int maxCoins(int n,vector<vector<int>> &ranges){
+        
+        sort(ranges.begin(),ranges.end(),comp);
+        
+        vector<int> post(n);
+        post[n-1]=ranges[n-1][2];
+        
+        for(int i=n-2;i>=0;i--)
+        {
+            post[i]=max(post[i+1],ranges[i][2]);
+        }
+        
+        int res=0;
+        for(int i=0;i<n;i++)
+        {
+            int cost1=ranges[i][2];
+            
+            int low=i+1;
+            int high=n-1;
+            int ans=-1;
+            while(low<=high)
+            {
+                int mid=(low+high)/2;
+                
+                if(ranges[mid][0]>=ranges[i][1])
+                {
+                    ans=mid;
+                    high=mid-1;
                 }
-                else{
-                    l=mid+1;
+                else
+                {
+                    low=mid+1;
                 }
             }
-            if(l==n)
-            ans=max(ans,ranges[i][2]+0);
+            
+            if(ans!=-1)
+            {
+                int cost2=post[ans];
+                res=max(res,cost1+cost2);
+            }
             else
-            ans=max(ans,ranges[i][2]+maximum[l]);
+            {
+                res=max(res,cost1);
+            }
         }
-        return ans;
+        
+        return res;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //{ Driver Code Starts.
 
