@@ -2,137 +2,57 @@ class Solution {
 public:
     int minOperations(vector<int>& nums, int x) {
         
-        vector<long long> v1;
-        vector<long long> v2;
         int n=nums.size();
         
+        long long sum=0;
         for(int i=0;i<n;i++)
         {
-            v1.push_back(nums[i]);
-            v2.push_back(nums[i]);
+            sum+=nums[i];
         }
+        
+        sum-=x;
+        cout<<sum<<endl;
+        
+        if(sum==0)
+            return n;
+        
+        vector<long long> v;
+        v.push_back(nums[0]);
         
         for(int i=1;i<n;i++)
         {
-            v1[i]+=v1[i-1];
+            v.push_back(v.back()+nums[i]);
         }
         
-        if(v1.back()<x)
-            return -1;
+        int ans=1e9;
+        map<long long,int> mp;
+        mp[0]=-1;
         
-        for(int i=n-2;i>=0;i--)
-        {
-            v2[i]+=v2[i+1];
-        }
-        
-        reverse(v2.begin(),v2.end());
-        
-//         for(auto &it:v1)
-//         {
-//             cout<<it<<" ";
-//         }
-//         cout<<endl;
-        
-//         for(auto &it:v2)
-//         {
-//             cout<<it<<" ";
-//         }
-//         cout<<endl;
-        
-        
-        vector<int> mini;
         for(int i=0;i<n;i++)
         {
-            if(v1[i]==x)
+            long long p=v[i]-sum;
+           // cout<<p<<endl;
+            if(mp.find(p)!=mp.end())
             {
-                mini.push_back(i+1);
-            }
-        }
-        
-        for(int i=0;i<n;i++)
-        {
-            if(v2[i]==x)
-            {
-                mini.push_back(i+1);
-            }
-        }
-        
-        
-        
-        vector<pair<long long,pair<int,int>>> temp;
-        
-        for(int i=0;i<n;i++)
-        {
-            temp.push_back({v1[i],{1,i+1}});
-        }
-        
-        for(int i=0;i<n;i++)
-        {
-            temp.push_back({v2[i],{2,i+1}});
-        }
-        
-        
-        sort(temp.begin(),temp.end());
-        
-//         for(auto &it:temp)
-//         {
-//             cout<<it.first<<","<<it.second.first<<","<<it.second.second<<" ";
-//         }
-//         cout<<endl;
-        
-        int i=0;
-        int j=temp.size()-1;
-        
-        while(i<j)
-        {
-            //cout<<i<<" "<<j<<endl;
-            if(temp[i].second.first!=temp[j].second.first)
-            {
-                if(temp[i].first+temp[j].first==x)
-                {
-                    mini.push_back(abs(temp[i].second.second+temp[j].second.second));
-                    i++;
-                    j--;
-                }
-                else if(temp[i].first+temp[j].first<x)
-                {
-                    i++;
-                }
+                int ind=mp[p];
+                //cout<<"ind"<<ind<<endl;
+                int left=0;
+                int right=0;
+                if(ind==-1)
+                  left=0;
                 else
-                {
-                    j--;
-                }
+                  left=ind+1;
                 
+                right=n-i-1;
+                
+                ans=min(ans,left+right);
             }
-            else if(temp[i].first+temp[j].first<x)
-            {
-                i++;
-            }
-            else
-            {
-                j--;
-            }
+            mp[v[i]]=i;
         }
         
-        if(mini.size()==0)
+        if(ans==1e9)
             return -1;
+        return ans;
         
-        sort(mini.begin(),mini.end());
-        
-        return mini[0];
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
