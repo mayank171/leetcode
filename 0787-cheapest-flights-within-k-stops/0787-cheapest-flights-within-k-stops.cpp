@@ -23,14 +23,10 @@ public:
             int node=pq.top().second.second;
          //   cout<<stops<<" "<<dis<<" "<<node<<endl;
             pq.pop();
-            
-            if(stops<0)
-                continue;
-            
+        
             if(node==dst)
             {
-                ans=min(ans,dis);
-                
+                ans=min(ans,dis);     
             }
             
             for(auto &it:adj[node])
