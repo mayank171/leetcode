@@ -21,7 +21,6 @@ public:
             int stops=pq.top().first;
             int dis=pq.top().second.first;
             int node=pq.top().second.second;
-         //   cout<<stops<<" "<<dis<<" "<<node<<endl;
             pq.pop();
         
             if(node==dst)
