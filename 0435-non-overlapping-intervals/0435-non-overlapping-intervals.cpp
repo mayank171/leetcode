@@ -2,29 +2,28 @@ class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
         
-        sort(intervals.begin(),intervals.end());
         int n=intervals.size();
+        sort(intervals.begin(),intervals.end());
+        int e=-1e9;
         int ct=0;
-        int x=intervals[0][1];
         
-        for(int i=1;i<n;i++)
+        for(int i=0;i<n;i++)
         {
-            if(x<=intervals[i][0])
+            if(e<=intervals[i][0])
             {
-                x=intervals[i][1];
+                e=intervals[i][1];                
             }
-            else if(x<=intervals[i][1])
+            else if(e<intervals[i][1])
             {
                 ct++;
             }
-            else if(x>intervals[i][1])
+            else
             {
+                e=intervals[i][1];
                 ct++;
-                x=intervals[i][1];
             }
         }
         
         return ct;
-        
     }
 };
