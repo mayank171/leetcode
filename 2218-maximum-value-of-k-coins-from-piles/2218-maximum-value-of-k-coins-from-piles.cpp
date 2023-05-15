@@ -1,35 +1,42 @@
 class Solution {
 public:
     
-    int solve(vector<vector<int>> &piles,int n,int k,int ind,vector<vector<int>> &dp)
+    int solve(vector<vector<int>> &piles,int n,int ind,int k,vector<vector<int>> &dp)
     {
-        if(ind>=n || k==0)
+       // cout<<ind<<" "<<k<<endl;
+        if(ind>=n)
+        {
+            if(k==0)
+                return 0;
+            return -1e5;
+        }
+        
+        if(k==0)
+        {
             return 0;
+        }
         
         if(dp[ind][k]!=-1)
             return dp[ind][k];
         
-        int sum1=solve(piles,n,k,ind+1,dp);
+        int nottake=0;
+        nottake=solve(piles,n,ind+1,k,dp);
         
-        int sum2=0;
-        int ans=0;
-        
+        int take=0;
+        int sum=0;
         for(int i=0;i<piles[ind].size() && i<k;i++)
         {
-            ans+=piles[ind][i];
-            sum2=max(sum2,ans+solve(piles,n,k-i-1,ind+1,dp));
+            sum+=piles[ind][i];
+            take=max(take,sum+solve(piles,n,ind+1,k-i-1,dp));
         }
-        
-        return dp[ind][k]=max(sum1,sum2);
+                     
+        return dp[ind][k]=max(take,nottake);
     }
     
     int maxValueOfCoins(vector<vector<int>>& piles, int k) {
         
         int n=piles.size();
-        
-        vector<vector<int>> dp(1001,vector<int>(2001,-1));
-            
-        return solve(piles,n,k,0,dp);
-        
+        vector<vector<int>> dp(2001,vector<int> (2001,-1));
+        return solve(piles,n,0,k,dp);
     }
 };
