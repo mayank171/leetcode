@@ -1,26 +1,38 @@
+#include<bits/stdc++.h>
+
 class MyHashSet {
 public:
     
-    vector<int> v;
-    
+    vector<list<int>> v;
     MyHashSet() {
-        vector<int> temp(1e6+10);
+        vector<list<int>> temp(100);
         v=temp;
+    }
+    
+    list<int>::iterator search(int key)
+    {
+        int ind=key%100;
+        return find(v[ind].begin(),v[ind].end(),key);
     }
     
     void add(int key) {
         
-        v[key]=1;
+        int ind=key%100;
+        if(search(key)!=v[ind].end())
+            return;
+        v[ind].push_back(key);
     }
     
     void remove(int key) {
-   
-        v[key]=0;
+         int ind=key%100;
+         if(contains(key))
+             v[ind].erase(search(key));
     }
     
     bool contains(int key) {
         
-        if(v[key]==1)
+         int ind=key%100;
+        if(search(key)!=v[ind].end())
             return true;
         return false;
     }
