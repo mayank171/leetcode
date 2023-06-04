@@ -24,7 +24,7 @@ class Solution
                 ct++;
                 sum=a[i];
                 if(sum>mid)
-                   return 0;
+                   return 1;
             }
             else
             {
@@ -32,16 +32,13 @@ class Solution
             }
         }
         
-        // if(sum>0)
-        // {
-        //   maxi=max(maxi,sum);
-        //   ct++;
-        // }
-           
-           
-        //cout<<ct<<endl;
-        if(ct<m)
-           return 1;
+        if(sum>0)
+        {
+            ct++;
+        }
+     
+        if(ct>m)
+          return 1;
         return 0;
     }
     
@@ -70,11 +67,11 @@ class Solution
            
             if(k)
             {
-                high=mid-1;
+                low=mid+1;
             }
             else
             {
-                low=mid+1;
+                high=mid-1;
             }
         }
         
