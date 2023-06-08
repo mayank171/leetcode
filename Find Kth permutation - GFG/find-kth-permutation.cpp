@@ -15,6 +15,7 @@ public:
     {
         int fact=1;
         vector<int> v;
+        
         for(int i=1;i<n;i++)
         {
             fact*=i;
