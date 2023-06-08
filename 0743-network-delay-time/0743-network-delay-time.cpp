@@ -10,14 +10,14 @@ public:
         }
         
         vector<int> dis(n+1,1e9);
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+        queue<pair<int,int>> pq;
         pq.push({0,k});
         dis[k]=0;
         
         while(!pq.empty())
         {
-            int dist=pq.top().first;
-            int node=pq.top().second;
+            int dist=pq.front().first;
+            int node=pq.front().second;
             pq.pop();
             
             for(auto &it:adj[node])
