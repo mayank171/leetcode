@@ -1,38 +1,34 @@
 class Solution {
 public:
     
-    int solve(vector<int> &cuts,int n,int left,int right,vector<vector<int>> &dp)
+    int solve(vector<int> &cuts,int n,int i,int j,vector<vector<int>> &dp)
     {
-       // cout<<n<<" "<<left<<" "<<right<<endl;
-        if(left>right)
-        {
+        if(i>j)
             return 0;
-        }
         
-        if(dp[left][right]!=-1)
-            return dp[left][right];
+        if(dp[i][j]!=-1)
+            return dp[i][j];
         
-        int ans=1e9;
-        for(int i=left;i<=right;i++)
+        int mini=1e9;
+        for(int k=i;k<=j;k++)
         {
-            ans=min(ans,cuts[right+1]-cuts[left-1]+solve(cuts,cuts[i]-left,left,i-1,dp)+solve(cuts,n-cuts[i]-left,i+1,right,dp));
+            mini=min(mini,cuts[j+1]-cuts[i-1]+solve(cuts,cuts[k]-i,i,k-1,dp)+solve(cuts,n-cuts[k],k+1,j,dp));
         }
         
-        return dp[left][right]=ans;
-            
+        return dp[i][j]=mini;
     }
     
     int minCost(int n, vector<int>& cuts) {
         
-        int size=cuts.size();
         cuts.push_back(n);
         reverse(cuts.begin(),cuts.end());
         cuts.push_back(0);
         reverse(cuts.begin(),cuts.end());
-        size+=2;
-        sort(cuts.begin(),cuts.end());
-        vector<vector<int>> dp(size,vector<int>(size,-1));
-        return solve(cuts,n,1,size-2,dp);
         
+        sort(cuts.begin(),cuts.end());
+        
+        vector<vector<int>> dp(cuts.size()+1,vector<int>(cuts.size()+1,-1));
+        
+        return solve(cuts,n,1,cuts.size()-2,dp);
     }
 };
