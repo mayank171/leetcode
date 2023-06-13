@@ -1,18 +1,19 @@
 class MyHashSet {
 public:
     
-    vector<list<int>> v;
+    vector<list<int>> nums;
     
     MyHashSet() {
+        
         vector<list<int>> temp(100);
-        v=temp;
+        nums=temp;
     }
     
     list<int> :: iterator search(int key)
     {
         int ind=key%100;
         
-        return find(v[ind].begin(),v[ind].end(),key);
+        return find(nums[ind].begin(),nums[ind].end(),key);
     }
     
     void add(int key) {
@@ -20,21 +21,22 @@ public:
         if(contains(key))
             return ;
         int ind=key%100;
-        v[ind].push_back(key);
+        nums[ind].push_back(key);
     }
     
     void remove(int key) {
         
         if(!contains(key))
             return ;
+        
         int ind=key%100;
-        v[ind].erase(search(key));
+        nums[ind].erase(search(key));
     }
     
     bool contains(int key) {
         
         int ind=key%100;
-        if(search(key)!=v[ind].end())
+        if(search(key)!=nums[ind].end())
             return true;
         return false;
     }
