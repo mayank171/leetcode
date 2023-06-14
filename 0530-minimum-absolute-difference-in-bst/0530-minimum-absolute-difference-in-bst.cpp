@@ -17,33 +17,30 @@ public:
         if(root==NULL)
             return ;
         
-        if(root->left==NULL)
-        {
-            if(first==-1)
-                first=root->val;
-            else if(second==-1)
-                second=root->val;
+//         if(root->left==NULL)
+//         {
+//             if(first==-1)
+//                 first=root->val;
+//             else if(second==-1)
+//                 second=root->val;
             
-            if(first!=-1 && second!=-1)
-            {
-               ans=min(ans,abs(first-second));
-                first=second;
-                second=-1;
-            }
-               
-
-             cout<<root->val<<" "<<first<<" "<<second<<endl;
+//             if(first!=-1 && second!=-1)
+//             {
+//                ans=min(ans,abs(first-second));
+//                 first=second;
+//                 second=-1;
+//             }
             
-            solve(root->right,ans,first,second);
+//             solve(root->right,ans,first,second);
        
-            return;
-        }
+//             return;
+//         }
         
-       //  cout<<root->val<<" "<<first<<" "<<second<<endl;
-       
         solve(root->left,ans,first,second);
         
-        if(second==-1)
+        if(first==-1)
+            first=root->val;
+        else if(second==-1)
             second=root->val;
         else
         {
@@ -54,10 +51,10 @@ public:
         if(first!=-1 && second!=-1)
         {
             ans=min(ans,abs(first-second));
+            first=second;
+            second=-1;
         }
         
-        first=second;
-        second=-1;
         solve(root->right,ans,first,second);
         
     }
