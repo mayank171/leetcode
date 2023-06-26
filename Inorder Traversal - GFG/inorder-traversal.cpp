@@ -34,37 +34,31 @@ class Solution {
     // Function to return a list containing the inorder traversal of the tree.
     vector<int> inOrder(Node* root) {
         
-        Node* cur=root;
+        stack<Node*> stk;
+        stk.push(root);
+        
+        while(root && root->left)
+        {
+            root=root->left;
+            stk.push(root);
+        }
         
         vector<int> ans;
         
-        while(cur!=NULL)
+        while(!stk.empty())
         {
-            if(cur->left!=NULL)
+            Node* node=stk.top();
+            stk.pop();
+            ans.push_back(node->data);
+            if(node->right)
             {
-                Node* prev=cur->left;
-                while(prev->right!=NULL && prev->right!=cur)
+                node=node->right;
+                stk.push(node);
+                while(node->left)
                 {
-                    prev=prev->right;
+                    node=node->left;
+                    stk.push(node);
                 }
-                
-                if(prev->right==NULL)
-                {
-                    prev->right=cur;
-                    cur=cur->left;
-                }
-                else
-                {
-                   // ans.push_back(prev->data);
-                    prev->right=NULL;
-                    ans.push_back(cur->data);
-                    cur=cur->right;
-                }
-            }
-            else
-            {
-                ans.push_back(cur->data);
-                cur=cur->right;
             }
         }
         
@@ -72,6 +66,18 @@ class Solution {
         
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 //{ Driver Code Starts.
 
