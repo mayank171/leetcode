@@ -14,24 +14,15 @@ public:
         post[tweetCt]={userId,tweetId};
         mp[userId].insert(userId);
         
-        for(auto &it:mp)
-        {
-            cout<<it.first<<"->";
-            for(auto &it1:it.second)
-            {
-                cout<<it1<<" ";
-            }
-            cout<<endl;
-        }
     }
     
     vector<int> getNewsFeed(int userId) {
         
-        cout<<"----"<<endl;
+       // cout<<"----"<<endl;
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
         for(auto &it:mp[userId])
         {
-            cout<<userId<<" "<<it<<"frient"<<endl;
+          //  cout<<userId<<" "<<it<<"frient"<<endl;
             for(auto &it1:post)
             {
                 if(it1.second.first==it)
