@@ -8,42 +8,37 @@ public:
         {
             adj[edges[i][0]].push_back({edges[i][1],succProb[i]});
             adj[edges[i][1]].push_back({edges[i][0],succProb[i]});
-            
         }
         
-        vector<double> dis(n,0.0);
-        
         priority_queue<pair<double,int>> pq;
+        vector<double> vis(n,0.0);
+        vis[start]=1;
         pq.push({1,start});
         
-        
+        double ans=0;
         
         while(!pq.empty())
         {
-            double dist=pq.top().first;
+            double prob=pq.top().first;
             int node=pq.top().second;
-            //cout<<dist<<" "<<node<<endl;
             pq.pop();
+            
+            if(node==end)
+            {
+                ans=max(ans,prob);
+                
+            }
             
             for(auto &it:adj[node])
             {
-                int adjnode=it.first;
-                double wt=it.second;
-                
-                if(dist*wt>dis[adjnode])
+                if(vis[it.first]<prob*it.second)
                 {
-                    dis[adjnode]=dist*wt;
-                    pq.push({dis[adjnode],adjnode});
+                    vis[it.first]=prob*it.second;
+                    pq.push({prob*it.second,it.first});
                 }
             }
         }
         
-        // for(auto &it:dis)
-        // {
-        //     cout<<it<<" ";
-        // }
-        // cout<<endl;
-        
-        return dis[end];
+        return ans;
     }
 };
