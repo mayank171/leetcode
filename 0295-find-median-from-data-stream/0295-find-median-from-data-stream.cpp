@@ -1,60 +1,49 @@
 class MedianFinder {
 public:
-    map<int,int> mp;
-    int ct=0;
+    
+    priority_queue<int> maxi;
+    priority_queue<int,vector<int>,greater<int>> mini;
+    
+    
     MedianFinder() {
         
     }
     
     void addNum(int num) {
-        mp[num]++;
-        ct++;
+        maxi.push(num);
+        
+        if(maxi.size()>0 && mini.size()>0 && maxi.top()>mini.top())
+        {
+            int val=maxi.top();maxi.pop();
+            mini.push(val);
+        }
+        
+        if(maxi.size()>mini.size()+1)
+        {
+            int val=maxi.top();maxi.pop();
+            mini.push(val);    
+        }
+        
+        if(mini.size()>maxi.size()+1)
+        {
+            int val=mini.top();mini.pop();
+            maxi.push(val);    
+        }
     }
     
     double findMedian() {
-        
-        int x=ct/2;
-        if(ct&1)
+        if(maxi.size()>mini.size())
         {
-            int x=ct/2+1;
-            int t=0;
-            for(auto &it:mp)
-            {
-                t+=it.second;
-                if(t>=x)
-                {
-                    return it.first;
-                }
-            }
+            return maxi.top();
+        }
+        else if(maxi.size()<mini.size())
+        {
+            return mini.top();
         }
         else
         {
-            int x=ct/2;
-       //     cout<<ct/2<<endl;
-            int t=0;
-            for(auto it=mp.begin();it!=mp.end();it++)
-            {
-                t+=it->second;
-            //    cout<<t<<endl;
-                if(t==x)
-                {
-                    double ans=it->first;
-                    it++;
-                    ans+=it->first;
-                    return ans/2;
-                }
-                else if(t>x)
-                {
-                    double ans=it->first;
-         //           cout<<ans<<endl;
-                    ans+=ans;
-                    return ans/2;    
-                }
-            }
-            
+            return (maxi.top()+mini.top())/(double)2;
         }
-        
-        return 0;
     }
 };
 
