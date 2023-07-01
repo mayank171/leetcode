@@ -6,26 +6,25 @@ using namespace std;
 class Solution{
 public:
 
-    void solve(vector<int> &arr,int n,int k,int xorr,int ind,int &ct,int flag,vector<int> &temp)
+    int solve(vector<int> &arr,int n,int k,int xorr,int ind,vector<vector<int>> &dp)
     {
         if(ind==n)
         {
             if(xorr==k)
             {
-                // for(auto &it:temp)
-                //   cout<<it<<" ";
-                // cout<<endl;
-                ct++;
+                return 1;
             }
-            return ;
+            return 0;
         }
         
+        if(dp[xorr][ind]!=-1)
+           return dp[xorr][ind];
+        
         xorr^=arr[ind];
-    //    temp.push_back(arr[ind]);
-        solve(arr,n,k,xorr,ind+1,ct,1,temp);
-    //    temp.pop_back();
+        int x=solve(arr,n,k,xorr,ind+1,dp);
         xorr^=arr[ind];
-        solve(arr,n,k,xorr,ind+1,ct,flag,temp);
+        int y=solve(arr,n,k,xorr,ind+1,dp);
+        return dp[xorr][ind]= x+y;
     }
     
     int subsetXOR(vector<int> arr, int N, int K) {
@@ -33,9 +32,10 @@ public:
         vector<int> temp;
         int ct=0;
         int flag=0;
-        solve(arr,N,K,0,0,ct,flag,temp);
+        vector<vector<int>> dp(1000,vector<int>(1000,-1));
+        return solve(arr,N,K,0,0,dp);
         
-        return ct;
+      //  return ct;
     }
 };
 
