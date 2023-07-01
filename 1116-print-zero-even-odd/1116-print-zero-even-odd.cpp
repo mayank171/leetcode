@@ -1,98 +1,103 @@
 class ZeroEvenOdd {
 private:
     int n;
-    condition_variable cv;
     mutex m;
+    condition_variable cv;
     int turn;
-    int evn;
+    int flag;
+    int i;
+    int j;
     int e;
     int o;
-    int i;
 public:
     ZeroEvenOdd(int n) {
-        this->n = n;
         turn=0;
-        evn=-1;
-        //n=2*n;
+        flag=1;
+        i=1;
+        j=1;
         e=2;
         o=1;
-        i=0;
-
+        this->n = n;
     }
 
     // printNumber(x) outputs "x", where x is an integer.
     void zero(function<void(int)> printNumber) {
         
-        for(;i<n;)
+        unique_lock<mutex> lock(m);
+        while(i<=n)
         {
-            unique_lock<mutex> lock(m);
-            while(turn!=0 && i<n)
+            while(i<=n && turn!=0)
             {
                 cv.wait(lock);
             }
-
-            if(i<n)
+            
+            if(i<=n)
             {
                 printNumber(0);
-                turn=1;
-                if(i%2==0)
-                   evn=1;
-                else
-                   evn=-1;
+           //     cout<<0<<endl;
+                i++;
             }
-
+            else
+                break;
+            turn=(turn+1)%2;
+            if(i&1)
+                flag=1;
+            else
+                flag=-1;
             cv.notify_all();
-        }
 
+        }
     }
 
     void even(function<void(int)> printNumber) {
         
-        
-        for(;i<n;)
+        unique_lock<mutex> lock(m);
+        while(j<=n)
         {
-            unique_lock<mutex> lock(m);
-
-            while(evn!=-1 && i<n)
+            while(j<=n && flag!=1)
             {
                 cv.wait(lock);
             }
-
-            if(i<n)
+            
+            
+            if(j<=n)
             {
                 printNumber(e);
-                turn=0;
-                evn=0;
+         //       cout<<e<<endl;
+                j++;
                 e+=2;
-                i++;
             }
-
+            else
+                break;
+            turn=(turn+1)%2;
+            flag=0;
             cv.notify_all();
-        }
 
+        }
     }
 
     void odd(function<void(int)> printNumber) {
         
-        
-        for(;i<n;)
+        unique_lock<mutex> lock(m);
+        while(j<=n)
         {
-            unique_lock<mutex> lock(m);
-
-            while(evn!=1 && i<n)
+            while(j<=n && flag!=-1)
             {
                 cv.wait(lock);
             }
-
-            if(i<n)
+            
+            
+            if(j<=n)
             {
                 printNumber(o);
-                turn=0;
-                evn=0;
+      //          cout<<o<<endl;
+                j++;
                 o+=2;
-                i++;
             }
-
+            else
+                break;
+            turn=(turn+1)%2;
+            flag=0;
             cv.notify_all();
         }
     }
