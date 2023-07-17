@@ -5,46 +5,58 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 	public:
-		string FirstNonRepeating(string A){
+	string FirstNonRepeating(string s){
+	    // Code here
+	    int n=s.length();
 		    
-		    
-		    int n=A.length();
-		    
-		    vector<string> freq(n+1);
-		    
-		    string ans="";
-		    map<char,int> mp;
-		    
-		    for(int i=0;i<n;i++)
-		    {
-		        mp[A[i]]++;
-		        
-		        freq[mp[A[i]]].push_back(A[i]);
-		        
-		        //freq[mp[A[i]]][A[i]-'a']=1;
-		        
-		        if(mp[A[i]]>1)
-		           freq[mp[A[i]]-1].erase(remove(freq[mp[A[i]]-1].begin(),freq[mp[A[i]]-1].end(),A[i]),freq[mp[A[i]]-1].end());
-		        
-		      //  if(mp[A[i]]>1)
-		      //  {
-		      //      freq[mp[A[i]]-1][A[i]-'a']--;
-		      //  }
-		        
-		       if(freq[1].size()==0)
-		       {
-		           ans+='#';
-		       }
-		       else
-		       {
-		           ans+=freq[1][0];
-		       }
-		       
-		    }
-		    
-		    return ans;
-		    
-		}
+        string ans="";
+        
+        vector<int> freq(26,0);
+        set<char> st;
+        queue<char> q;
+        
+        for(int i=0;i<n;i++)
+        {
+            char ch=s[i];
+            freq[ch-'a']++;
+            
+            if(freq[ch-'a']==1)
+            {
+               if(st.find(ch)==st.end())
+               {
+                   st.insert(ch);
+                   q.push(ch);
+               }
+            }
+            else if( freq[ch-'a']>1)
+            {
+               st.erase(ch);
+               queue<char> q1;
+               while(!q.empty())
+               {
+                   if(q.front()!=ch)
+                      q1.push(q.front());
+                   q.pop();
+               }
+               q=q1;
+            }
+               
+            if(st.size()>0)
+            {
+                char first=q.front();
+               // q.pop();
+              //  st.erase(first);
+                ans+=first;
+            }
+            else
+            {
+                ans+='#';
+            }
+        }
+        
+        
+        return ans;
+	}
 
 };
 
