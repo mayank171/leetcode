@@ -1,80 +1,100 @@
 class Solution {
 public:
     
-    double dfs(map<string,vector<pair<string,double>>> &mp,string &s1,string &s2,set<string> &vis)
+    bool dfs(map<string,vector<pair<string,double>>> &mp, string u,string v,set<pair<string,string>> &vis,double &x)
     {
-        if(mp.find(s1)==mp.end() || mp.find(s2)==mp.end())
-            return -1.0;
+       // cout<<u<<" "<<x<<endl;
+        if(u==v)
+            return true;
         
-        if(s1==s2)
-            return 1.0;
-        
-        vis.insert(s1);
-        
-        double val=1.0;
-        for(auto &it:mp[s1])
+        for(auto &it:mp[u])
         {
-            if(vis.find(it.first)==vis.end())
+            string adjnode=it.first;
+            double dist=it.second;
+            
+            if(vis.find({u,adjnode})!=vis.end())
             {
-                double ans= dfs(mp,it.first,s2,vis);
-                if(ans!=-1)
-                    return ans*it.second;
+                vis.erase({u,adjnode});
+                double temp=x;
+                x*=dist;
+                if(dfs(mp,adjnode,v,vis,x))
+                    return true;
+                vis.insert({u,adjnode});
+                x/=dist;    
             }
         }
         
-        return -1;
+        return false;
     }
     
-    vector<double> calcEquation(vector<vector<string>>& eq, vector<double>& values, vector<vector<string>>& q) {
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
         
-        int n1=eq.size();
-        int n2=values.size();
-        
-        int qs=q.size();
-        
-        vector<pair<int,double>> adj[26];
-        set<char> st;
+        set<string> st;
+        int size=equations.size();
+        for(int i=0;i<size;i++)
+        {
+            string u=equations[i][0];
+            string v=equations[i][1];
+            st.insert(u);
+            st.insert(v);
+        }
         
         map<string,vector<pair<string,double>>> mp;
         
-        for(int i=0;i<n1;i++)
+        for(int i=0;i<size;i++)
         {
-            string s1=eq[i][0];
-            string s2=eq[i][1];
-            
-            mp[s1].push_back({s2,values[i]});
-            mp[s2].push_back({s1,1/values[i]});
+            string u=equations[i][0];
+            string v=equations[i][1];
+            mp[u].push_back({v,values[i]});
+            mp[v].push_back({u,1/values[i]});
         }
         
+        // for(auto &it:mp)
+        // {
+        //     cout<<it.first<<"->";
+        //     for(auto &it1:it.second)
+        //     {
+        //         cout<<it1.first<<","<<it1.second<<" ";
+        //     }
+        //     cout<<endl;
+        // }
+        // cout<<endl;
+        
+        int qsize=queries.size();
         vector<double> ans;
         
-        for(int i=0;i<qs;i++)
+        for(int i=0;i<qsize;i++)
         {
-            string s1=q[i][0];
-            string s2=q[i][1];
+            string u=queries[i][0];
+            string v=queries[i][1];
             
-            set<string> vis;
-            double res=dfs(mp,s1,s2,vis);
-            ans.push_back(res);
+            if(st.find(u)==st.end() || st.find(v)==st.end())
+            {
+                ans.push_back(-1);        
+            }
+            else if(u==v)
+            {
+                ans.push_back(1);
+            }
+            else
+            {
+                set<pair<string,string>> vis;
+                for(int i=0;i<size;i++)
+                {
+                    string u=equations[i][0];
+                    string v=equations[i][1];
+                    vis.insert({u,v});
+                    vis.insert({v,u});
+                }
+                
+                double x=1;
+                if(dfs(mp,u,v,vis,x))
+                   ans.push_back(x);
+                else
+                   ans.push_back(-1);
+            }
         }
         
         return ans;
-        
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
