@@ -1,79 +1,77 @@
 class Solution {
 public:
     
-    int solve(int req,vector<int> &vp,int ind,int cur,vector<vector<int>> &dp,vector<vector<int>> &choice)
+    int solve(vector<int> &v,int size,int n,int ind,int val,vector<vector<int>> &dp,vector<vector<int>> &taken)
     {
-        if(cur==req)
+        if(val==pow(2,n)-1)
         {
             return 0;
         }
         
-        if(ind==vp.size())
+        if(ind==size)
         {
+          
             return 1e5;
         }
         
-        if(dp[ind][cur]!=-1)
-            return dp[ind][cur];
-       
+        if(dp[ind][val]!=-1)
+            return dp[ind][val];
+        
         int take=1e5;
-        int x=cur;
-        cur=cur|vp[ind];
-        take=solve(req,vp,ind+1,cur,dp,choice)+1;
-        cur=x;
+        take=1+solve(v,size,n,ind+1,val|v[ind],dp,taken);
         int nottake=1e5;
-        nottake=solve(req,vp,ind+1,cur,dp,choice);
+        nottake=solve(v,size,n,ind+1,val,dp,taken);
         
         if(take<nottake)
-            choice[ind][cur]=1;
+            taken[ind][val]=1;
         
-        return dp[ind][cur]=min(take,nottake);
+        return dp[ind][val]=min(take,nottake);
     }
     
     vector<int> smallestSufficientTeam(vector<string>& req_skills, vector<vector<string>>& people) {
         
-        int req=pow(2,req_skills.size())-1;
-        
+        int n=req_skills.size();
         map<string,int> mp;
-        int ct=0;
         
-        for(auto &it:req_skills)
+        for(int i=0;i<n;i++)
         {
-            mp[it]=ct;
-            ct++;
+            mp[req_skills[i]]=i;
         }
         
-        vector<int> vp;
-        for(int i=0;i<people.size();i++)
+        vector<int> v;
+        int size=people.size();
+        
+        for(int i=0;i<size;i++)
         {
             int x=0;
             for(int j=0;j<people[i].size();j++)
             {
-                x=(x|(1<<mp[people[i][j]]));
+                x=x|(1<<mp[people[i][j]]);
             }
-            
-            vp.push_back(x);
+            v.push_back(x);
         }
         
+        vector<vector<int>> dp(size,vector<int>(pow(2,n)+100,-1));
+        vector<vector<int>> taken(size,vector<int>(pow(2,n)+100,0));
         
-        vector<vector<int>> dp(people.size(),vector<int>((1<<req_skills.size())+10,-1));
-        vector<vector<int>> choice(people.size(),vector<int>((1<<req_skills.size())+10,-1));
-        int ans=solve(req,vp,0,0,dp,choice);
-        cout<<ans<<endl;
+        int ans=solve(v,size,n,0,0,dp,taken);
         
+        int x=0;
         vector<int> res;
-        int mask=0;
-        for(int i=0;i<people.size();i++)
+        
+        for(int i=0;i<size;i++)
         {
-            if(choice[i][mask]==1)
+            if(taken[i][x]!=0)
             {
                 res.push_back(i);
-                mask|=vp[i];
+                x|=v[i];
             }
-            if(mask==req)
+            
+            if(x==pow(2,n)-1)
                 break;
         }
         
         return res;
+        
     }
 };
