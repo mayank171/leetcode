@@ -5,8 +5,8 @@ public:
         if(edges.size()==0)
             return {0};
         
-        vector<int> indeg(n);
         vector<int> adj[n];
+        vector<int> indeg(n,0);
         
         for(int i=0;i<edges.size();i++)
         {
@@ -19,6 +19,8 @@ public:
             indeg[u]++;
             indeg[v]++;
         }
+        
+        
         
         queue<int> q;
         for(int i=0;i<n;i++)
@@ -34,7 +36,6 @@ public:
         {
             int size=q.size();
             ct-=size;
-            
             for(int i=0;i<size;i++)
             {
                 int node=q.front();
@@ -44,11 +45,11 @@ public:
                 {
                     indeg[it]--;
                     if(indeg[it]==1)
+                    {
                         q.push(it);
+                    }
                 }
             }
-            
-            
         }
         
         vector<int> ans;
@@ -61,3 +62,18 @@ public:
         return ans;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
