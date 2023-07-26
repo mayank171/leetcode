@@ -3,35 +3,30 @@ public:
     
     bool isPalindrome(string &s)
     {
-        int l=s.length();
-        for(int i=0;i<l;i++)
+        for(int i=0,j=s.length()-1;i<=j;i++,j--)
         {
-            if(s[i]!=s[l-i-1])
+            if(s[i]!=s[j])
                 return false;
         }
+        
         return true;
     }
     
-    void solve(string &s,int n,vector<vector<string>> &ans,vector<string> &temp,int ind)
+    void solve(string &s,int ind,int n,vector<vector<string>> &ans,vector<string> &temp)
     {
-       // cout<<ind<<endl;
         if(ind==n)
         {
-            // for(auto &it:temp)
-            //     cout<<it<<" ";
-            // cout<<endl;
             ans.push_back(temp);
-            return;
+            return ;
         }
         
         for(int i=ind;i<n;i++)
         {
             string str=s.substr(ind,i-ind+1);
-            //cout<<str<<endl;
             if(isPalindrome(str))
             {
                 temp.push_back(str);
-                solve(s,n,ans,temp,i+1);
+                solve(s,i+1,n,ans,temp);
                 temp.pop_back();
             }
         }
@@ -40,10 +35,10 @@ public:
     vector<vector<string>> partition(string s) {
         
         int n=s.length();
+        
         vector<vector<string>> ans;
         vector<string> temp;
-        
-        solve(s,n,ans,temp,0);
+        solve(s,0,n,ans,temp);
         
         return ans;
     }
