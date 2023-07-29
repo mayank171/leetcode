@@ -1,16 +1,11 @@
 # Write your MySQL query statement below
-with t1 as
-(select * from students cross join subjects)
+with cte1 as
+(select * from students cross join subjects order by students.student_id),
 
-,t2 as
-(select student_id,subject_name,count(subject_name) as ctr from examinations group by student_id,subject_name)
+cte2 as
+(select *,count(*) as attended_exams from examinations group by student_id,subject_name)
 
-select t1.student_id,
-t1.student_name,
-t1.subject_name,
-case when t2.ctr is not null then t2.ctr
-else 0 end 
-as attended_exams
-from t1 left join t2 on 
-t1.student_id=t2.student_id and t1.subject_name=t2.subject_name 
-order by t1.student_id,t1.subject_name;
+select cte1.student_id,cte1.student_name,cte1.subject_name,
+case when cte2.attended_exams is NULL then 0 
+else cte2.attended_exams end as attended_exams
+from cte1 left join cte2 on cte1.student_id=cte2.student_id and cte1.subject_name=cte2.subject_name order by student_id,subject_name;
