@@ -7,36 +7,36 @@ using namespace std;
 class Solution{
   public:
     // arr[] : the input array
-    // N : size of the array arr[]
     
-    //Function to return length of longest subsequence of consecutive integers.
-    int findLongestConseqSubseq(int arr[], int n)
+    
+    int findLongestConseqSubseq(int arr[], int N)
     {
-        sort(arr,arr+n);
-        int ans=0;
+        vector<int> v(1e5+10,0);
         
-        vector<int> temp;
-        temp.push_back(arr[0]);
-        
-        for(int i=1;i<n;i++)
+        for(int i=0;i<N;i++)
         {
-            if(temp.back()==arr[i])
-               continue;
-            temp.push_back(arr[i]);
+            v[arr[i]]=1;
         }
         
-        for(int i=0;i<temp.size();i++)
+        
+        int ans=0;
+        for(int i=0;i<1e5+10;i++)
         {
-            int start=i;
-            int cur=temp[i];
-            int j=i;
-            while((j<temp.size() && j-start==temp[j]-cur))
+            if(v[i]==1)
             {
-                j++;
+                int j=i;
+                int ct=0;
+                while(j<1e5+10 && v[j]==1)
+                {
+                    ct++;
+                    j++;
+                }
+                
+                if(ct>ans)
+                   ans=max(ct,ans);
+                
+                i=j;
             }
-            ans=max(ans,(j-start));
-         //   cout<<j<<" "<<start<<endl;
-            i=j-1;
         }
         
         return ans;
