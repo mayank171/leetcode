@@ -13,12 +13,13 @@ public:
         
         sort(arr,arr+n);
         int ans=arr[n-1]-arr[0];
+        
         int maxi=-1e9;
         int mini=1e9;
-        for(int i=1;i<n;i++)
+        for(int i=0;i<n;i++)
         {
-            maxi=max(arr[i-1]+k,arr[n-1]-k);
-            mini=min(arr[0]+k,arr[i]-k);
+            maxi=max(arr[i]+k,arr[n-1]-k);
+            mini=min(arr[0]+k,arr[i+1]-k);
             
             ans=min(ans,maxi-mini);
         }
