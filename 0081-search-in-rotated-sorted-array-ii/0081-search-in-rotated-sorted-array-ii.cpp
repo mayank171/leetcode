@@ -1,6 +1,7 @@
 class Solution {
 public:
-    bool search(vector<int>& nums, int key) {
+    bool search(vector<int>& nums, int target) {
+        
         
         vector<int> arr;
         
@@ -12,36 +13,67 @@ public:
             }
         }
         
-        if(arr.size()==0 || arr.back()!=nums[nums.size()-1])
+        if(nums[nums.size()-1]!=nums[0])
             arr.push_back(nums[nums.size()-1]);
+        
+        if(arr.size()==0)
+        {
+            arr.push_back(nums[0]);
+            if(arr[0]==target)
+                return true;
+            return false;
+        }
         
         int n=arr.size();
         int low=0;
         int high=n-1;
         
+        
         while(low<=high)
         {
             int mid=(low+high)/2;
             
-            if(arr[mid]==key)
+          //  cout<<low<<" "<<high<<endl;
+            
+            if(arr[mid]==target)
+            {
                 return true;
-            else if(arr[mid]>=arr[low])
-            {
-                if(arr[mid]>key && arr[low]<=key)
-                    high=mid-1;
-                else
-                    low=mid+1;
             }
-            else if(arr[mid]<arr[high])
+            else if(arr[mid]>=arr[low] && arr[high]<=arr[mid])
             {
-                if(arr[mid]<key && arr[high]>=key)
-                    low=mid+1;
-                else
+                if(target>=arr[low] && target<=arr[mid])
+                {
                     high=mid-1;
+                }
+                else
+                {
+                    low=mid+1;
+                }
+            }
+            else if(arr[mid]>=arr[low] && arr[high]>=arr[mid])
+            {
+                if(target>=arr[low] && target<=arr[mid])
+                {
+                    high=mid-1;
+                }
+                else
+                {
+                    low=mid+1;
+                }
+            }
+            else if(arr[mid]<=arr[low] && arr[high]>=arr[mid])
+            {
+                if(target>=arr[mid] && target<=arr[high])
+                {
+                    low=mid+1;
+                }
+                else
+                {
+                    high=mid-1;
+                }
             }
         }
         
         return false;
-        
     }
 };
