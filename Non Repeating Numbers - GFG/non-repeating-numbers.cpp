@@ -8,39 +8,76 @@ class Solution
 public:
     vector<int> singleNumber(vector<int> nums) 
     {
-        int x=0;
         int n=nums.size();
         
+        int x=0;
         for(int i=0;i<n;i++)
         {
-            x=(x^nums[i]);
+            x^=nums[i];
         }
         
-        int y=x&(-x);
+      //  cout<<x<<endl;
         
-        int set1=0;
-        int set2=0;
+        vector<int> v1;
+        vector<int> v2;
+        
+        int ind=-1;
+        for(int i=0;i<=31;i++)
+        {
+            int p=x&(1<<i);
+            if(p>0)
+            {
+                ind=i;
+                break;
+            }
+        }
+        
         for(int i=0;i<n;i++)
         {
-            if(nums[i]&y)
+            int p=nums[i]&(1<<ind);
+            if(p>0)
             {
-                set1^=nums[i];
+                v1.push_back(nums[i]);
             }
             else
             {
-                set2^=nums[i];
+                v2.push_back(nums[i]);
             }
         }
         
+        int ans1=0;
+        for(auto &it:v1)
+        {
+            ans1^=it;
+        }
+        
+        int ans2=0;
+        for(auto &it:v2)
+        {
+            ans2^=it;
+        }
+        
         vector<int> ans;
-        ans.push_back(set1);
-        ans.push_back(set2);
+        ans.push_back(ans1);
+        ans.push_back(ans2);
         
         sort(ans.begin(),ans.end());
         
         return ans;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 //{ Driver Code Starts.
 int main(){
