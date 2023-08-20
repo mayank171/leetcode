@@ -12,13 +12,13 @@ public:
 		of occurrences of x, otherwise returns 0. */
 	int count(int arr[], int n, int x) {
 	    
-	    int ind1=lower_bound(arr,arr+n,x)-&arr[0];
-	    int ind2=upper_bound(arr,arr+n,x)-&arr[0];
+	    int ind1=lower_bound(arr,arr+n,x)-arr;
+	    int ind2=upper_bound(arr,arr+n,x)-arr;
 	    
-	    if(ind1==n)
+	    if(ind1==n || ind2-ind1<=0)
 	       return 0;
+	       
 	    return ind2-ind1;
-	    
 	}
 };
 
