@@ -4,20 +4,22 @@ public:
         
         int n=s.length();
         
-        vector<int> pi(n,0);
+        if(n==1)
+            return false;
         
         int j=0;
+        vector<int> lps(n,0);
         for(int i=1;i<n;i++)
         {
             if(s[i]==s[j])
             {
-                pi[i]=j+1;
+                lps[i]=j+1;
                 j++;
             }
             else
             {
                 int flag=0;
-                j=(j-1>=0)?pi[j-1]:flag=1;
+                j=(j-1>=0)?lps[j-1]:flag=1;
                 
                 while(j>=0 && flag==0)
                 {
@@ -27,54 +29,34 @@ public:
                     }
                     else
                     {
-                        j=(j-1>=0)?pi[j-1]:flag=1;
+                        j=(j-1>=0)?lps[j-1]:flag=1;
                         
                         if(flag==1)
                             break;
                     }
                 }
                 
-                if(flag==0)
+                if(flag==1)
                 {
-                    pi[i]=j+1;
-                    j++;
+                    j=0;
                 }
                 else
                 {
-                    pi[i]=0;
-                    j=0;
+                    lps[i]=j+1;
+                    j++;
                 }
             }
         }
         
-        for(auto &it:pi)
+        for(auto &it:lps)
+        {
             cout<<it<<" ";
+        }
         cout<<endl;
         
-        vector<int> pat;
-        pat.push_back(pi[0]);
-        
-        for(int i=1;i<n;i++)
-        {
-            
-            if(pi[i]>pat.back())
-                pat.push_back(pi[i]);
-            else
-                break;
-        }
-        
-        return pi[n-1]&&(pi[n-1]%(n-pi[n-1]))==0;
+        return lps[n-1]&&(lps[n-1]%(n-lps[n-1])==0);
     }
 };
-
-
-
-
-
-
-
-
-
 
 
 
