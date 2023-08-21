@@ -54,6 +54,11 @@ public:
         }
         cout<<endl;
         
+        if(lps[n-1]>0 && lps[n-1]%(n-lps[n-1])==0)
+            return true;
+        
+        return false;
+        
         return lps[n-1]&&(lps[n-1]%(n-lps[n-1])==0);
     }
 };
