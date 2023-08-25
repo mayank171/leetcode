@@ -1,47 +1,49 @@
 class Solution {
 public:
     
-    bool solve(string &s1,int ind1,int l1,string &s2,int ind2,int l2,string &s3,int ind3,int l3,vector<vector<vector<int>>> &dp)
+    int solve(string &s1,int ind1,string &s2,int ind2,string &s3,int ind3,vector<vector<vector<int>>> &dp)
     {
-        if(ind3==l3)
+       // cout<<ind1<<" "<<ind2<<" "<<ind3<<endl;
+        if(ind1<0 && ind2<0)
         {
-            return true;
+            if(ind3<0)
+                return 1;
+            return 0;
         }
         
-        if(ind1==l1 && ind2==l2)
-            return false;
-        
-        if(dp[ind1][ind2][ind3]!=-1)
-            return dp[ind1][ind2][ind3];
-        
-        if(s3[ind3]==s1[ind1] && s3[ind3]==s2[ind2])
+        if(ind3<0)
         {
-            return dp[ind1][ind2][ind3]= solve(s1,ind1+1,l1,s2,ind2,l2,s3,ind3+1,l3,dp)|solve(s1,ind1,l1,s2,ind2+1,l2,s3,ind3+1,l3,dp);
+            if(ind1>=0 || ind2>=0)
+                return 0;
         }
-        else if(s3[ind3]==s1[ind1])
-        {
-            return dp[ind1][ind2][ind3]= solve(s1,ind1+1,l1,s2,ind2,l2,s3,ind3+1,l3,dp);
-        }
-        else if(s3[ind3]==s2[ind2])
-        {
-            return dp[ind1][ind2][ind3]= solve(s1,ind1,l1,s2,ind2+1,l2,s3,ind3+1,l3,dp);
-        }
-        else
-            return  dp[ind1][ind2][ind3]=false;
         
+        if(dp[ind1+1][ind2+1][ind3+1]!=-1)
+            return dp[ind1+1][ind2+1][ind3+1];
+        
+        if(ind1>=0 && ind2>=0 && s1[ind1]==s3[ind3] && s2[ind2]==s3[ind3])
+        {
+            return dp[ind1+1][ind2+1][ind3+1]=solve(s1,ind1-1,s2,ind2,s3,ind3-1,dp)|solve(s1,ind1,s2,ind2-1,s3,ind3-1,dp);
+        }
+        else if(ind1>=0 && s1[ind1]==s3[ind3])
+        {
+            return dp[ind1+1][ind2+1][ind3+1]=solve(s1,ind1-1,s2,ind2,s3,ind3-1,dp);
+        }
+        else if(ind2>=0 && s2[ind2]==s3[ind3])
+        {
+            return dp[ind1+1][ind2+1][ind3+1]=solve(s1,ind1,s2,ind2-1,s3,ind3-1,dp);    
+        }
+        
+        return dp[ind1+1][ind2+1][ind3+1]=0;
     }
     
     bool isInterleave(string s1, string s2, string s3) {
         
-        int l1=s1.length();
-        int l2=s2.length();
-        int l3=s3.length();
+        int ind1=s1.length()-1;
+        int ind2=s2.length()-1;
+        int ind3=s3.length()-1;
         
-        if(l1+l2!=l3)
-            return false;
+        vector<vector<vector<int>>> dp(105,vector<vector<int>> (105,vector<int>(205,-1)));
         
-        vector<vector<vector<int>>> dp(l1+1,vector<vector<int>> (l2+1,vector<int> (l3+1,-1)));
-        
-        return solve(s1,0,l1,s2,0,l2,s3,0,l3,dp);
+        return solve(s1,ind1,s2,ind2,s3,ind3,dp);
     }
 };
