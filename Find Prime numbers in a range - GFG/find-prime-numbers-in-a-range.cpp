@@ -17,11 +17,11 @@ class Solution {
         
         int x=sqrt(N+1);
         
-        for(int i=2;i<=x;i++)
+        for(int i=2;i<N+1;i++)
         {
             if(isPrime[i]==1)
             {
-                for(int j=i*i;j<N+1;j+=i)
+                for(int j=i*2;j<N+1;j+=i)
                 {
                     isPrime[j]=0;
                 }
