@@ -7,67 +7,73 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-// User function Template for C++
 
 class Solution {
   public:
+  
     int mod=1e5;
-    int solve(vector<int> &arr,int n,int start,int end,int ind)
-    {
-        cout<<start<<endl;
-          
-        if(start==end)
-           return 0;
-           
-        if(ind>=n)
-           return 1e8;
-           
-        
-        int p=(start*arr[ind])%mod;
-        if(p>end)
-          return 1e8;
-        int take=1+solve(arr,n,p,end,ind);
-        int nottake=solve(arr,n,start,end,ind+1);
-        return min(take,nottake);
-    }
+    
   
     int minimumMultiplications(vector<int>& arr, int start, int end) {
         
         int n=arr.size();
         sort(arr.begin(),arr.end());
-       // return solve(arr,n,start,end,0);
         queue<pair<int,pair<int,int>>> q;
-        q.push({start%mod,{0,0}});
-        vector<int> vis(1e5,0);
+        q.push({0,{0,start}});
+        
+        vector<int> vis(1e5+10,0);
         vis[start]=1;
-        int ans=-1;
+        
         while(!q.empty())
         {
-            int x=q.front().first;
-            int moves=q.front().second.first;
-            int ind=q.front().second.second;
+            int moves=q.front().first;
+            int ind=q.front().second.first;
+            int val=q.front().second.second;
             q.pop();
             
-            if(x==end)
+            if(val==end)
             {
-                ans=moves;
-                break;
+                return moves;
             }
             
+            if(ind==n)
+               continue;
+               
             for(int i=ind;i<n;i++)
             {
-                
-                int p=(x*arr[i])%mod;
-                if(vis[p]==1)
-                   continue;
-                q.push({p,{moves+1,ind}});
-                vis[p]=1;
+                int x=(val*1ll*arr[i])%mod;
+                if(vis[x]==0)
+                {
+                    vis[x]=1;
+                    q.push({moves+1,{i,x}});
+                }
             }
         }
         
-        return ans;
+        return -1;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //{ Driver Code Starts.
