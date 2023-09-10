@@ -1,21 +1,38 @@
 class Solution {
 public:
-    
-    
     int countOrders(int n) {
         
-        vector<int> dp(n+1,0);
-        dp[0]=0;
-        dp[1]=1;
+        if(n==1)
+            return 1;
+        
+        int ans=1;
+        
+        int nn=2*n;
+        
         int mod=1e9+7;
         
-        for(int i=2;i<n+1;i++)
+        for(int i=nn-1;i>=1;i-=2)
         {
-            int x=(((2*i-2)+1)*1ll*((2*i-2)+2))%mod;
-            x=x/2;
-            dp[i]=(dp[i-1]*1ll*x)%mod;
+            int p=i;
+            if(p==1)
+            {
+                break;
+            }
+            ans=(ans*1ll*p)%mod;
         }
         
-        return dp[n];
+        ans=(ans*1ll*n)%mod;
+        
+        int p=1;
+        n--;
+        while(n!=1)
+        {
+            p=(p*1ll*n)%mod;
+            n--;
+        }
+        
+        ans=(ans*1ll*p)%mod;
+        
+        return ans;
     }
 };
