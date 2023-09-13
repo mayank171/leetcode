@@ -109,11 +109,6 @@ public:
             }
         }
         
-        for(auto &it:ans)
-        {
-            cout<<it<<" ";
-        }
-        cout<<endl;
         
         int sum=accumulate(ans.begin(),ans.end(),0);
         
