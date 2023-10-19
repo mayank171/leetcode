@@ -53,13 +53,8 @@ public:
                 s1.push_back(s[i]);
                 ct2++;
                 t1.push_back(t[i]);
-                // ct1=max(0,ct1);
-                // ct2=max(0,ct2);
             }
         }
-        
-        cout<<ct1<<" "<<ct2<<endl;
-        cout<<s1<<" "<<t1<<endl;
         
         int ind=min(n1,n2);
         
@@ -102,9 +97,6 @@ public:
                 ind++;
             }
         }
-        
-        cout<<ct1<<" "<<ct2<<endl;
-        cout<<s1<<" "<<t1<<endl;
         
         if(s1==t1)
             return true;
