@@ -2,35 +2,23 @@ class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
         
-        map<int,set<int>> mp;
+        vector<int> deg(n+1,0);
         
-        for(int i=0;i<trust.size();i++)
+        for(auto &it:trust)
         {
-            int x=trust[i][0];
-            mp[trust[i][1]].insert(x);
+            int x=it[0];
+            int y=it[1];
+            
+            deg[y]++;
+            deg[x]--;
         }
         
-        /*
-        2 1
-        3 2
-        */
-        
-        //vector<int> cand;
-        int cand=-1;
         for(int i=1;i<=n;i++)
         {
-            if(mp[i].size()==n-1)
-            {
-                cand= i;
-            }
+            if(deg[i]==n-1)
+              return i;
         }
         
-        for(auto &it:mp)
-        {
-            if(it.second.find(cand)!=it.second.end())
-                return -1;
-        }
-        
-        return cand;
+        return -1;
     }
 };
