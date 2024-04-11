@@ -30,7 +30,6 @@ public:
         
         while(k>0)
         {
-            cout<<stk.top()<<" ";
             stk.pop();
             k--;
         }
@@ -39,7 +38,6 @@ public:
         while(!stk.empty())
         {
             nums+=(stk.top()+'0');
-            cout<<stk.top()<<" ";
             stk.pop();
         }
         
