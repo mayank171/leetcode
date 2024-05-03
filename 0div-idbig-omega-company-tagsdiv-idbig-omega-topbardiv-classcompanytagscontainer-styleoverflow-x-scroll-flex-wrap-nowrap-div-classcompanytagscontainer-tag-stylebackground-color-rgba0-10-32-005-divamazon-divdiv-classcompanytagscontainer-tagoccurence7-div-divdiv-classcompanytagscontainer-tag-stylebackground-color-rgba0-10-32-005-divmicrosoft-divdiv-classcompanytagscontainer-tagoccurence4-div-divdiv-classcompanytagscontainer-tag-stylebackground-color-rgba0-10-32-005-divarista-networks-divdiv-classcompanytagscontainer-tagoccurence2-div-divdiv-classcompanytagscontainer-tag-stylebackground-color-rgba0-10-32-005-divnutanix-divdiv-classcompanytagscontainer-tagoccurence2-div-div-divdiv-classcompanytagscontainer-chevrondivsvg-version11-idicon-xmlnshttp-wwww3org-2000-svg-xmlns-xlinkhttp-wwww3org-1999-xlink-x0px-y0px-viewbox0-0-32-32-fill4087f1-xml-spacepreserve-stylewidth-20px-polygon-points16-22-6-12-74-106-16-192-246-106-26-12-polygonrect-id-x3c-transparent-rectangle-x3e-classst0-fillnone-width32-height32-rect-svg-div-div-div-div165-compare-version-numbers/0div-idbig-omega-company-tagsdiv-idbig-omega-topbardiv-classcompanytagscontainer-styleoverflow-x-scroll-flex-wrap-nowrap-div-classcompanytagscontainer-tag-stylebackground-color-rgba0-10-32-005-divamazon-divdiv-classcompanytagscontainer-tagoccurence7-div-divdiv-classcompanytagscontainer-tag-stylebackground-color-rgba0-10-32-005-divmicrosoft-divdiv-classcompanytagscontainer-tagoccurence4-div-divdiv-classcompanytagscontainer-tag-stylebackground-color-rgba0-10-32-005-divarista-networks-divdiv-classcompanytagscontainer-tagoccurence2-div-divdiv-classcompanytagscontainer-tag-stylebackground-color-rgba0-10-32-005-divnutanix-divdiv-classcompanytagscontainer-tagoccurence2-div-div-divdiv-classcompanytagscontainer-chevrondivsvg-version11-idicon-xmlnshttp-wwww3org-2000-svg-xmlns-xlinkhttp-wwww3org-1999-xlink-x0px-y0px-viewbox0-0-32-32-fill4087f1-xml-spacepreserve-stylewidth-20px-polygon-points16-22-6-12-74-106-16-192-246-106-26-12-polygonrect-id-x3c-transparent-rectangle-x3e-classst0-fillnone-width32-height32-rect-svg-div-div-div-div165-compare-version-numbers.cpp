@@ -3,7 +3,6 @@ public:
     
     int comp(string s1,string s2)
     {
-        cout<<s1<<" "<<s2<<endl;
         int n1=s1.size();
         int n2=s2.size();
         
@@ -135,7 +134,6 @@ public:
         
         if(j>=n2)
         {
-            cout<<"vdvd"<<endl;
             while(i<n1)
             {
                 string str1="";
@@ -164,7 +162,6 @@ public:
                 if(str1.size()==0)
                 str1="0";
             
-                cout<<str1<<endl;
                 if(comp(str1,"0")==1)
                     return 1;
             }
