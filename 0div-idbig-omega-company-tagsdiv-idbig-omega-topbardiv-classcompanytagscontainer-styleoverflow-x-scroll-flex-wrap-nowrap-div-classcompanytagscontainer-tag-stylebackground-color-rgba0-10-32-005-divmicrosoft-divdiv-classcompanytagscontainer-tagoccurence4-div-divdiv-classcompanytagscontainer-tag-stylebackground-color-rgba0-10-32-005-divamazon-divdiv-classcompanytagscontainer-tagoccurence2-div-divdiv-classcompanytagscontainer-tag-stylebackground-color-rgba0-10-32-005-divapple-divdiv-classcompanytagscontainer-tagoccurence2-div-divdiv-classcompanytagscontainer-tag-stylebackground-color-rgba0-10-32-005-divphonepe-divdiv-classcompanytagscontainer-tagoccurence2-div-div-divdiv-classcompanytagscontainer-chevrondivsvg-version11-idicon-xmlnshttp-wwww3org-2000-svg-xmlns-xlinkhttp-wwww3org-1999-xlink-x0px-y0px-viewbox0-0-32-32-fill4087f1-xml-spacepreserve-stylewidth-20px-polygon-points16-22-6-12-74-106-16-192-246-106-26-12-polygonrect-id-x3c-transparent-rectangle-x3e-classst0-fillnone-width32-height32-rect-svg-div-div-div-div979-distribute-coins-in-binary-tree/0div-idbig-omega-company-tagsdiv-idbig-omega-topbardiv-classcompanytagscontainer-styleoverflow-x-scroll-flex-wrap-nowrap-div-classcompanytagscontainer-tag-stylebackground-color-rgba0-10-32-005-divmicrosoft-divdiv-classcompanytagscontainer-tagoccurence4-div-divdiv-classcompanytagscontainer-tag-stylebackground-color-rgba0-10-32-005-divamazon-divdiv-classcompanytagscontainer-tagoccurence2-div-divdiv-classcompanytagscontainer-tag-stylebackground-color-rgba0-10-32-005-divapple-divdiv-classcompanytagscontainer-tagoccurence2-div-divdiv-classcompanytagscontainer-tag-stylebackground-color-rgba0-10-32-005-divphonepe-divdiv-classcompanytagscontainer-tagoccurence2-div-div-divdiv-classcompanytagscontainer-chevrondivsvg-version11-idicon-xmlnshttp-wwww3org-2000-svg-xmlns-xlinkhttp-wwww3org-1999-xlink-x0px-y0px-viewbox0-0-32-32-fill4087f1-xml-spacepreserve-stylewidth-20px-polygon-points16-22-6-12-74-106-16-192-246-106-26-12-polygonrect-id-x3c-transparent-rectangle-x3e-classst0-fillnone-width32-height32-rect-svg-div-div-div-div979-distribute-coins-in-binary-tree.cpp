@@ -11,14 +11,36 @@
  */
 class Solution {
 public:
-    int traverse(TreeNode* r, int &moves) {
-  if (r == nullptr) return 0;
-  int left = traverse(r->left, moves), right = traverse(r->right, moves);
-  moves += abs(left) + abs(right);
-  return r->val + left + right - 1;
-}
-int distributeCoins(TreeNode* r, int moves = 0) {
-  traverse(r, moves);
-  return moves;
-}
+    
+    void solve(TreeNode* parent, TreeNode* child, int &ct)
+    {
+        if(child==NULL)
+            return ;
+        
+        solve(child,child->left,ct);
+        solve(child,child->right,ct);
+        
+        if(child->val>1)
+        {
+            int extracoins=child->val-1;
+            child->val=1;
+            parent->val+=extracoins;
+            ct+=extracoins;
+        }
+        else if(child->val<1)
+        {
+            int neededcoins=1+abs(child->val);
+            child->val=1;
+            parent->val-=neededcoins;
+            ct+=neededcoins;
+        }
+    }
+    
+    int distributeCoins(TreeNode* root) {
+        
+        int ct=0;
+        solve(root,root,ct);
+        
+        return ct;
+    }
 };
