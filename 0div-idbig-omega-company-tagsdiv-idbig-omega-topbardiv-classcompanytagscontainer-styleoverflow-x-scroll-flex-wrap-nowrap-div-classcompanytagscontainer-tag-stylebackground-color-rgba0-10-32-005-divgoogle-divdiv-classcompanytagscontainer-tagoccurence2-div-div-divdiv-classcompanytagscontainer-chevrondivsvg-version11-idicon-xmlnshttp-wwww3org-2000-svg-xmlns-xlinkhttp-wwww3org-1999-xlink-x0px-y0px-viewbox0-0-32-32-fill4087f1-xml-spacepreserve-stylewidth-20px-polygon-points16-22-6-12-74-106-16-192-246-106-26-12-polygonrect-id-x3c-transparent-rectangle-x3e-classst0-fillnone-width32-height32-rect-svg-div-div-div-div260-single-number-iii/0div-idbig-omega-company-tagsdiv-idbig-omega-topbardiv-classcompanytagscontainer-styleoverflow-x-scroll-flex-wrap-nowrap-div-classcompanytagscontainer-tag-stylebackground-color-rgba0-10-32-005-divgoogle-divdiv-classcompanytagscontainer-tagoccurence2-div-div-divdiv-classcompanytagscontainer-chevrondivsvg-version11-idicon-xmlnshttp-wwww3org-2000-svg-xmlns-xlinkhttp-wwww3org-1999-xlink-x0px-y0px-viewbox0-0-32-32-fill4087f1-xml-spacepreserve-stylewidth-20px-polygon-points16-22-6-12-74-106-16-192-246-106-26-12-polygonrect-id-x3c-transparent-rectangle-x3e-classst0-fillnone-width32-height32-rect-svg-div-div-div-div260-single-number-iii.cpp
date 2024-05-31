@@ -1,44 +1,38 @@
 class Solution {
 public:
-    vector<int> singleNumber(vector<int>& nums) {
+    vector<int> singleNumber(vector<int>& arr) {
         
-//         1 2 1 3 2 5
+        int n=arr.size();
         
-//             011
-//             101
-//             110
-            
-//         1 2 1 3 2     5
-        
-        int xxor=0;
-        for(int i=0;i<nums.size();i++)
+        int xorr=0;
+        for(int i=0;i<n;i++)
         {
-            xxor^=nums[i];
+            xorr^=arr[i];
         }
         
-        int idx=0;
-        for(int i=31;i>=0;i--)
+        int bit=-1;
+        for(int i=0;i<32;i++)
         {
-            int b=xxor&(1<<i);
-            if(b)
+            int x=xorr&(1<<i);
+            if(x)
             {
-                idx=i;
+                bit=i;
                 break;
             }
         }
         
-        int xxor1=0;
-        int xxor2=0;
+        int a=0;
+        int b=0;
         
-        for(int i=0;i<nums.size();i++)
+        for(int i=0;i<n;i++)
         {
-            int b=nums[i]&(1<<idx);
-            if(b)
-                xxor2^=nums[i];
+            int x=arr[i]&(1<<bit);
+            if(x)
+                a^=arr[i];
             else
-                xxor1^=nums[i];
+                b^=arr[i];
         }
         
-        return {xxor1,xxor2};
+        return {a,b};
     }
 };
