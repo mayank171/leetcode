@@ -1,5 +1,7 @@
 class Solution {
 public:
+    
+    
     int numberOfSubarrays(vector<int>& nums, int k) {
         
         int ans=0;
@@ -32,7 +34,7 @@ public:
                 }
             }
             
-            while(j<i && odd.size()>=k)
+            while(j<i && odd.size()==k)
             {
                 flag2=1;
                 
@@ -48,3 +50,25 @@ public:
         return ans;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
