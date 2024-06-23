@@ -2,69 +2,63 @@ class Solution {
 public:
     int countPaths(int n, vector<vector<int>>& roads) {
         
-        vector<pair<int,int>> adj[n];
         int mod=1e9+7;
+        vector<pair<long,long>> adj[n];
         
         int size=roads.size();
         
         for(int i=0;i<size;i++)
         {
-            int u=roads[i][0];
-            int v=roads[i][1];
-            int wt=roads[i][2];
-            
-            adj[u].push_back({v,wt});
-            adj[v].push_back({u,wt});
+            adj[roads[i][0]].push_back({roads[i][1],roads[i][2]});
+            adj[roads[i][1]].push_back({roads[i][0],roads[i][2]});
         }
         
-        vector<long long> dist(n,1e14);
-        vector<long long> ways(n,0);
+        vector<long> dist(n,1e15+10);
+        vector<long> parent(n,-1);
+        vector<long> count(n,0);
         
-        priority_queue<pair<long long,long long>,vector<pair<long long,long long>>,greater<pair<long long,long long>>> pq;
+        priority_queue<pair<long,long>,vector<pair<long,long>>,greater<pair<long,long>>> pq;
         pq.push({0,0});
+        count[0]=1;
         dist[0]=0;
-        ways[0]=1;
         
         while(!pq.empty())
         {
-            long long time=pq.top().first;
-            long long node=pq.top().second;
+            long d=pq.top().first;
+            long node=pq.top().second;
             pq.pop();
             
+           // cout<<d<<" "<<node<<endl;
             if(node==n-1)
                 continue;
             
             for(auto &it:adj[node])
             {
-                int adjnode=it.first;
-                int wt=it.second;
-                
-                if(time+wt<dist[adjnode])
+                long adjnode=it.first;
+                long wt=it.second;
+                if(d+wt<dist[adjnode])
                 {
-                    dist[adjnode]=(time+wt);
-                    ways[adjnode]=ways[node];
-                    pq.push({time+wt,adjnode});
+                    dist[adjnode]=d+wt;
+                    pq.push({d+wt,adjnode});
+                    parent[adjnode]=node;
+                    count[adjnode]=count[node];
                 }
-                else if(time+wt==dist[adjnode])
+                else if(d+wt==dist[adjnode])
                 {
-                    ways[adjnode]=(ways[adjnode]+ways[node])%mod;
+                    count[adjnode]=(count[adjnode]+count[node])%mod;
                 }
             }
         }
         
-        return ways[n-1];
         
+//         for(auto &it:dist)
+//             cout<<it<<" ";
+//         cout<<endl;
+        
+//         for(auto &it:count)
+//             cout<<it<<" ";
+//         cout<<endl;
+        
+        return count[n-1];
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
