@@ -2,16 +2,16 @@ class Solution {
 public:
     
     
-    void dfs(vector<int> adj[],int src,vector<int> &vis,vector<int> &temp)
+     void dfs(vector<int> adj[],int src,vector<int> &vis,map<int,set<int>> &mp,int node,vector<int> &temp)
     {
         vis[src]=1;
-        
         for(auto &it:adj[src])
         {
             if(vis[it]==0)
             {
                 temp.push_back(it);
-                dfs(adj,it,vis,temp);        
+                dfs(adj,it,vis,mp,node,temp);
+
             }
         }
         
@@ -23,22 +23,26 @@ public:
         vector<int> adj[n];
         int size=edges.size();
         
+        vector<int> indeg(n,0);
         for(int i=0;i<size;i++)
         {
+            indeg[edges[i][1]]++;
             adj[edges[i][1]].push_back(edges[i][0]);
         }
         
         vector<vector<int>> ans;
+        map<int,set<int>> mp;
         for(int i=0;i<n;i++)
         {
-            vector<int> temp;
             vector<int> vis(n,0);
-            dfs(adj,i,vis,temp);
+        
+            vector<int> temp;
+             dfs(adj,i,vis,mp,i,temp);
             sort(temp.begin(),temp.end());
             ans.push_back(temp);
         }
         
-        
         return ans;
+        
     }
 };
