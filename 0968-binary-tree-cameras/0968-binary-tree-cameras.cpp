@@ -1,62 +1,37 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    
-    int solve(TreeNode* root,int &ct)
-    {
-        if(root==NULL)
-            return 1;
-        
-        if(root->left==NULL && root->right==NULL)
-            return -1;
-        
-        int lft=solve(root->left,ct);
-        int rgt=solve(root->right,ct);
-        
-        
-        if(lft==-1 || rgt==-1)
-        {
-            ct++;
-            return 0;
-        }
-        else if(lft==0 && rgt==0)
-        {
-            return 1;
-        }
-        else if(lft==0 && rgt==1)
-        {
-            return 1;
-        }
-        else if(lft==1 && rgt==0)
-        {
-            return 1;
-        }
-        else
-        {
-            return -1;
-        }
-    }
-    
+
+   int solve(TreeNode* root,int &ans)
+   {
+       if(root==NULL)
+           return 0;
+       
+       int l=solve(root->left,ans);
+       int r=solve(root->right,ans);
+       
+       if(l==-1 || r==-1)
+       {
+           ans++;
+           return 1;
+       }
+       else if(l==0 && r==0)
+       {
+           return -1;
+       }
+       else
+       {
+           return 0;
+       }
+       
+   }
+
     int minCameraCover(TreeNode* root) {
         
-        if(root->left==NULL && root->right==NULL)
-            return 1;
-        
         int ans=0;
-        int x=solve(root,ans);
+        int res=solve(root,ans);
         
-        if(x==-1)
-            ans++;
+        if(res==-1)
+            return ans+1;
         return ans;
     }
 };
