@@ -9,17 +9,9 @@ public:
         
         sort(nums.begin(),nums.end());
         
-        for(int i=0;i<n;i++)
-        {
-            cout<<nums[i]<<" ";
-        }
-        cout<<endl;
-        
         int ans=nums[n-3-1]-nums[0];
-        cout<<ans<<endl;
         
         ans=min(ans,min(nums[n-3]-nums[1],nums[n-4]-nums[0]));
-        cout<<ans<<endl;
         
         for(int i=2;i<n-2;i++)
         {
@@ -27,7 +19,6 @@ public:
             int y=nums[n-3]-nums[1];
             int z=nums[n-1]-nums[3];
             int w=nums[n-4]-nums[0];
-            cout<<x<<" "<<y<<endl;
             ans=min(ans,min(x,min(w,min(z,y))));
         }
         
