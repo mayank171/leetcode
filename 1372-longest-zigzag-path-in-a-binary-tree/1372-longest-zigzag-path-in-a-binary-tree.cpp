@@ -12,39 +12,37 @@
 class Solution {
 public:
     
-    void solve(TreeNode* root,char last,int &maxi,int ct)
+    void solve(TreeNode* root,char str,int ans,int &maxi)
     {
         if(root==NULL)
         {
-            maxi=max(maxi,ct);
-            return;
-        }   
-        
-        int l=0;
-        int r=0;
-        
-        if(last=='-')
-        {
-            solve(root->left,'l',maxi,ct+1);
-            solve(root->right,'r',maxi,ct+1);
+            maxi=max(maxi,ans);
+            return ;
         }
-        else if(last=='r')
+        
+        if(str=='-')
         {
-            solve(root->left,'l',maxi,ct+1);
-            solve(root->right,'r',maxi,1);
+            solve(root->left,'l',ans+1,maxi);
+            solve(root->right,'r',ans+1,maxi);
+        }
+        else if(str=='l')
+        {
+            solve(root->right,'r',ans+1,maxi);
+            solve(root->left,'l',1,maxi);
         }
         else
         {
-            solve(root->right,'r',maxi,ct+1);
-            solve(root->left,'l',maxi,1);    
+            solve(root->left,'l',ans+1,maxi);
+            solve(root->right,'r',1,maxi);    
         }
     }
     
     int longestZigZag(TreeNode* root) {
         
-        char last='-';
+        char str='-';
+        int ans=0;
         int maxi=0;
-        solve(root,last,maxi,0);
+        solve(root,str,ans,maxi);
         return maxi-1;
     }
 };
