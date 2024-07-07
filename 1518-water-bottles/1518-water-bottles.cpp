@@ -8,12 +8,7 @@ public:
         {
             ans+=(numB/numE)*numE;
             numB=(numB/numE)+(numB%numE);
-            if(numB==0)
-            {
-                ans++;
-                break;
-            }    
-            else if(numB<numE)
+            if(numB<numE)
             {
                 ans+=numB;
                 break;
