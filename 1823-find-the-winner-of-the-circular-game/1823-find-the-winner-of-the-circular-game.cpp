@@ -1,26 +1,18 @@
 class Solution {
 public:
+    
+    int solve(int n,int k)
+    {
+        if(n==1)
+            return 0;
+        
+        int x=solve(n-1,k);
+        return (x+k)%n;
+    }
+    
     int findTheWinner(int n, int k) {
         
-        vector<int> v;
-        for(int i=1;i<=n;i++)
-        {
-            v.push_back(i);
-        }
-        
-        int ind=0;
-        while(v.size()!=1)
-        {
-            ind=ind+k-1;
-            if(ind>=v.size())
-            {
-                ind=ind%v.size();
-            }
-            
-            auto it=v.begin()+ind;
-            v.erase(it);
-        }
-        
-        return v[0];
+        int ans=solve(n,k);
+        return ans+1;
     }
 };
