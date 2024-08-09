@@ -49,7 +49,6 @@ public:
                         {
                             sum+=grid[a][b];
                         }
-                        cout<<sum<<endl;
                         st.insert(sum);
                     }
                     
@@ -60,7 +59,6 @@ public:
                         {
                             sum+=grid[a][b];
                         }
-                        cout<<sum<<endl;
                         st.insert(sum);
                     }
                     
@@ -69,7 +67,6 @@ public:
                     {
                         dsum1+=grid[a][b];
                     }
-                    cout<<dsum1<<endl;
                     st.insert(dsum1);
                     
                     int dsum2=0;
@@ -77,7 +74,6 @@ public:
                     {
                         dsum2+=grid[a][b];
                     }
-                    cout<<dsum2<<endl;
                     st.insert(dsum2);
                     
                 }
