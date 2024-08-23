@@ -60,26 +60,18 @@ public:
             }
         }
         
-        for(int i=0;i<vp.size();i++)
-        {
-            cout<<vp[i].first<<" "<<vp[i].second<<endl;
-        }
-        
         int deno=vp[0].second;
         for(int i=1;i<vp.size();i++)
         {
             deno=(deno*vp[i].second)/__gcd(deno,vp[i].second);
         }
         
-        cout<<deno<<endl;
         
         int num=0;
         for(int i=0;i<vp.size();i++)
         {
             num+=(vp[i].first*(deno/vp[i].second));
         }
-        
-        cout<<num<<endl;
         
         int _g=__gcd(num,deno);
         num=num/_g;
