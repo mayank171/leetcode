@@ -1,52 +1,44 @@
 class Solution {
 public:
-    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int src, int end) {
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
         
         vector<pair<int,double>> adj[n];
-        
         for(int i=0;i<edges.size();i++)
         {
             int u=edges[i][0];
             int v=edges[i][1];
-            double prob=succProb[i];
+            double wt=succProb[i];
             
-            adj[u].push_back({v,prob});
-            adj[v].push_back({u,prob});
+            adj[u].push_back({v,wt});
+            adj[v].push_back({u,wt});
         }
         
         vector<double> dist(n,0);
-        priority_queue<pair<double,int>> pq;
+        priority_queue<pair<double,int>> q;
+        q.push({1,start});
+        dist[start]=1;
         
-        pq.push({1,src});
-        dist[src]=1;
-        
-        double ans=0;
-        
-        while(!pq.empty())
+        while(!q.empty())
         {
-            double d=pq.top().first;
-            int node=pq.top().second;
-            pq.pop();
-           // cout<<node<<" "<<d<<endl;
-            
-            if(node==end)
-            {
-                ans=max(ans,d);
-                continue;
-            }
+            double d=q.top().first;
+            int node=q.top().second;
+            q.pop();
             
             for(auto &it:adj[node])
             {
                 int adjnode=it.first;
                 double wt=it.second;
                 
-                if(wt*d>dist[adjnode])
+                if(dist[adjnode]<wt*d)
                 {
                     dist[adjnode]=wt*d;
-                    pq.push({d*wt,adjnode});
+                    q.push({wt*d,adjnode});
                 }
             }
         }
+        
+        if(dist[end]==1)
+            return 0;
         
         return dist[end];
     }
